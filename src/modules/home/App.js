@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
-// import MyTests from '../myTests/MyTests';
-import Login from '../login/Login';
+import LoginComponent from '../login/Login';
+import MyTestsComponent from '../myTests/MyTests';
+
 import { getUserState } from '../../store/user/selectors';
 import { signOut } from '../../store/user/actions';
 
 import './App.css';
 
+// const user={id:"123"};
+const user={};
 
 class App extends Component {
   render() {
@@ -16,11 +19,12 @@ class App extends Component {
 
       <Router>
         <div>
+          app component
 
-          {this.props.user.id ? (
+          { user.id ? (
             <div>
-              {this.props.history.push(`/mytests`)}
-                <p> user connected : redirection vers mytests</p>
+              <p> user connected : redirection vers mytests</p>
+              <MyTestsComponent />
             </div>
           ) : (
             <div>
@@ -31,12 +35,10 @@ class App extends Component {
           )}
 
           <div>
-
             <Switch>
-              <Route exact path="/" component={App}/>
-              <Route path="/login" component={Login}/>
+              <Route exact path="/" component={MyTestsComponent}/>
+              <Route path="/login" component={LoginComponent}/>
             </Switch>
-
           </div>
 
         </div>
