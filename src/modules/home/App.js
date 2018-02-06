@@ -1,19 +1,50 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+
+import MyTests from '../myTests/MyTests';
+import Login from '../login/Login';
+import { getUserState } from '../../store/user/selectors';
+import { signOut } from '../../store/user/actions';
+
 import './App.css';
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+
+      <Router>
+        <div>
+
+          {this.props.user.id ? (
+            <div>
+              {this.props.history.push(`/mytests`)}
+                <p> user connected : redirection vers mytests</p>
+            </div>
+          ) : (
+            <div>
+              <Link to={`/login`}>
+                <p> user not connected : redirection vers login</p>
+              </Link>
+            </div>
+          )}
+
+          <div>
+
+            <Switch>
+              <Route exact path="/" component={App}/>
+              <Route path="/mytests" component={MyTests}/>
+              <Route path="/login" component={Login}/>
+            </Switch>
+
+          </div>
+
+        </div>
+      </Router>
     );
   }
 }
 
-export default App;
+const AppComponent = connect(getUserState, signOut)(App)
+export {AppComponent};
