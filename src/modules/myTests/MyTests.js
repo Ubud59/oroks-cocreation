@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 
 
-class Login extends Component {
+class MyTests extends Component {
 
   render() {
     return (
       <div>
-      Login
+        Mes tests
       </div>
     );
   }
 }
 
-const LoginComponent = connect(null, null)(Login)
+const MyTestsComponent = connect(null, null)(MyTests)
 
-export default LoginComponent;
+export default MyTestsComponent;
