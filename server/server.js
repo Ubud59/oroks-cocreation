@@ -1,11 +1,11 @@
 const express = require("express");
 const port = process.env.PORT || 4000;
 const PG = require("pg");
-
+const path = require("path");
 
 const app = express();
 
-app.get("/",
+app.get("/api/tests",
     function(request, result) {
       const client = new PG.Client();
       client.connect();
@@ -21,6 +21,14 @@ app.get("/",
       });
     }
 );
+
+
+app.use("/static", express.static(path.join(__dirname, "../build/static")));
+
+app.get("*", (request, result) => {
+  result.sendFile(path.join(__dirname, "../build/index.html"));
+});
+
 
 app.listen(port, function () {
   console.log("Server listening on port:" + port);
