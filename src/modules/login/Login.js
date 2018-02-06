@@ -14,7 +14,7 @@ class Login extends Component {
             onChange={this.props.handleNameChange}
           />
           <button
-            onClick={ () => this.props.login() }>
+            onClick={ () => console.log("faut que mette une fonction login") }>
           </button>
         </form>
       </div>
@@ -22,6 +22,6 @@ class Login extends Component {
   }
 }
 
-const LoginComponent = connect(, login)(Login)
+const LoginComponent = connect(null, null)(Login)
 
 export default LoginComponent;

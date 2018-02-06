@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
-import MyTests from '../myTests/MyTests';
+// import MyTests from '../myTests/MyTests';
 import Login from '../login/Login';
 import { getUserState } from '../../store/user/selectors';
 import { signOut } from '../../store/user/actions';
@@ -34,7 +34,6 @@ class App extends Component {
 
             <Switch>
               <Route exact path="/" component={App}/>
-              <Route path="/mytests" component={MyTests}/>
               <Route path="/login" component={Login}/>
             </Switch>
 
