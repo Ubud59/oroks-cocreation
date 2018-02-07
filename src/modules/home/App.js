@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import LoginComponent from '../login/Login';
 import MyTestsComponent from '../myTests/MyTests';
 import AuthComponent from '../auth/Auth'
+import TestNewComponent from '../testNew/TestNew';
 
 import { getUserState } from '../../store/user/selectors';
 import { userAuthentication } from '../../store/user/actions';
@@ -83,6 +84,7 @@ class App extends Component {
               <Route path="/login" component={LoginComponent}/>
               <Route path="/mytests" component={MyTestsComponent}/>
               <Route path={"/auth/callback"} component={AuthComponent}></Route>
+              <Route path="/newtest" component={TestNewComponent}/>
             </Switch>
           </div>
 
