@@ -16,19 +16,25 @@ const pool = new Pool({
 
 app.use(cors());
 
-app.get("/api/tests",
+app.get("/api/tests/user/:id",
     function(request, result) {
+      const userId=request.params.id;
+
       return pool.query(
-        "SELECT * FROM tests;"
+        `SELECT t.*
+        FROM tests t,
+             test_participants p
+        WHERE t.id=p.test_id
+        AND p.user_id=$1;`,
+        [userId]
       )
       .then((dbResult) => {
         const tests = dbResult.rows;
-        result.json({
-          tests : tests
-        });
+        result.json(tests);
       });
     }
 );
+
 
 app.get("/api/auth", function (request, result) {
   const authorizeUri = authServices.getAuthorizeUri();

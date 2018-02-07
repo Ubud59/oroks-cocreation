@@ -12,3 +12,14 @@ const initialState = {
   evaluationFormPath: null,
   evaluationResultsPath: null,
 };
+
+
+
+export default function testReducer(state = initialState, action) {
+  switch (action.type) {
+    case "UPDATE_TEST_TYPE":
+      return {...state, type: action.testType};
+    default:
+      return state;
+  }
+}
