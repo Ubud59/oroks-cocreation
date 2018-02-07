@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-
+import { getRedirectUri } from '../../utils/auth.services'
 
 class Login extends Component {
 
   render() {
     return (
       <div>
-      Login
+        <button onClick={() => window.location = getRedirectUri()}>Login with Decathlon</button>
       </div>
     );
   }

@@ -4,18 +4,22 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import LoginComponent from '../login/Login';
 import MyTestsComponent from '../myTests/MyTests';
+import AuthComponent from '../auth/Auth'
 
 import { getUserState } from '../../store/user/selectors';
-import { signOut } from '../../store/user/actions';
+import { userAuthentication } from '../../store/user/actions';
 
 import './App.css';
 import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse } from "reactstrap";
+
+import { getRedirectUri, isAuthenticated } from '../../utils/auth.services'
 
 // en attente de gestion authent par Damien
 const user = {
   id:"1123",
   userType:"ENGINEER"
 };
+
 
 class App extends Component {
   constructor(props) {
@@ -77,6 +81,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={MyTestsComponent}/>
               <Route path="/login" component={LoginComponent}/>
+              <Route path={"/auth/callback"} component={AuthComponent}></Route>
             </Switch>
           </div>
 
@@ -86,5 +91,16 @@ class App extends Component {
   }
 }
 
-const AppComponent = connect(getUserState, signOut)(App)
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    (isAuthenticated()) ? (
+      <Component {...props}/>
+    ) : (
+      <Route component={() => window.location = getRedirectUri()}></Route>
+    )
+  )}/>
+)
+
+
+const AppComponent = connect(getUserState)(App)
 export {App, AppComponent};
