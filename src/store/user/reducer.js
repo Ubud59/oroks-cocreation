@@ -11,12 +11,11 @@ export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case "LOGGED_IN":
       return {
-        id: action.id,
-        firstName: action.firstName,
-        lastName: action.lastName,
-        email: action.email,
-        phoneNumber: action.phoneNumber,
-        userType: action.userType
+        id: action.user.id,
+        firstName: action.user.firstname,
+        lastName: action.user.lastname,
+        email: action.user.email,
+        phoneNumber: action.user.phoneNumber
       };
     case "SIGN_OUT":
       return initialState;
