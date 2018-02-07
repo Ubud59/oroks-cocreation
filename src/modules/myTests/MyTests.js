@@ -11,7 +11,6 @@ class MyTests extends Component {
 
     fetchMyTests(this.props.user.id)
     .then(tests => {
-      console.log("tests in component did mount", tests);
       return tests;
     })
     .then(tests => this.props.fetchMyTests(tests))
@@ -19,8 +18,6 @@ class MyTests extends Component {
   }
 
   render() {
-    console.log("this.props.tests dans mytests component",this.props.tests);
-    console.log("this.props.user dans mytests component",this.props.user);
 
     return (
       <div className="list-group">

@@ -19,7 +19,6 @@ app.use(cors());
 app.get("/api/tests/user/:id",
     function(request, result) {
       const userId=request.params.id;
-      console.log("userId in server.js",userId);
 
       return pool.query(
         `SELECT t.*
@@ -31,7 +30,6 @@ app.get("/api/tests/user/:id",
       )
       .then((dbResult) => {
         const tests = dbResult.rows;
-        console.log("dbresult:", tests);
         result.json(tests);
       });
     }
@@ -71,9 +69,9 @@ app.get("/api/me", function(request, result) {
 
 app.use("/static", express.static(path.join(__dirname, "../build/static")));
 
-// app.get("*", (request, result) => {
-//   result.sendFile(path.join(__dirname, "../build/index.html"));
-// });
+app.get("*", (request, result) => {
+  result.sendFile(path.join(__dirname, "../build/index.html"));
+});
 
 function isPgSslActive() {
   if (process.env.SSLPG === "false") {
