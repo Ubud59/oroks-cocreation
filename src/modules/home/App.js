@@ -81,6 +81,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={MyTestsComponent}/>
               <Route path="/login" component={LoginComponent}/>
+              <Route path="/mytests" component={MyTestsComponent}/>
               <Route path={"/auth/callback"} component={AuthComponent}></Route>
             </Switch>
           </div>
