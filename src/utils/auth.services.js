@@ -6,6 +6,11 @@ const getRedirectUri = () => {
   return process.env.REACT_APP_AUTH_REDIRECT_URI
 }
 
+const getNewAccountUri = () => {
+  return process.env.REACT_APP_AUTH_CREATE_ACCOUNT_URI
+}
+
+
 const isAuthenticated = () => {
   if (localStorage.getItem('token') && localStorage.getItem('token') !== undefined) {
     const expire_date = new Date((jwt_decode(localStorage.getItem('token')).exp) * 1000)
@@ -35,4 +40,4 @@ const persistSession = (callbackHashParams) => {
   });
 }
 
-export { isAuthenticated, retrieveToken, getRedirectUri, persistSession }
+export { isAuthenticated, retrieveToken, getRedirectUri, getNewAccountUri, persistSession }

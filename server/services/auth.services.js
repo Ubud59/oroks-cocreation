@@ -2,6 +2,7 @@ const { URLSearchParams } = require("url");
 
 const frontUri = process.env.FRONT_REDIRECT_URI;
 const dktConnectRootUri=process.env.DKTCONNECT_ROOT_URI;
+const dktConnectCreateUserUri=process.env.DKTCONNECT_CREATE_USER_URI
 const clientId = process.env.CLIENT_ID;
 const redirect_uri = process.env.CALLBACK_URI;
 const secret = process.env.SECRET;
@@ -11,7 +12,12 @@ const getAuthorizeUri = () => {
   return `${dktConnectRootUri}/oauth/authorize?response_type=code&client_id=${clientId}&scope=openid&locale=fr_FR&redirect_uri=${redirect_uri}&state=${state}`;
 };
 
-const getTokenFromCode = (code) => {
+const getNewAccountUri = () => {
+  return `${dktConnectCreateUserUri}?client_id=${clientId}&locale=fr_FR&redirect_uri=${redirect_uri}&response_type=code&state=${state}#/credentials`
+}
+
+const getTokenFromCode = (fetch, code) => {
+  const uri = `${dktConnectRootUri}/oauth/token?client_id=${clientId}&state=${state}&client_secret=${secret}`
 
   const params = new URLSearchParams();
   params.append("code", code);
@@ -19,12 +25,12 @@ const getTokenFromCode = (code) => {
   params.append("state", state);
   params.append("grant_type", "authorization_code");
 
-  const tokenRequestParams = {
-    uri: `${dktConnectRootUri}/oauth/token?client_id=${clientId}&state=${state}&client_secret=${secret}`,
-    params: params
-  }
-
-  return tokenRequestParams;
+  return fetch(uri, {
+    method: "POST",
+    body:    params,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  })
+    .then(res => res.json())
 };
 
 const getFrontRedirectUri = (token) => {
@@ -63,5 +69,6 @@ module.exports = {
   getAuthorizeUri: getAuthorizeUri,
   getTokenFromCode: getTokenFromCode,
   getFrontRedirectUri: getFrontRedirectUri,
+  getNewAccountUri: getNewAccountUri,
   fetchUser: fetchUser
 };
