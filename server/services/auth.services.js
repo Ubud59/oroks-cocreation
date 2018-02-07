@@ -46,7 +46,6 @@ const fetchUser = (fetch, access_token) => {
   return fetch(url, options)
     .then(result => result.json())
     .then(json => {
-      console.log(json);
       const userInfos = {
         id: json.id_person,
         firstname: json.name,
