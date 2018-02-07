@@ -28,8 +28,6 @@ app.get("/api/tests",
     }
 );
 
-//attention, pour les posts, il faut renvoyer le csrfToken sous la forme d'une variable _csrf depuis react
-
 app.use("/static", express.static(path.join(__dirname, "../build/static")));
 
 app.get("*", (request, result) => {
