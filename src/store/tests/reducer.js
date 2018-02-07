@@ -1,14 +1,10 @@
-const initialState = {
-  id: null,
-  type: null,
-  testReference: null,
-  title: null,
-  product: null,
-  status: null,
-  description: null,
-  validationTreshold: null,
-  timing: null,
-  imgSrc: null,
-  evaluationFormPath: null,
-  evaluationResultsPath: null,
-};
+const initialState = [];
+
+export default function testsReducer(state = initialState, action) {
+  switch (action.type) {
+    case "FETCH_MY_TESTS":
+      return action.tests;
+    default:
+      return state;
+  }
+}

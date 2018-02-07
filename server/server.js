@@ -16,19 +16,27 @@ const pool = new Pool({
 
 app.use(cors());
 
-app.get("/api/tests",
+app.get("/api/tests/user/:id",
     function(request, result) {
+      const userId=request.params.id;
+      console.log("userId in server.js",userId);
+
       return pool.query(
-        "SELECT * FROM tests;"
+        `SELECT t.*
+        FROM tests t,
+             test_participants p
+        WHERE t.id=p.test_id
+        AND p.user_id=$1;`,
+        [userId]
       )
       .then((dbResult) => {
         const tests = dbResult.rows;
-        result.json({
-          tests : tests
-        });
+        console.log("dbresult:", tests);
+        result.json(tests);
       });
     }
 );
+
 
 app.get("/api/auth", function (request, result) {
   const authorizeUri = authServices.getAuthorizeUri();
@@ -63,9 +71,9 @@ app.get("/api/me", function(request, result) {
 
 app.use("/static", express.static(path.join(__dirname, "../build/static")));
 
-app.get("*", (request, result) => {
-  result.sendFile(path.join(__dirname, "../build/index.html"));
-});
+// app.get("*", (request, result) => {
+//   result.sendFile(path.join(__dirname, "../build/index.html"));
+// });
 
 function isPgSslActive() {
   if (process.env.SSLPG === "false") {

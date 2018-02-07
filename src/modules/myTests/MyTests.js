@@ -1,70 +1,56 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 
+import { getTestsState } from '../../store/tests/selectors';
+import { updateTests } from '../../store/tests/actions';
+import { fetchMyTests } from '../../utils/tests.services.js';
+
 class MyTests extends Component {
 
+  componentDidMount(){
+
+    fetchMyTests(this.props.user.id)
+    .then(tests => {
+      console.log("tests in component did mount", tests);
+      return tests;
+    })
+    .then(tests => this.props.fetchMyTests(tests))
+    .catch(error => console.warn(error));
+  }
+
   render() {
+    console.log("this.props.tests dans mytests component",this.props.tests);
+    console.log("this.props.user dans mytests component",this.props.user);
+
     return (
-      <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">TEST EN DUR 1</h5>
-            <small>3 days ago</small>
+      <div className="list-group">
+
+      {this.props.tests.map((test, index) =>
+
+        <div key={index} className="list-group-item list-group-item-action flex-column align-items-start">
+          <div className="d-flex w-100 justify-content-between">
+            <h5 className="mb-1">{test.title}</h5>
+            <small>{test.timing}</small>
           </div>
-          <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+          <p className="mb-1">{test.description}</p>
           <small>
-            Donec id elit non mi porta.
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" class="btn btn-outline btn-secondary btn-sm">Je participe</button>
+            <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div className="btn-group mr-2" role="group" aria-label="First group">
+            <button type="button" className="btn btn-outline btn-secondary btn-sm">Je participe</button>
             </div>
-            <div class="btn-group mr-2" role="group" aria-label="Second group">
-            <a class="btn btn-secondary btn-sm" href="/myprofile" role="button">Je donne mon avis</a>
-            </div>
-            </div>
-          </small>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">TEST EN DUR 2</h5>
-            <small class="text-muted">3 days ago</small>
-          </div>
-          <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-          <small class="text-muted">
-            Donec id elit non mi porta.
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" class="btn btn-outline btn-secondary btn-sm">Je participe</button>
-            </div>
-            <div class="btn-group mr-2" role="group" aria-label="Second group">
-            <a class="btn btn-secondary btn-sm" href="/myprofile" role="button">Je donne mon avis</a>
+            <div className="btn-group mr-2" role="group" aria-label="Second group">
+            <a className="btn btn-secondary btn-sm" href="/myprofile" role="button">Je donne mon avis</a>
             </div>
             </div>
           </small>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">TEST EN DUR 3</h5>
-            <small class="text-muted">3 days ago</small>
-          </div>
-          <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-          <small class="text-muted">
-            Donec id elit non mi porta.
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" class="btn btn-outline btn-secondary btn-sm">Je participe</button>
-            </div>
-            <div class="btn-group mr-2" role="group" aria-label="Second group">
-            <a class="btn btn-secondary btn-sm" href="/myprofile" role="button">Je donne mon avis</a>
-            </div>
-            </div>
-          </small>
-        </a>
+        </div>
+      )}
+
       </div>
-    );
+  );
   }
 }
 
-const MyTestsComponent = connect(null, null)(MyTests)
+const MyTestsComponent = connect(getTestsState, updateTests)(MyTests)
 
 export default MyTestsComponent;

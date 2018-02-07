@@ -1,10 +1,11 @@
 const initialState = {
-  id: null,
-  firstName: null,
-  lastName: null,
-  email: null,
-  phoneNumber: null,
-  userType: null
+  id: "7440ed1a-4a0b-4dfc-8553-7c165e4dcc88",
+  firstName: "Virginie",
+  lastName: "ZINCK",
+  email: "virginie.zinck@decathlon.com",
+  phoneNumber: "0637542643",
+  userType: "ENGINEER",
+  external_id:"1234"
 };
 
 export default function userReducer(state = initialState, action) {
