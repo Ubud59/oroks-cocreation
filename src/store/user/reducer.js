@@ -1,5 +1,5 @@
 const initialState = {
-  id: "7440ed1a-4a0b-4dfc-8553-7c165e4dcc88",
+  id: "3c9a2dfd-fd84-406a-bb52-317dbeeb2f36",
   firstName: "Virginie",
   lastName: "ZINCK",
   email: "virginie.zinck@decathlon.com",

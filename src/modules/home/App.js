@@ -4,12 +4,15 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import LoginComponent from '../login/Login';
 import MyTestsComponent from '../myTests/MyTests';
-<<<<<<< HEAD
 import AuthComponent from '../auth/Auth'
 import TestNewComponent from '../testNew/TestNew';
-=======
 import ProfileComponent from '../profile/Profile';
->>>>>>> myprofile WIP
+
+import ProfileComponent from '../profile/Profile';
+
+import AuthComponent from '../auth/Auth'
+import TestNewComponent from '../testNew/TestNew';
+
 
 import { getUserState } from '../../store/user/selectors';
 import { userAuthentication } from '../../store/user/actions';
@@ -25,11 +28,6 @@ const user = {
   userType:"ENGINEER"
 };
 
-<<<<<<< HEAD
-=======
-// const user={id:"123"};
-const user={id:"123"};
->>>>>>> myprofile WIP
 
 class App extends Component {
   constructor(props) {
