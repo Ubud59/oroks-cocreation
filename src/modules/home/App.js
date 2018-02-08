@@ -8,10 +8,6 @@ import AuthComponent from '../auth/Auth'
 import TestNewComponent from '../testNew/TestNew';
 import ProfileComponent from '../profile/Profile';
 
-import AuthComponent from '../auth/Auth'
-import TestNewComponent from '../testNew/TestNew';
-
-
 import { getUserState } from '../../store/user/selectors';
 import { userAuthentication } from '../../store/user/actions';
 
