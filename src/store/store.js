@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   test: testReducer,
   tests: testsReducer,
-  profile: profileReducer
+  profile: profileReducer,
   // myTests: myTestsReducer
   userProfile: userProfileReducer
 
