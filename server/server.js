@@ -35,6 +35,10 @@ app.get("/api/tests/user/:id",
     }
 );
 
+app.post("/api/profile/new", function (request, result)) {
+  createMyProfile(pool,request.params);
+}
+
 
 app.get("/api/auth", function (request, result) {
   const authorizeUri = authServices.getAuthorizeUri();

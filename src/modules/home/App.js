@@ -6,6 +6,7 @@ import LoginComponent from '../login/Login';
 import MyTestsComponent from '../myTests/MyTests';
 import AuthComponent from '../auth/Auth'
 import TestNewComponent from '../testNew/TestNew';
+import ProfileComponent from '../profile/Profile';
 
 import { getUserState } from '../../store/user/selectors';
 import { userAuthentication } from '../../store/user/actions';
@@ -85,6 +86,7 @@ class App extends Component {
               <Route path="/mytests" component={MyTestsComponent}/>
               <Route path={"/auth/callback"} component={AuthComponent}></Route>
               <Route path="/newtest" component={TestNewComponent}/>
+              <Route path="/profile" component={ProfileComponent}/>
             </Switch>
           </div>
 
