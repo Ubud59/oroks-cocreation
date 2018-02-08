@@ -8,15 +8,47 @@ import './TestNew.css';
 
 class TestNew extends Component {
 
+  submitForm = (event) => {
+    event.preventDefault();
+    if (this.validateTest(this.props.test)) {this.props.createTest(this.props.test)};
+  }
+
+  validateTest = (test) => {
+    if (test.type === "") {
+      alert("Veuillez renseigner le type de test");
+      return false;
+    } else if (test.title === "") {
+      alert("Veuillez renseigner le titre du test");
+      return false;
+    } else if (test.status === "") {
+      alert("Veuillez renseigner le statut du test");
+      return false;
+    } else if (test.imageSrc === "") {
+      alert("Veuillez uploader une image du produit à tester");
+      return false;
+    } else if (test.createdBy === "") {
+      alert("Veuillez vous connecter avant de procéder à cette action");
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  componentDidMount() {
+    this.props.updateTestField("createdBy",this.props.user.id);
+  }
+
   render() {
 
     console.log("this.props dans TestNew Component",this.props);
+    console.log("image object",this.props.test.imageSrc.name);
+
     return (
       <div className="container pt-5">
         <div className="card border-light text-secondary mb-3">
           <div className="card-header">Création d un nouveau test</div>
           <div className="card-body text-dark">
-            <form>
+            <form onSubmit={this.submitForm}>
 
               <fieldset className="form-group">
                 <div className="row text-secondary">
@@ -64,17 +96,17 @@ class TestNew extends Component {
 
               <div className="form-group">
                 <label >Référence du test</label>
-                <input type="text" className="form-control" id="ref" placeholder="Référence du test" value={this.props.test.ref} onChange={(event) => this.props.updateTestField("ref",event.target.value)}/>
+                <input type="text" className="form-control" value={this.props.test.testReference} onChange={(event) => this.props.updateTestField("testReference",event.target.value)}/>
               </div>
 
               <div className="form-group">
                 <label >Titre du test</label>
-                <input type="text" className="form-control" id="ref" placeholder="Titre du test" value={this.props.test.title} onChange={(event) => this.props.updateTestField("title",event.target.value)}/>
+                <input type="text" className="form-control" value={this.props.test.title} onChange={(event) => this.props.updateTestField("title",event.target.value)}/>
               </div>
 
               <div className="form-group">
                 <label >Product référence</label>
-                <input type="text" className="form-control" id="ref" placeholder="Référence du produit ou du prototype testé" value={this.props.test.product} onChange={(event) => this.props.updateTestField("product",event.target.value)}/>
+                <input type="text" className="form-control" value={this.props.test.product} onChange={(event) => this.props.updateTestField("product",event.target.value)}/>
               </div>
 
               <fieldset className="form-group">
@@ -105,38 +137,44 @@ class TestNew extends Component {
 
               <div className="form-group">
                 <label >Description </label>
-                <input type="text" className="form-control" id="ref" placeholder="Description du test" value={this.props.test.description} onChange={(event) => this.props.updateTestField("description",event.target.value)}/>
+                <input type="text" className="form-control" value={this.props.test.description} onChange={(event) => this.props.updateTestField("description",event.target.value)}/>
               </div>
 
               <div className="form-group">
                 <label >Critères de validation </label>
-                <input type="text" className="form-control" id="ref" placeholder="Critères de validation" value={this.props.test.validation_treshold} onChange={(event) => this.props.updateTestField("validation_treshold",event.target.value)}/>
+                <input type="text" className="form-control" value={this.props.test.validationThreshold} onChange={(event) => this.props.updateTestField("validationThreshold",event.target.value)}/>
               </div>
 
               <div className="form-group">
                 <label >Dates du test</label>
-                <input type="text" className="form-control" id="ref" placeholder="Dates du test" value={this.props.test.timing} onChange={(event) => this.props.updateTestField("timing",event.target.value)}/>
+                <input type="text" className="form-control" value={this.props.test.timing} onChange={(event) => this.props.updateTestField("timing",event.target.value)}/>
               </div>
 
               <div className="form-group">
-                <label >Upload de l'image produit</label>
-                <input type="file" onChange={(event) => this.props.updateTestField("image_src",event.target.files[0])}/>
+                Upload de l'image produit
               </div>
-
-
-
+              <div className="pb-3">
+                <label className="btn btn-secondary" >
+                    Browse...
+                  <input type="file" hidden onChange={(event) => this.props.updateTestField("imageSrc",event.target.files[0])}/>
+                </label>
+                <span className="pl-2">{this.props.test.imageSrc.name}</span>
+              </div>
 
               <div className="form-group">
                 <label >Lien vers le formulaire d'évaluation</label>
-                <input type="text" className="form-control" id="ref" placeholder="Lien Google Drive vers le formulaire d'évaluation" value={this.props.test.evaluation_form_path} onChange={(event) => this.props.updateTestField("evaluation_form_path",event.target.value)}/>
+                <input type="text" className="form-control" value={this.props.test.evaluationFormPath} onChange={(event) => this.props.updateTestField("evaluationFormPath",event.target.value)}/>
               </div>
 
               <div className="form-group">
                 <label >Lien vers le fichier de résultats</label>
-                <input type="text" className="form-control" id="ref" placeholder="Lien Google Drive vers le fichier de résultats" value={this.props.test.evaluation_form_path} onChange={(event) => this.props.updateTestField("evaluation_form_path",event.target.value)}/>
+                <input type="text" className="form-control" value={this.props.test.evaluationResultsPath} onChange={(event) => this.props.updateTestField("evaluationResultsPath",event.target.value)}/>
               </div>
 
-              <button type="submit" className="btn btn-primary" onSubmit={() => this.props.createTest(this.props.test)}>Créer le test</button>
+              <div className="pt-3">
+                <button type="submit" className="btn btn-secondary" >Valider la création du test</button>
+              </div>
+
             </form>
           </div>
         </div>
@@ -145,26 +183,6 @@ class TestNew extends Component {
     );
   }
 }
-
-
-// CREATE TYPE test_status AS ENUM ('NOT_STARTED','IN_PROGRESS','DONE');
-//
-// CREATE TABLE  tests  (
-//    id                   uuid,
-//    type                 test_type,
-//    test_reference       VARCHAR,
-//    title                VARCHAR,
-//    product              VARCHAR,
-//    status               test_status,
-//    description          VARCHAR,
-//    validation_treshold  VARCHAR,
-//    timing               VARCHAR,
-//    image_src            VARCHAR,
-//    evaluation_form_path   VARCHAR,
-//    evaluation_results_path  VARCHAR,
-//   PRIMARY KEY ( id )
-// );
-
 
 const TestNewComponent = connect(getTestState, updateTest)(TestNew)
 export default TestNewComponent;

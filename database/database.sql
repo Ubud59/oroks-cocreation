@@ -131,6 +131,7 @@ CREATE TABLE  tests  (
    image_src            VARCHAR,
    evaluation_form_path   VARCHAR,
    evaluation_results_path  VARCHAR,
+   created_by            uuid,
   PRIMARY KEY ( id )
 );
 
@@ -154,7 +155,7 @@ CREATE TABLE  test_participants  (
    invitation_status  invitation_status,
    evaluation_status  evaluation_status,
    evaluation_rating  INTEGER,
-  PRIMARY KEY ( test_id )
+  PRIMARY KEY ( id )
 );
 
 -- ---
@@ -163,3 +164,4 @@ CREATE TABLE  test_participants  (
 ALTER TABLE  user_profiles  ADD FOREIGN KEY (user_id) REFERENCES  users  ( id );
 ALTER TABLE  test_participants  ADD FOREIGN KEY (test_id) REFERENCES  tests  ( id );
 ALTER TABLE  test_participants  ADD FOREIGN KEY (user_id) REFERENCES  users  ( id );
+ALTER TABLE  tests  ADD FOREIGN KEY (created_by) REFERENCES  users  ( id );
