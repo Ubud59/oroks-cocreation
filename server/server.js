@@ -62,13 +62,13 @@ app.get("/api/me", function(request, result) {
       userServices.findUserbyId(pool, user.id)
       .then(dbRecord => {
         console.log(dbRecord)
-        if (dbRecord.rows.length > 0) {
-          // redirect mytests
-        } else {
-          // insert user only
-          // and
-          // redirect form profile
-        }
+        // if (dbRecord.rows.length > 0) {
+        //   // redirect mytests
+        // } else {
+        //   // insert user only
+        //   // and
+        //   // redirect form profile
+        // }
       })
       return user
     })
