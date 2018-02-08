@@ -17,7 +17,7 @@ CREATE TABLE users  (
    email        VARCHAR(255),
    phone_number VARCHAR(255),
    user_type    user_type,
-   external_id  VARCHAR(255)
+   external_id  VARCHAR(255),
    PRIMARY KEY ( id )
 );
 
@@ -126,7 +126,7 @@ CREATE TABLE  tests  (
    product              VARCHAR,
    status               test_status,
    description          VARCHAR,
-   validation_treshold  VARCHAR,
+   validation_threshold VARCHAR,
    timing               VARCHAR,
    image_src            VARCHAR,
    evaluation_form_path   VARCHAR,

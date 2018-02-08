@@ -1,3 +1,5 @@
+import { postNewTest } from '../../utils/test.services.js';
+
 const initialState = {
   id: null,
   type: null,
@@ -17,8 +19,11 @@ const initialState = {
 
 export default function testReducer(state = initialState, action) {
   switch (action.type) {
-    case "UPDATE_TEST_TYPE":
-      return {...state, type: action.testType};
+    case "UPDATE_TEST_FIELD":
+      return {...state, [action.field]: action.value};
+    case "CREATE_TEST":
+      postNewTest(action.test);
+      return initialState;
     default:
       return state;
   }
