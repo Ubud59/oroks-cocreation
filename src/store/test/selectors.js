@@ -8,11 +8,13 @@ export function getTestState(state) {
       product: state.test.product,
       status: state.test.status,
       description: state.test.description,
-      validationTreshold: state.test.validationTreshold,
+      validationThreshold: state.test.validationThreshold,
       timing: state.test.timing,
-      imgSrc: state.test.imgSrc,
+      imageSrc: state.test.imageSrc,
       evaluationFormPath: state.test.evaluationFormPath,
       evaluationResultsPath: state.test.evaluationResultsPath,
-    }
+      createdBy:state.test.createdBy
+    },
+    user: state.user
   };
 }
