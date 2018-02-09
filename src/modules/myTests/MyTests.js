@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import { getTestsState } from '../../store/tests/selectors';
 import { updateTests } from '../../store/tests/actions';
 import { fetchMyTests } from '../../utils/tests.services.js';
-import translateOroksVocab from '../../utils/tabledecorrespondance.js';
+import translateOroksVocab from '../../utils/translateLabel.js';
 
 class MyTests extends Component {
 
