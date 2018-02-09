@@ -48,9 +48,6 @@ class TestNew extends Component {
 
   render() {
 
-    console.log("this.props dans TestNew Component",this.props);
-    console.log("image object",this.props.test.imageSrc.name);
-
     return (
       <div className="container pt-5">
         <div className="card border-light text-secondary mb-3">

@@ -11,9 +11,7 @@ const uuidv4 = require("uuid/v4");
 
 const app = express();
 
-app.use(require("body-parser").urlencoded({
- extended: true
-}));
+app.use(require("body-parser").json());
 
 const { Pool } = require("pg");
 const pool = new Pool({
@@ -143,12 +141,9 @@ app.post(
 
 app.post(
   "/api/test/new",
-
   function(request, result) {
 
     const uuid=uuidv4();
-    console.log("request.body",request.body);
-
     return pool.query(
         `INSERT INTO tests (
           id,
