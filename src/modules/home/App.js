@@ -7,6 +7,7 @@ import MyTestsComponent from '../myTests/MyTests';
 import AuthComponent from '../auth/Auth'
 import TestNewComponent from '../testNew/TestNew';
 import ProfileComponent from '../profile/Profile';
+import TestComponent from '../test/Test';
 
 import { getUserState } from '../../store/user/selectors';
 import { userAuthentication } from '../../store/user/actions';
@@ -56,7 +57,7 @@ class App extends Component {
                   <NavItem className="bg-light">
                     <NavLink href="/myprofile">Mon profile</NavLink>
                   </NavItem>
-                  <NavItem className="bg-light nav-item">
+                  <NavItem className="bg-light">
                     <NavLink href="/mytests">Mes tests</NavLink>
                   </NavItem>
                   {(user.userType==="ENGINEER") ? (
@@ -85,8 +86,10 @@ class App extends Component {
               <Route path="/login" component={LoginComponent}/>
               <Route path="/mytests" component={MyTestsComponent}/>
               <Route path={"/auth/callback"} component={AuthComponent}></Route>
-              <Route path="/newtest" component={TestNewComponent}/>
+              <Route path="/newtest" component={TestComponent}/>
               <Route path="/profile" component={ProfileComponent}/>
+              <Route path="/test/:id" component={TestComponent}/>
+
             </Switch>
           </div>
 

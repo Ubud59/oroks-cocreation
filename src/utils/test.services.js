@@ -30,7 +30,6 @@ function uploadFile(file){
 
 
 function postNewTest(test){
-
   return fetch(
     `http://localhost:8080/api/test/new`,
     {
@@ -52,4 +51,45 @@ function postNewTest(test){
   });
 }
 
-export {postNewTest, uploadFile};
+
+function postUpdatedTest(test){
+
+  return fetch(
+    `http://localhost:8080/api/test/${test.id}/update`,
+    {
+      method: "POST",
+      body:JSON.stringify(test),
+      headers: { "Content-Type": "application/json" }
+    }
+  )
+  .then((response) => {
+    if (response.status===200) {
+      alert("Test enregistré avec succès !");
+    } else {
+      alert("Une erreur est survenue !");
+    }
+  })
+  .catch((error) => {
+    console.warn(error);
+    alert(`Erreur : ${error}`);
+  });
+}
+
+
+function fetchTest(testId){
+  return fetch(
+    `http://localhost:8080/api/test/${testId}`,
+    {method: "GET"}
+  )
+  .then((response) => {
+    return response.json();
+  })
+  .then((test) => {
+    return test;
+  })
+  .catch((error) => {
+    console.warn(error);
+  });
+}
+
+export {postNewTest, postUpdatedTest, uploadFile, fetchTest};
