@@ -253,7 +253,7 @@ class Test extends Component {
             </div>
 
             <div className="pt-3">
-              <button type="submit" className="btn btn-secondary" >Enregistrer les modifications</button>
+              <button type="submit" className="btn btn-secondary" >Enregistrer</button>
             </div>
 
           </form>
