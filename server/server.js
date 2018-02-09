@@ -11,6 +11,10 @@ const uuidv4 = require("uuid/v4");
 
 const app = express();
 
+app.use(require("body-parser").urlencoded({
+ extended: true
+}));
+
 const { Pool } = require("pg");
 const pool = new Pool({
  connectionString: process.env.DATABASE_URL,
@@ -68,9 +72,9 @@ app.get("/api/me", function(request, result) {
 // Profile
 /////////////////////////////////////////////////////////////
 
-app.post("/api/profile/new", function (request, result)) {
+app.post("/api/profile/new", function (request, result) {
   createMyProfile(pool,request.params);
-}
+});
 
 
 /////////////////////////////////////////////////////////////
@@ -124,12 +128,27 @@ const upload = multer({
 });
 
 app.post(
+  "/api/test/upload",
+  function(request, result) {
+    upload.single("file")(request,result, function (error) {
+      if (error) {
+        console.warn(error);
+        result.status(500).send(error);
+      } else {
+        result.json(request.file.filename);
+      }
+    })
+  }
+);
+
+app.post(
   "/api/test/new",
-  upload.single("imageSrc"),
 
   function(request, result) {
 
     const uuid=uuidv4();
+    console.log("request.body",request.body);
+
     return pool.query(
         `INSERT INTO tests (
           id,
@@ -156,7 +175,7 @@ app.post(
           request.body.description,
           request.body.validationThreshold,
           request.body.timing,
-          request.file.path,
+          request.body.imageSrc,
           request.body.evaluationFormPath,
           request.body.evaluationResultsPath,
           request.body.createdBy
@@ -172,12 +191,13 @@ app.post(
   }
 );
 
-
 /////////////////////////////////////////////////////////////
 // Commun
 /////////////////////////////////////////////////////////////
 
 app.use("/static", express.static(path.join(__dirname, "../build/static")));
+
+app.use("/images", express.static(path.join(__dirname, "/images")));
 
 app.get("*", (request, result) => {
   result.sendFile(path.join(__dirname, "../build/index.html"));

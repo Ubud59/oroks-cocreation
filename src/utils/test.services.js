@@ -1,27 +1,42 @@
 
 
-function postNewTest(test){
+function uploadFile(file){
 
   const formData = new FormData();
-  formData.append("type", test.type);
-  formData.append("testReference", test.testReference);
-  formData.append("title", test.title);
-  formData.append("product", test.product);
-  formData.append("status", test.status);
-  formData.append("description", test.description);
-  formData.append("validationThreshold", test.validationThreshold);
-  formData.append("timing", test.timing);
-  formData.append("imageSrc", test.imageSrc);
-  formData.append("evaluationFormPath", test.evaluationFormPath);
-  formData.append("evaluationResultsPath", test.evaluationResultsPath);
-  formData.append("createdBy", test.createdBy);
+  formData.append("file", file);
 
+  return fetch(
+    `http://localhost:8080/api/test/upload`,
+    {
+      method: "POST",
+      body:formData
+    }
+  )
+  .then((response) => {
+    if (response.status!=200) {
+      alert("Une erreur est survenue lors de l'upload!");
+    }
+    return response.json();
+  })
+  .then((filename) => {
+    return `http://localhost:8080/images/${filename}`;
+  })
+  .catch((error) => {
+    console.warn(error);
+    alert(`Erreur : ${error}`);
+    return error;
+  });
+}
+
+
+function postNewTest(test){
 
   return fetch(
     `http://localhost:8080/api/test/new`,
     {
       method: "POST",
-      body:formData
+      body:JSON.stringify(test),
+      headers: { "Content-Type": "application/json" }
     }
   )
   .then((response) => {
@@ -37,4 +52,4 @@ function postNewTest(test){
   });
 }
 
-export {postNewTest};
+export {postNewTest, uploadFile};

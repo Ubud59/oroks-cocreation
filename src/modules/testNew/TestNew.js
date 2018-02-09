@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { getTestState } from '../../store/test/selectors';
 import { updateTest } from '../../store/test/actions';
+import { uploadFile } from '../../utils/test.services.js';
 
 import './TestNew.css';
 
@@ -34,6 +35,13 @@ class TestNew extends Component {
     }
   }
 
+  handleUpload = (file) => {
+    uploadFile(file)
+    .then((response) => {
+      this.props.updateTestField("imageSrc",response);
+    });
+  }
+
   componentDidMount() {
     this.props.updateTestField("createdBy",this.props.user.id);
   }
@@ -50,53 +58,27 @@ class TestNew extends Component {
           <div className="card-body text-dark">
             <form onSubmit={this.submitForm}>
 
-              <fieldset className="form-group">
-                <div className="row text-secondary">
-                  <legend className="col-form-label col-sm-2 pt-0">Type de test</legend>
-                  <div className="col-sm-10">
-                    <div className="form-check">
-                      <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio1" value="STATIC_FITTING" checked={this.props.test.type === "STATIC_FITTING"} onChange={() => this.props.updateTestField("type","STATIC_FITTING")}/>
-                      <label className="form-check-label">
-                        Fitting statique
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio2" value="DYNAMIC_FITTING" checked={this.props.test.type === "DYNAMIC_FITTING"} onChange={() => this.props.updateTestField("type","DYNAMIC_FITTING")}/>
-                      <label className="form-check-label">
-                        Fitting dynamique
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio3" value="FIELD" checked={this.props.test.type === "FIELD"} onChange={() => this.props.updateTestField("type","FIELD")}/>
-                      <label className="form-check-label">
-                        Fonction terrain
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio4" value="DURABILITY" checked={this.props.test.type === "DURABILITY"} onChange={() => this.props.updateTestField("type","DURABILITY")}/>
-                      <label className="form-check-label">
-                        Durabilité
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio5" value="SENSORIAL" checked={this.props.test.type === "SENSORIAL"} onChange={() => this.props.updateTestField("type","SENSORIAL")}/>
-                      <label className="form-check-label">
-                        Sensoriel
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio6" value="USAGE" checked={this.props.test.type === "USAGE"} onChange={() => this.props.updateTestField("type","USAGE")}/>
-                      <label className="form-check-label">
-                        Usage
-                      </label>
-                    </div>
+              <div className="row">
+                <div className="col-9">
+                  <div className="form-group">
+                    <label >Référence du produit ou du prototype</label>
+                    <input type="text" className="form-control" value={this.props.test.product} onChange={(event) => this.props.updateTestField("product",event.target.value)}/>
+                  </div>
+
+                  <div className="form-group">
+                    <label >URL de l'image produit</label>
+                    <input type="text" className="form-control" value={this.props.test.imageSrc} onChange={(event) => this.props.updateTestField("imageSrc",event.target.value)}/>
+                  </div>
+                  <div className="pb-5">
+                    <label className="btn btn-secondary" >
+                        Upload de l'image
+                      <input type="file" hidden onChange={(event) => this.handleUpload(event.target.files[0])}/>
+                    </label>
                   </div>
                 </div>
-              </fieldset>
-
-              <div className="form-group">
-                <label >Référence du test</label>
-                <input type="text" className="form-control" value={this.props.test.testReference} onChange={(event) => this.props.updateTestField("testReference",event.target.value)}/>
+                <div className="col-3">
+                  <img className="img-fluid product-image" src={this.props.test.imageSrc}/>
+                </div>
               </div>
 
               <div className="form-group">
@@ -104,36 +86,86 @@ class TestNew extends Component {
                 <input type="text" className="form-control" value={this.props.test.title} onChange={(event) => this.props.updateTestField("title",event.target.value)}/>
               </div>
 
-              <div className="form-group">
-                <label >Product référence</label>
-                <input type="text" className="form-control" value={this.props.test.product} onChange={(event) => this.props.updateTestField("product",event.target.value)}/>
-              </div>
-
-              <fieldset className="form-group">
-                <div className="row text-secondary">
-                  <legend className="col-form-label col-sm-2 pt-0">Statut</legend>
-                  <div className="col-sm-10">
-                    <div className="form-check">
-                      <input className="form-check-input" type="radio" name="statusRadio" id="statusRadio1" value="NOT_STARTED" checked={this.props.test.status === "NOT_STARTED"} onChange={() => this.props.updateTestField("status","NOT_STARTED")}/>
-                      <label className="form-check-label">
-                        Non démarré
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input className="form-check-input" type="radio" name="statusRadio" id="statusRadio2" value="IN_PROGRESS" checked={this.props.test.status === "IN_PROGRESS"} onChange={() => this.props.updateTestField("status","IN_PROGRESS")}/>
-                      <label className="form-check-label">
-                        En cours
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input className="form-check-input" type="radio" name="statusRadio" id="statusRadio3" value="DONE" checked={this.props.test.status === "DONE"} onChange={() => this.props.updateTestField("status","DONE")}/>
-                      <label className="form-check-label">
-                        Clôturé
-                      </label>
-                    </div>
+              <div className="row">
+                <div className="col">
+                  <div className="form-group">
+                    <label >Numéro du test</label>
+                    <input type="text" className="form-control col-10" value={this.props.test.testReference} onChange={(event) => this.props.updateTestField("testReference",event.target.value)}/>
                   </div>
+
+                  <fieldset className="form-group">
+                    <div className="row text-secondary">
+                      <legend className="col-form-label col-sm-2 pt-0">Statut</legend>
+                      <div className="col-sm-10">
+                        <div className="form-check">
+                          <input className="form-check-input" type="radio" name="statusRadio" id="statusRadio1" value="NOT_STARTED" checked={this.props.test.status === "NOT_STARTED"} onChange={() => this.props.updateTestField("status","NOT_STARTED")}/>
+                          <label className="form-check-label">
+                            Non démarré
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input className="form-check-input" type="radio" name="statusRadio" id="statusRadio2" value="IN_PROGRESS" checked={this.props.test.status === "IN_PROGRESS"} onChange={() => this.props.updateTestField("status","IN_PROGRESS")}/>
+                          <label className="form-check-label">
+                            En cours
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input className="form-check-input" type="radio" name="statusRadio" id="statusRadio3" value="DONE" checked={this.props.test.status === "DONE"} onChange={() => this.props.updateTestField("status","DONE")}/>
+                          <label className="form-check-label">
+                            Clôturé
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
                 </div>
-              </fieldset>
+
+                <div className="col">
+                  <fieldset className="form-group">
+                    <div className="row text-secondary">
+                      <legend className="col-form-label col-sm-4 offset-col-sm-1 pl-3">Type de test</legend>
+                      <div className="col-sm-7">
+                        <div className="form-check">
+                          <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio1" value="STATIC_FITTING" checked={this.props.test.type === "STATIC_FITTING"} onChange={() => this.props.updateTestField("type","STATIC_FITTING")}/>
+                          <label className="form-check-label">
+                            Fitting statique
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio2" value="DYNAMIC_FITTING" checked={this.props.test.type === "DYNAMIC_FITTING"} onChange={() => this.props.updateTestField("type","DYNAMIC_FITTING")}/>
+                          <label className="form-check-label">
+                            Fitting dynamique
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio3" value="FIELD" checked={this.props.test.type === "FIELD"} onChange={() => this.props.updateTestField("type","FIELD")}/>
+                          <label className="form-check-label">
+                            Fonction terrain
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio4" value="DURABILITY" checked={this.props.test.type === "DURABILITY"} onChange={() => this.props.updateTestField("type","DURABILITY")}/>
+                          <label className="form-check-label">
+                            Durabilité
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio5" value="SENSORIAL" checked={this.props.test.type === "SENSORIAL"} onChange={() => this.props.updateTestField("type","SENSORIAL")}/>
+                          <label className="form-check-label">
+                            Sensoriel
+                          </label>
+                        </div>
+                        <div className="form-check">
+                          <input className="form-check-input" type="radio" name="TypeRadio" id="TypeRadio6" value="USAGE" checked={this.props.test.type === "USAGE"} onChange={() => this.props.updateTestField("type","USAGE")}/>
+                          <label className="form-check-label">
+                            Usage
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
 
               <div className="form-group">
                 <label >Description </label>
@@ -148,17 +180,6 @@ class TestNew extends Component {
               <div className="form-group">
                 <label >Dates du test</label>
                 <input type="text" className="form-control" value={this.props.test.timing} onChange={(event) => this.props.updateTestField("timing",event.target.value)}/>
-              </div>
-
-              <div className="form-group">
-                Upload de l'image produit
-              </div>
-              <div className="pb-3">
-                <label className="btn btn-secondary" >
-                    Browse...
-                  <input type="file" hidden onChange={(event) => this.props.updateTestField("imageSrc",event.target.files[0])}/>
-                </label>
-                <span className="pl-2">{this.props.test.imageSrc.name}</span>
               </div>
 
               <div className="form-group">
