@@ -14,10 +14,12 @@ CREATE TABLE users  (
    id           uuid,
    first_name   VARCHAR(255),
    last_name    VARCHAR(255),
+   birthdate    VARCHAR(255),
+   sex          VARCHAR(1),
    email        VARCHAR(255),
    phone_number VARCHAR(255),
    user_type    user_type,
-   external_id  VARCHAR(255)
+   external_id  VARCHAR(255),
    PRIMARY KEY ( id )
 );
 
@@ -39,7 +41,7 @@ DROP TYPE IF EXISTS  size ;
 
 
 CREATE TYPE panel AS ENUM ('EXPERT', '');
-CREATE TYPE sex AS ENUM ('H', 'F');
+-- CREATE TYPE sex AS ENUM ('H', 'F');
 CREATE TYPE practice_type AS ENUM ('ICE', 'ROLLER');
 CREATE TYPE category AS ENUM (
   'JUNIOR',
@@ -75,8 +77,6 @@ CREATE TABLE  user_profiles  (
    id                     uuid,
    user_id                uuid,
    expert_panel           panel,
-   sex                    sex,
-   birth_year             INTEGER,
    height                 INTEGER,
    weight                 INTEGER,
    practice_type          practice_type,
@@ -126,11 +126,12 @@ CREATE TABLE  tests  (
    product              VARCHAR,
    status               test_status,
    description          VARCHAR,
-   validation_treshold  VARCHAR,
+   validation_threshold VARCHAR,
    timing               VARCHAR,
    image_src            VARCHAR,
    evaluation_form_path   VARCHAR,
    evaluation_results_path  VARCHAR,
+   created_by            uuid,
   PRIMARY KEY ( id )
 );
 
@@ -154,7 +155,7 @@ CREATE TABLE  test_participants  (
    invitation_status  invitation_status,
    evaluation_status  evaluation_status,
    evaluation_rating  INTEGER,
-  PRIMARY KEY ( test_id )
+  PRIMARY KEY ( id )
 );
 
 -- ---
@@ -163,3 +164,4 @@ CREATE TABLE  test_participants  (
 ALTER TABLE  user_profiles  ADD FOREIGN KEY (user_id) REFERENCES  users  ( id );
 ALTER TABLE  test_participants  ADD FOREIGN KEY (test_id) REFERENCES  tests  ( id );
 ALTER TABLE  test_participants  ADD FOREIGN KEY (user_id) REFERENCES  users  ( id );
+ALTER TABLE  tests  ADD FOREIGN KEY (created_by) REFERENCES  users  ( id );
