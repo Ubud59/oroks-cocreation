@@ -50,17 +50,18 @@ app.get("/api/me", function(request, result) {
   const token = request.headers.authorization
   authServices.fetchUser(fetch, token)
     .then(user => {
-      userServices.findUserbyId(pool, user.id)
+      userServices.findUserbyExternalId(pool, user)
       .then(dbRecord => {
         console.log(dbRecord)
         // if (dbRecord.rows.length > 0) {
         //   // redirect mytests
         // } else {
-        //   // insert user only
+        //   // update_insert user + user_profile minimum
         //   // and
         //   // redirect form profile
         // }
       })
+
       return user
     })
     .then(user => result.json(user))
