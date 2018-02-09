@@ -84,7 +84,7 @@ class Test extends Component {
 
           <div className="card-header px-0 pb-0">
             <div className="row pl-5 pb-3 font-weight-bold">
-              Fiche test : {this.props.test.title}
+              Test : {this.props.test.title}
             </div>
             <div className="row pl-3">
               <Navbar light className="p-0" expand="md">
@@ -92,16 +92,16 @@ class Test extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                   <Nav className="ml-auto" navbar>
                     <NavItem active className="bg-white border">
-                      <NavLink href={`/test/${this.props.test.id}`}>Details</NavLink>
+                      <NavLink href={`/test/${this.props.test.id}`}>Détails</NavLink>
                     </NavItem>
                     <NavItem className="bg-white border">
                       <NavLink href={`/test/${this.props.test.id}/eval`}>Evaluation</NavLink>
                     </NavItem>
                     <NavItem className="bg-white border">
-                      <NavLink href={`/test/${this.props.test.id}/results`}>Resultats</NavLink>
+                      <NavLink href={`/test/${this.props.test.id}/results`}>Résultats</NavLink>
                     </NavItem>
                     <NavItem className="bg-white border">
-                      <NavLink href={`/test/${this.props.test.id}/team/view`}>Equipe tests</NavLink>
+                      <NavLink href={`/test/${this.props.test.id}/team`}>Equipe tests</NavLink>
                     </NavItem>
                   </Nav>
                 </Collapse>
