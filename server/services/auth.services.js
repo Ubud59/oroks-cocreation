@@ -1,5 +1,6 @@
 const { URLSearchParams } = require("url");
 
+
 const frontUri = process.env.FRONT_REDIRECT_URI;
 const dktConnectRootUri=process.env.DKTCONNECT_ROOT_URI;
 const dktConnectCreateUserUri=process.env.DKTCONNECT_CREATE_USER_URI
@@ -31,16 +32,17 @@ const getTokenFromCode = (fetch, code) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
   })
     .then(res => res.json())
+    .catch(e => console.warn(e));
 };
 
-const getFrontRedirectUri = (token) => {
-  return `${frontUri}#access_token=${token.access_token}&token_type=${token.token_type}&expires_in=${token.expires_in}`
+const getFrontRedirectUri = (redirectInfos) => {
+  const token = redirectInfos.token;
+  const uri = redirectInfos.uri;
+  return `${frontUri}#access_token=${token.access_token}&token_type=${token.token_type}&expires_in=${token.expires_in}&uri=${uri}`
 };
 
 const fetchUser = (fetch, access_token) => {
   const url = `${dktConnectRootUri}/account?client_id=${clientId}&state=${state}&locale=fr_FR`
-  console.log(url)
-  console.log(access_token)
   const options = {
     method: 'GET',
     headers: {

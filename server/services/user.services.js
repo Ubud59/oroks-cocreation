@@ -1,6 +1,7 @@
 const uuidv4 = require('uuid/v4');
 
-const findUserbyExternalId = (pool, user) => {
+const getUserProfileByExternalId = (pool, externalId) => {
+
   return pool.query(`
     SELECT
     U.id,
@@ -31,12 +32,17 @@ const findUserbyExternalId = (pool, user) => {
     FROM USERS U
     INNER JOIN USER_PROFILES UP on UP.user_id = U.id
     WHERE U.external_id = $1::text`,
-    [user.id])
+    [externalId])
+}
+
+const findbyExternalIdOrCreateUser = (pool, oauthUser) => {
+
+    return getUserProfileByExternalId(pool, oauthUser.id)
       .then(dbRows => {
         if (dbRows.rows.length > 0) {
-          return dbRows.rows[0]
+          return 'existingUser'
         } else {
-          createUser(pool, user)
+          return createUser(pool, oauthUser)
         }
       })
       .catch(e => console.warn(e))
@@ -44,19 +50,22 @@ const findUserbyExternalId = (pool, user) => {
 
 
 const createUser = (pool, user) => {
-  return pool.query("INSERT INTO USERS (id, first_name, last_name, birthdate, sex, email, phone_number, user_type, external_id) VALUES ($1::uuid, $2::text, $3::text, $4::text, $5::text, $6::text, $7::text, $8::text, $9::text) RETURNING id",
-  [uuidv4(), user.name, user.surname, user.birthdate, user.sexe, user.email ,user.id_person]
+  return pool.query("INSERT INTO USERS (id, first_name, last_name, birthdate, sex, email, phone_number, user_type, external_id) VALUES ($1::uuid, $2::text, $3::text, $4::text, $5::text, $6::text, $7::text, $8, $9::text) RETURNING id",
+  [uuidv4(), user.firstname, user.lastname, user.birthdate, user.sexe, user.email , user.phone ,'TEST', user.id]
   )
-    .then(userRecord => createUserProfile(userRecord))
-    .catch(e => console.warn(e))
-
+    .then(userRecordId => {return createUserProfile(pool, userRecordId.rows[0].id)})
+    .catch(e => console.warn(e));
 }
 
-const createUserProfile = (pool, user) => {
-  console.log(user)
-  return user
+const createUserProfile = (pool, userId) => {
+  return pool.query("INSERT INTO USER_PROFILES (id, user_id) VALUES ($1::uuid, $2::uuid)", [uuidv4(), userId])
+      .then(res => {
+        return 'createdUser'
+      })
+      .catch(e => console.warn(e));
 }
 
 module.exports = {
-  findUserbyExternalId: findUserbyExternalId
+  findbyExternalIdOrCreateUser: findbyExternalIdOrCreateUser,
+  getUserProfileByExternalId: getUserProfileByExternalId
 }

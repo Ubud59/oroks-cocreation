@@ -10,6 +10,7 @@ const fetch = require("node-fetch");
 const cors = require("cors")
 const multer = require("multer");
 const uuidv4 = require("uuid/v4");
+const jwtDecode = require('jwt-decode');
 
 const app = express();
 
@@ -42,29 +43,31 @@ app.get("/api/auth/create", function (request, result) {
 // CALLBACK URL FOR DKT CONNECT TO SEND CODE
 app.get("/auth/callback", function (request, result) {
   const tokenRequestParams = authServices.getTokenFromCode(fetch, request.query.code)
-    .then(token => result.redirect(authServices.getFrontRedirectUri(token)))
+    .then(token => {
+      return authServices.fetchUser(fetch, token.access_token)
+        .then(oauthUser => {
+          return userServices.findbyExternalIdOrCreateUser(pool, oauthUser)
+          .then(userStatus => {
+            if (userStatus === 'createdUser') {
+              // redirect mytests
+              return {token: token, uri: '/myprofile'}
+            } else {
+              // redirect form profile
+              return {token: token, uri: '/mytests'}
+            }
+          })
+        })
+      //return {token: token, uri: uri}
+    })
+    .then(redirectInfos => result.redirect(authServices.getFrontRedirectUri(redirectInfos)))
     .catch(error => console.warn(error));
 });
 
 app.get("/api/me", function(request, result) {
-  const token = request.headers.authorization
-  authServices.fetchUser(fetch, token)
-    .then(user => {
-      userServices.findUserbyExternalId(pool, user)
-      .then(dbRecord => {
-        console.log(dbRecord)
-        // if (dbRecord.rows.length > 0) {
-        //   // redirect mytests
-        // } else {
-        //   // update_insert user + user_profile minimum
-        //   // and
-        //   // redirect form profile
-        // }
-      })
-
-      return user
-    })
-    .then(user => result.json(user))
+  const access_token = request.headers.authorization
+  const externalId = decodeToken(access_token).sub
+    userServices.getUserProfileByExternalId(pool, externalId)
+    .then(user => result.json(user.rows[0]))
     .catch(e => result.status(500).send(e));
 })
 
@@ -238,6 +241,20 @@ function isPgSslActive() {
     return false;
   }
   return true;
+}
+
+const decodeToken = (access_token) => {
+  const decodedToken = jwtDecode(access_token)
+  return {
+    country: decodedToken.country,
+    sub: decodedToken.sub,
+    iss: decodedToken.iss,
+    last_name: decodedToken.last_name,
+    exp: decodedToken.exp,
+    first_name: decodedToken.first_name,
+    iat: decodedToken.iat,
+    client_id: decodedToken.client_id
+  }
 }
 
 app.listen(port, function () {
