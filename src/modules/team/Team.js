@@ -5,6 +5,7 @@ import { getTeamState } from '../../store/team/selectors';
 import { updateTeam } from '../../store/team/actions';
 import { fetchTeam } from '../../utils/team.services.js';
 import { fetchTest } from '../../utils/test.services.js';
+import translateLabel from '../../utils/translateLabel.js';
 import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse } from "reactstrap";
 
 
@@ -49,7 +50,7 @@ class Team extends Component {
                 <NavbarToggler className="bg-light" onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                   <Nav className="ml-auto" navbar>
-                    <NavItem active className="bg-white border">
+                    <NavItem  className="bg-white border">
                       <NavLink href={`/test/${this.props.test.id}`}>Details</NavLink>
                     </NavItem>
                     <NavItem className="bg-white border">
@@ -58,7 +59,7 @@ class Team extends Component {
                     <NavItem className="bg-white border">
                       <NavLink href={`/test/${this.props.test.id}/results`}>Resultats</NavLink>
                     </NavItem>
-                    <NavItem className="bg-white border">
+                    <NavItem active className="bg-white border">
                       <NavLink href={`/test/${this.props.test.id}/team`}>Equipe tests</NavLink>
                     </NavItem>
                   </Nav>
@@ -69,6 +70,38 @@ class Team extends Component {
 
           <div className="card-body">
 
+            <div class="table-responsive-md">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">email</th>
+                    <th scope="col">Telephone</th>
+                    <th scope="col">Statut invitation</th>
+                    <th scope="col">Statut évaluation</th>
+                    <th scope="col">Note évaluation</th>
+                    <th scope="col">Profil</th>
+
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {this.props.team.team.map((participant, index) =>
+
+                    <tr key={index}>
+                      <td>{participant.firstName} {participant.lastName}</td>
+                      <td>{participant.email} </td>
+                      <td>{participant.phoneNumber} </td>
+                      <td>{translateLabel(participant.invitationStatus)} </td>
+                      <td>{translateLabel(participant.evaluationStatus)} </td>
+                      <td>{participant.evaluationRating} </td>
+                      <td>{translateLabel(participant.userType)} </td>
+                    </tr>
+                  )}
+
+                </tbody>
+              </table>
+            </div>
 
           </div>
         </div>

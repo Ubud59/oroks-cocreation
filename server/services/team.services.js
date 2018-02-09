@@ -2,7 +2,6 @@
 const selectTeam = (pool, request) => {
 
   const testId=request.params.id;
-  console.log("testId in selectTeam",testId);
 
   return pool.query(
     `SELECT *
@@ -12,7 +11,6 @@ const selectTeam = (pool, request) => {
     [testId]
   )
   .then((dbResult) => {
-    console.log("nb rows returned in selectTeam",dbResult.rows.length);
     return team = dbResult.rows;
   })
   .then((team) => {

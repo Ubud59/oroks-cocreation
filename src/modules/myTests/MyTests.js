@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import { getTestsState } from '../../store/tests/selectors';
 import { updateTests } from '../../store/tests/actions';
 import { fetchMyTests } from '../../utils/tests.services.js';
-import translateOroksVocab from '../../utils/translateLabel.js';
+import translateLabel from '../../utils/translateLabel.js';
 
 class MyTests extends Component {
 
@@ -31,7 +31,7 @@ class MyTests extends Component {
             <small>{test.timing}</small>
           </div>
           <p className="mb-1">{test.description}</p>
-          <p className="mb-1">{translateOroksVocab(test.type)}</p>
+          <p className="mb-1">{translateLabel(test.type)}</p>
           <p className="mb-1">{test.test_reference}</p>
           <p className="mb-1">{test.product}</p>
           <p className="mb-1">{test.status}</p>
