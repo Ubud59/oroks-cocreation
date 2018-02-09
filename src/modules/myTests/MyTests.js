@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import { getTestsState } from '../../store/tests/selectors';
 import { updateTests } from '../../store/tests/actions';
 import { fetchMyTests } from '../../utils/tests.services.js';
+import translateOroksVocab from '../../utils/tabledecorrespondance.js';
 
 class MyTests extends Component {
 
@@ -30,13 +31,19 @@ class MyTests extends Component {
             <small>{test.timing}</small>
           </div>
           <p className="mb-1">{test.description}</p>
+          <p className="mb-1">{translateOroksVocab(test.type)}</p>
+          <p className="mb-1">{test.test_reference}</p>
+          <p className="mb-1">{test.product}</p>
+          <p className="mb-1">{test.status}</p>
+          <p className="mb-1">{test.validationTreshold}</p>
+          <img className="img" style={{height:"200px"}} src={test.image_src}></img>
           <small>
             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div className="btn-group mr-2" role="group" aria-label="First group">
             <button type="button" className="btn btn-outline btn-secondary btn-sm">Je participe</button>
             </div>
             <div className="btn-group mr-2" role="group" aria-label="Second group">
-            <a className="btn btn-secondary btn-sm" href="/myprofile" role="button">Je donne mon avis</a>
+            <a className="btn btn-secondary btn-sm" href="{test.evaluationFormPath}" role="button">Je donne mon avis</a>
             </div>
             </div>
           </small>
