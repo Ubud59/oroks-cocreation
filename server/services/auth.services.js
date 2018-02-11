@@ -1,5 +1,8 @@
 const { URLSearchParams } = require("url");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
+const cert = fs.readFileSync("./cert.pem");
 
 const frontUri = process.env.FRONT_REDIRECT_URI;
 const dktConnectRootUri=process.env.DKTCONNECT_ROOT_URI;
@@ -67,10 +70,32 @@ const fetchUser = (fetch, access_token) => {
     .catch(error => console.warn(error))
 }
 
+const isValideToken = (token) => {
+  return jwt.verify(token, cert, function(err, decoded) {
+    if (err) {
+      return false
+    } else {
+      return true
+    }
+  });
+}
+
+const decodeToken = (token) => {
+  return jwt.verify(token, cert, function(err, decoded) {
+    if (err) {
+      return {}
+    } else {
+      return decoded
+    }
+  });
+}
+
 module.exports = {
   getAuthorizeUri: getAuthorizeUri,
   getTokenFromCode: getTokenFromCode,
   getFrontRedirectUri: getFrontRedirectUri,
   getNewAccountUri: getNewAccountUri,
-  fetchUser: fetchUser
+  fetchUser: fetchUser,
+  isValideToken: isValideToken,
+  decodeToken: decodeToken
 };

@@ -10,7 +10,7 @@ const fetch = require("node-fetch");
 const cors = require("cors")
 const multer = require("multer");
 const uuidv4 = require("uuid/v4");
-const jwtDecode = require('jwt-decode');
+
 
 const app = express();
 
@@ -24,6 +24,18 @@ const pool = new Pool({
 
 app.use(cors());
 
+app.use(function (request, result, next) {
+  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create"]
+  if (excludedPathes.includes(request.url.split("?")[0])) {
+    next()
+  } else {
+    if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+      result.status(401).json({message: "Invalid or expired token"});
+    } else {
+      next()
+    };
+  }
+});
 
 /////////////////////////////////////////////////////////////
 // Authentification
@@ -64,8 +76,8 @@ app.get("/auth/callback", function (request, result) {
 });
 
 app.get("/api/me", function(request, result) {
-  const access_token = request.headers.authorization
-  const externalId = decodeToken(access_token).sub
+  const access_token = request.headers.authorization.replace(/bearer /gi, "");
+  const externalId = authServices.decodeToken(access_token).sub
     userServices.getUserProfileByExternalId(pool, externalId)
     .then(user => result.json(user.rows[0]))
     .catch(e => result.status(500).send(e));
@@ -241,20 +253,6 @@ function isPgSslActive() {
     return false;
   }
   return true;
-}
-
-const decodeToken = (access_token) => {
-  const decodedToken = jwtDecode(access_token)
-  return {
-    country: decodedToken.country,
-    sub: decodedToken.sub,
-    iss: decodedToken.iss,
-    last_name: decodedToken.last_name,
-    exp: decodedToken.exp,
-    first_name: decodedToken.first_name,
-    iat: decodedToken.iat,
-    client_id: decodedToken.client_id
-  }
 }
 
 app.listen(port, function () {
