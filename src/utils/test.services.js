@@ -13,7 +13,7 @@ function uploadFile(file){
     }
   )
   .then((response) => {
-    if (response.status!=200) {
+    if (response.status!==200) {
       alert("Une erreur est survenue lors de l'upload!");
     }
     return response.json();

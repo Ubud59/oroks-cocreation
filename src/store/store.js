@@ -2,9 +2,8 @@ import { createStore, combineReducers } from 'redux';
 import userReducer from "./user/reducer";
 import testReducer from "./test/reducer";
 import testsReducer from "./tests/reducer";
-import teamReducer from "./team/reducer";
+import participantsReducer from "./participants/reducer";
 import profileReducer from "./profile/reducer";
-// import myTestsReducer from "./myTests/reducer";
 import userProfileReducer from './userProfile/reducer'
 
 
@@ -12,7 +11,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   test: testReducer,
   tests: testsReducer,
-  team: teamReducer,
+  participants: participantsReducer,
   profile: profileReducer,
   userProfile: userProfileReducer
 

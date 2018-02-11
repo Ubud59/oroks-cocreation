@@ -5,7 +5,7 @@ const path = require("path");
 const authServices = require("./services/auth.services")
 const userServices = require("./services/user.services")
 const testServices = require("./services/test.services")
-const teamServices = require("./services/team.services")
+const participantServices = require("./services/participant.services")
 const fetch = require("node-fetch");
 const cors = require("cors")
 const multer = require("multer");
@@ -185,16 +185,18 @@ app.post(
 );
 
 
+
 /////////////////////////////////////////////////////////////
-// Team
+// Participants
 /////////////////////////////////////////////////////////////
 
-app.get("/api/test/:id/team",
+
+app.get("/api/test/:id/participants",
   function(request, result) {
 
-    return teamServices.selectTeam(pool, request)
-    .then((team) => {
-      result.json(team);
+    return participantServices.selectParticipants(pool, request)
+    .then((participants) => {
+      result.json(participants);
     })
     .catch(error => {
       console.warn(error);
@@ -202,6 +204,21 @@ app.get("/api/test/:id/team",
     });
   }
 );
+
+app.post("/api/participant/:id/update",
+  function(request, result) {
+
+    return participantServices.updateParticipant(pool, request)
+    .then((dbResult) => {
+      result.json(dbResult);
+    })
+    .catch(error => {
+      console.warn(error);
+      result.status(500).send(error);
+    });
+  }
+);
+
 
 /////////////////////////////////////////////////////////////
 // Commun

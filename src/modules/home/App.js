@@ -7,7 +7,9 @@ import MyTestsComponent from '../myTests/MyTests';
 import AuthComponent from '../auth/Auth'
 import ProfileComponent from '../profile/Profile';
 import TestComponent from '../test/Test';
-import TeamComponent from '../team/Team';
+import ParticipantsComponent from '../participants/Participants';
+import TestEvalComponent from '../testEval/TestEval';
+import TestResultsComponent from '../testResults/TestResults';
 
 import { getUserState } from '../../store/user/selectors';
 import { userAuthentication } from '../../store/user/actions';
@@ -88,9 +90,10 @@ class App extends Component {
               <Route path={"/auth/callback"} component={AuthComponent}></Route>
               <Route path="/newtest" component={TestComponent}/>
               <Route path="/profile" component={ProfileComponent}/>
-              <Route path="/test/:id/team" component={TeamComponent}/>
+              <Route path="/test/:id/participants" component={ParticipantsComponent}/>
+              <Route path="/test/:id/eval" component={TestEvalComponent}/>
+              <Route path="/test/:id/results" component={TestResultsComponent}/>
               <Route path="/test/:id" component={TestComponent}/>
-
 
             </Switch>
           </div>
