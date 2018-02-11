@@ -1,10 +1,17 @@
-const OROKS_VOCAB = {
+const labels = {
+  "ACCEPTED":"Acceptée",
+  "REJECTED":"Rejetée",
+  "IGNORED":"Pas de réponse",
+  "FILLED":"Renseignée",
+  "NOT_FILLED":"Non renseignée",
+  "TEST":"Testeur",
+  "ENGINEER":"Ingénieur",
   "STATIC_FITTING": "trad de static fitting",
-  "IN_PROGRESS": "trad de in progress"
+  "IN_PROGRESS": "trad de in progress",
 };
 
-function translateOroksVocab(text) {
-  return OROKS_VOCAB[text] || `**${text}**`;
+function translateLabel(text) {
+  return labels[text] || `**${text}**`;
 }
 
-export default translateOroksVocab;
+export default translateLabel;
