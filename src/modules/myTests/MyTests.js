@@ -39,7 +39,10 @@ class MyTests extends Component {
 
   <div className="row">
 
-      {this.props.tests.map((test, index) =>
+      {(this.props.tests.length===0) ? (
+        <p>Vous n'avez pas encore été invité à une campagne de test OROKS.</p>
+      ): (
+       <div>{this.props.tests.map((test, index) =>
 
     <div key={index} className="col-sm-6 col-md-3">
     <div className="card-deck">
@@ -81,6 +84,9 @@ class MyTests extends Component {
     </div>
     </div>
           )}
+        </div>
+      )
+        }
   </div>
   );
   }
