@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
-import {getProfileState} from '../../store/userProfile/selectors';
+import {getUserProfile} from '../../store/userProfile/selectors';
 import {updateProfile} from '../../store/userProfile/actions';
 import { fetchMyProfile } from '../../utils/profile.services.js';
 
@@ -223,5 +223,5 @@ class Profile extends Component {
   }
 }
 
-const ProfileComponent = connect(getProfileState, updateProfile)(Profile)
+const ProfileComponent = connect(getUserProfile, updateProfile)(Profile)
 export default ProfileComponent;
