@@ -25,7 +25,7 @@ const pool = new Pool({
 app.use(cors());
 
 // app.use(function (request, result, next) {
-//   const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create","/api/tests/user/"]
+//   const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "api/profile/new"]
 //   if (excludedPathes.includes(request.url.split("?")[0])) {
 //     next()
 //   } else {
@@ -88,9 +88,6 @@ app.get("/api/me", function(request, result) {
 // Profile
 /////////////////////////////////////////////////////////////
 
-app.post("/api/profile/new", function (request, result) {
-  createMyProfile(pool,request.params);
-});
 
 
 /////////////////////////////////////////////////////////////
@@ -174,19 +171,59 @@ app.post(
   }
 );
 
-app.post("/api/test/new",
-  function(request, result) {
-
-    return testServices.insertTest(pool, request)
-    .then((dbResult) => {
-      result.json(dbResult);
-    })
-    .catch(error => {
-      console.warn(error);
-      result.status(500).send(error);
-    });
-  }
-);
+app.post(
+   "/api/profile/new",
+   function (request, result) {
+     console.log("body:", request.body);
+    return pool.query(
+       `UPDATE user_profiles set
+         expert_panel = $2,
+         height = $3,
+         weight = $4,
+         practice_type = $5,
+         club_city = $6,
+         club_name = $7,
+         start_of_practice_year = $8,
+         shoe_size = $9,
+         skate_width = $10,
+         shin_gard_size = $11,
+         pant_size = $12,
+         elbow_pad_size = $13,
+         shoulder_pad_size = $14,
+         glove_size = $15,
+         helmet_size = $16,
+         head_size = $17
+       WHERE user_id = $1;`,
+           [
+             request.body.id,
+             request.body.expert_panel,
+             request.body.height,
+             request.body.weight,
+             request.body.practice_type,
+             request.body.club_city,
+             request.body.club_name,
+             request.body.start_of_practice_year,
+             request.body.shoe_size,
+             request.body.skate_width,
+             request.body.shin_gard_size,
+             request.body.pant_size,
+             request.body.elbow_pad_size,
+             request.body.shoulder_pad_size,
+             request.body.glove_size,
+             request.body.helmet_size,
+             request.body.head_size
+           ]
+         )
+         .then((dbResult) => {
+           console.log("dbResult", dbResult);
+           result.json(dbResult);
+ })
+        .catch(error => {
+          console.warn(error);
+          result.status(500).send(error);
+        });
+    }
+  );
 
 app.get("/api/test/:id",
   function(request, result) {

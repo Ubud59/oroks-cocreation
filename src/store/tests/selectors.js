@@ -1,6 +1,6 @@
 export function getTestsState(state) {
   return {
     tests: state.tests,
-    user: state.user
+    userProfile: state.userProfile
   };
 }

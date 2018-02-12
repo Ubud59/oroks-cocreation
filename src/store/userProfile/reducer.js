@@ -63,8 +63,7 @@ export default function userProfileReducer(state = initialState, action) {
     case "SIGN_OUT":
       return initialState;
     case "UPDATE_MY_PROFILE":
-      postNewProfile(action.profile);
-      return initialState; 
+      postNewProfile(action.profile); 
       case "UPDATE_PROFILE_FIELD":
         return {...state, [action.field]: action.value};
     default:

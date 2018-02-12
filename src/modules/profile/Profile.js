@@ -12,8 +12,7 @@ import { fetchMyProfile } from '../../utils/profile.services.js';
 class Profile extends Component {
 
   componentDidMount(){
-
-    fetchMyProfile(this.props.profile.id)
+    fetchMyProfile(this.props.userProfile.id)
     .then(profile => {
       return profile;
     })
@@ -23,7 +22,6 @@ class Profile extends Component {
 
 
   render() {
-    console.log("Props dans Profile",this.props);
     return (
       <div className="container pt-5">
         <div className="card border-light text-secondary mb-3">
@@ -31,21 +29,20 @@ class Profile extends Component {
           <div className="card-body text-dark">
           <form onSubmit={ (event) => {
             event.preventDefault();
-            console.log("props to me :", this.props);
-            this.props.updatemyProfile(this.props.userProfile);
+            this.props.updateMyProfile(this.props.userProfile);
           }}>
 
 
           <div className="form-group col-md-6">
             <label for="stature">Stature</label>
-            <input type="text" className="form-control" id="height" placeholder="Stature" onChange={(event) => this.props.updateProfileField("height", "123")}/>
+            <input type="text" className="form-control" id="height" placeholder="Stature" onChange={(event) => this.props.updateProfileField("height", event.target.value)}/>
           </div>
 
 
 
           <div className="form-group col-md-4" >
             <label for="practice_type">Type de pratique</label>
-            <select id="practice" className="form-control" value={this.props.userProfile.practice} onChange={(event) => this.props.updateProfileField("practiceType", event.target.value)}>
+            <select id="practice" className="form-control" value={this.props.userProfile.practice_type} onChange={(event) => this.props.updateProfileField("practice_type", event.target.value)}>
               <option selected>Choose...</option>
               <option>Hockey sur glace</option>
               <option>Roller Hockey</option>
@@ -55,12 +52,12 @@ class Profile extends Component {
 
           <div className="form-group col-md-6" >
             <label for="ClubCity">Club - Ville</label>
-            <input type="text" className="form-control" id="clubcity" value={this.props.userProfile.clubcity} placeholder="ClubCity" onChange={(event) => this.props.updateProfileField("clubCity", event.target.value)}/>
+            <input type="text" className="form-control" id="clubcity" value={this.props.userProfile.club_city} placeholder="ClubCity" onChange={(event) => this.props.updateProfileField("club_city", event.target.value)}/>
           </div>
 
           <div className="form-group col-md-4">
             <label for="experience">Nombre d'année de pratique</label>
-            <select id="practice" className="form-control" onChange={(event) => this.props.updateProfileField("nbYearPractice", event.target.value)}>
+            <select id="practice" className="form-control" onChange={(event) => this.props.updateProfileField("start_of_practice_year", event.target.value)}>
               <option selected>Choose...</option>
               <option>Moins d'un an et demi</option>
               <option>2-5 ans</option>
@@ -72,7 +69,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-4">
             <label for="categories">Catégories</label>
-            <select id="categories" className="form-control" onChange={(event) => this.props.updateProfileField("category", event.target.value)}>
+            <select id="categories" className="form-control" value={this.props.userProfile.category} onChange={(event) => this.props.updateProfileField("category", event.target.value)}>
               <option selected>Choose...</option>
               <option>Junior</option>
               <option>U20</option>
@@ -90,7 +87,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-4">
             <label for="shoesize">Pointure</label>
-            <select id="shoesize" className="form-control" onChange={(event) => this.props.updateProfileField("shoeSize", event.target.value)}>
+            <select id="shoesize" className="form-control" value={this.props.userProfile.shoe_size} onChange={(event) => this.props.updateProfileField("shoe_size", event.target.value)}>
               <option selected>Choose...</option>
               <option>22 - Y06</option>
               <option>23,5 - Y07</option>
@@ -117,7 +114,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-4">
             <label for="skatewidth">Largeur de patins</label>
-            <select id="skatewidth" className="form-control" onChange={(event) => this.props.updateProfileField("skateWidth", event.target.value)}>
+            <select id="skatewidth" className="form-control" value={this.props.userProfile.skate_width} onChange={(event) => this.props.updateProfileField("skate_width", event.target.value)}>
               <option selected>Choose...</option>
               <option>D</option>
               <option>EE</option>
@@ -127,7 +124,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-4">
             <label for="shinGardSize">Taille jambière</label>
-            <select id="shinGardSize" className="form-control" onChange={(event) => this.props.updateProfileField("shinGardSize", event.target.value)}>
+            <select id="shinGardSize" className="form-control"  onChange={(event) => this.props.updateProfileField("shin_gard_size", event.target.value)}>
               <option selected>Choose...</option>
               <option>8'</option>
               <option>9'</option>
@@ -145,7 +142,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-4">
             <label for="pantsize">Taille culotte</label>
-            <select id="pantsize" className="form-control" onChange={(event) => this.props.updateProfileField("pantSize", event.target.value)}>
+            <select id="pantsize" className="form-control" onChange={(event) => this.props.updateProfileField("pant_size", event.target.value)}>
               <option selected>Choose...</option>
               <option>YTH XS</option>
               <option>YTH S</option>
@@ -165,7 +162,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-4">
             <label for="elbowPadSize">Coudières</label>
-            <select id="elbowPadSize" className="form-control" onChange={(event) => this.props.updateProfileField("elbowPadSize", event.target.value)}>
+            <select id="elbowPadSize" className="form-control" onChange={(event) => this.props.updateProfileField("elbow_pad_size", event.target.value)}>
               <option selected>Choose...</option>
               <option>YTH S</option>
               <option>YTH M</option>
@@ -182,7 +179,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-4">
             <label for="shoulderPadSize">Taille des gants</label>
-            <select id="shoulderPadSize" className="form-control" onChange={(event) => this.props.updateProfileField("shoulderPadSize", event.target.value)}>
+            <select id="shoulderPadSize" className="form-control" onChange={(event) => this.props.updateProfileField("shoulder_pad_size", event.target.value)}>
               <option selected>Choose...</option>
               <option>8'</option>
               <option>9'</option>
@@ -197,7 +194,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-4">
             <label for="gloveSize">Taille de casque</label>
-            <select id="gloveSize" className="form-control" onChange={(event) => this.props.updateProfileField("gloveSize", event.target.value)}>
+            <select id="gloveSize" className="form-control" onChange={(event) => this.props.updateProfileField("glove_size", event.target.value)}>
               <option selected>Choose...</option>
               <option>Junior</option>
               <option>XS</option>
@@ -210,11 +207,11 @@ class Profile extends Component {
 
           <div className="form-group col-md-6">
             <label for="headSize">Tour de tête</label>
-            <input type="text" className="form-control" id="headSize" placeholder="headSize" onChange={(event) => this.props.updateProfileField("headSize", event.target.value)}/>
+            <input type="text" className="form-control" id="headSize" value={this.props.userProfile.head_size} placeholder="headSize" onChange={(event) => this.props.updateProfileField("head_size", event.target.value)}/>
           </div>
 
 
-          <button type="submit" className="btn btn-primary" >Sign in</button>
+          <button type="submit" className="btn btn-primary" >Enregister</button>
         </form>
       </div>
     </div>
