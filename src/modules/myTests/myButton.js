@@ -26,7 +26,7 @@ class MyModal extends Component {
     return (
       <div>
         <a href="#" onClick={this.open}>
-          Je participe
+        Je participe
         </a>
         <Modal animation={false} show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>

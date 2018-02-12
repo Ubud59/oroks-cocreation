@@ -27,9 +27,7 @@ function postUpdatedParticipant(participant){
     }
   )
   .then((response) => {
-    if (response.status===200) {
-      alert("Test enregistré avec succès !");
-    } else {
+    if (response.status!==200) {
       alert("Une erreur est survenue !");
     }
   })

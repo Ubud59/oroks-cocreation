@@ -60,11 +60,11 @@ const updateParticipant = (pool, request) => {
     WHERE id = $1;`,
     [
       request.body.id,
-      request.body.testId,
-      request.body.userId,
-      request.body.invitationStatus,
-      request.body.evaluationStatus,
-      request.body.evaluationRating
+      request.body.test_id,
+      request.body.user_id,
+      request.body.invitation_status,
+      request.body.evaluation_status,
+      request.body.evaluation_rating
     ]
   );
 }
