@@ -113,13 +113,13 @@ class Participants extends Component {
                               <div className="col-6">
                                 <fieldset className="form-group">
                                   <div className="form-check form-check-inline ml-2">
-                                    <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio1" value="FILLED" checked={participant.evaluationStatus === "FILLED"} onChange={() => this.props.updateParticipantField(index,"evaluationStatus","FILLED")}/>
+                                    <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio1" value="FILLED" checked={participant.evaluationStatus === "FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","FILLED")}/>
                                     <label className="form-check-label">
                                       Oui
                                     </label>
                                   </div>
                                   <div className="form-check form-check-inline ml-2">
-                                    <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio2" value="NOT_FILLED" checked={participant.evaluationStatus === "NOT_FILLED"} onChange={() => this.props.updateParticipantField(index,"evaluationStatus","NOT_FILLED")}/>
+                                    <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio2" value="NOT_FILLED" checked={participant.evaluationStatus === "NOT_FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","NOT_FILLED")}/>
                                     <label className="form-check-label">
                                       Non
                                     </label>
@@ -127,7 +127,7 @@ class Participants extends Component {
                                 </fieldset>
                               </div>
                               <div className="col-3">
-                                <select class="custom-select" onChange={(event) => this.props.updateParticipantField(index,"evaluationRating",event.target.value)}>
+                                <select class="custom-select" onChange={(event) => this.props.updateParticipantField(participant.id,"evaluationRating",event.target.value)}>
                                   <option value="1" selected={participant.evaluationRating === 1} >
                                     1
                                   </option>

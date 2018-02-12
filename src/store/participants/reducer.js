@@ -26,14 +26,17 @@ export default function participantsReducer(state = initialState, action) {
 
     case "UPDATE_PARTICIPANT_FIELD":
       const updatedParticipants=[...state.participants];
-      updatedParticipants[action.index][action.field] = action.value;
+      const index1 = state.participants.findIndex(function(element) {
+        return (element.id===action.id);
+      });
+      updatedParticipants[index1][action.field] = action.value;
       return {...state, participants:updatedParticipants};
 
     case "UPDATE_PARTICIPANT":
-      const index = state.participants.findIndex(function(element) {
+      const index2 = state.participants.findIndex(function(element) {
         return (element.id===action.participant.id);
       });
-      postUpdatedParticipant(state.participants[index]);
+      postUpdatedParticipant(state.participants[index2]);
       return state;
 
     case "FETCH_PARTICIPANTS":
