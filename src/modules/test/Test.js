@@ -21,6 +21,7 @@ class Test extends Component {
 
   componentDidMount() {
     if (this.props.match.params.id) {
+
       fetchTest(this.props.match.params.id)
         .then(test => this.props.fetchTest(test))
         .catch(error => console.warn(error));
@@ -101,7 +102,7 @@ class Test extends Component {
                       <NavLink href={`/test/${this.props.test.id}/results`}>Résultats</NavLink>
                     </NavItem>
                     <NavItem className="bg-white border">
-                      <NavLink href={`/test/${this.props.test.id}/team`}>Equipe tests</NavLink>
+                      <NavLink href={`/test/${this.props.test.id}/participants`}>Equipe tests</NavLink>
                     </NavItem>
                   </Nav>
                 </Collapse>
@@ -135,7 +136,7 @@ class Test extends Component {
               <div className="col-3">
                 {
                   (this.props.test.imageSrc) ?
-                  (<img className="img-fluid product-image" src={this.props.test.imageSrc}/>)
+                  (<img className="img-fluid product-image" alt="" src={this.props.test.imageSrc}/>)
                   : (null)
                 }
               </div>
