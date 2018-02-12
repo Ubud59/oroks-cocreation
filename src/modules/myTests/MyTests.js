@@ -4,7 +4,11 @@ import {connect} from "react-redux";
 import { getTestsState } from '../../store/tests/selectors';
 import { updateTests } from '../../store/tests/actions';
 import { fetchMyTests } from '../../utils/tests.services.js';
+import { postUpdatedParticipant } from '../../utils/participant.services.js';
+
 import translateLabel from '../../utils/translateLabel.js';
+import MyModal from './myButton.js';
+
 
 class MyTests extends Component {
 
@@ -18,39 +22,72 @@ class MyTests extends Component {
     .catch(error => console.warn(error));
   }
 
+  handleClick=(test)=> {
+    test.invitation_status = "ACCEPTED";
+    console.log("this.props.tests in handleClick",this.props.tests);
+    //update state
+    this.props.updateMyTest(test);
+    //update database via api
+    const participant={...test,id:test.participant_id};
+    postUpdatedParticipant(participant);
+  }
+
+
   render() {
 
     return (
-      <div className="list-group">
 
-      {this.props.tests.map((test, index) =>
+  <div className="row">
 
-        <div key={index} className="list-group-item list-group-item-action flex-column align-items-start">
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">{test.title}</h5>
-            <small>{test.timing}</small>
-          </div>
-          <p className="mb-1">{test.description}</p>
-          <p className="mb-1">{translateLabel(test.type)}</p>
-          <p className="mb-1">{test.test_reference}</p>
-          <p className="mb-1">{test.product}</p>
-          <p className="mb-1">{test.status}</p>
-          <p className="mb-1">{test.validationTreshold}</p>
-          <img className="img" style={{height:"200px"}} src={test.image_src}></img>
-          <small>
+      {(this.props.tests.length===0) ? (
+        <p>Vous n'avez pas encore été invité à une campagne de test OROKS.</p>
+      ): (
+       <div>{this.props.tests.map((test, index) =>
+
+    <div key={index} className="col-sm-6 col-md-3">
+    <div className="card-deck">
+    <div className="card">
+            <img className="card-img-top" src={test.image_src} alt="Card image cap"></img>
+            <div className="card-block">
+              <h4 className="card-title">{test.title}</h4>
+              <p className="card-text">{test.description}</p>
+              <p>type de test : {translateLabel(test.type)}</p>
+              <p>produit à tester : {test.product}</p>
+              <p>{test.validationTreshold}</p>
+              <p>numero de reference : {test.test_reference}</p>
+              <p>statut : {test.status}</p>
+            </div>
+      <div className="card-footer">
+        <small className="text-muted">{test.timing}
             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div className="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" className="btn btn-outline btn-secondary btn-sm">Je participe</button>
+            <button
+              type="button"
+              disabled={test.invitation_status === "ACCEPTED"}
+              className="btn btn-outline btn-secondary btn-sm"
+              onClick={()=> {
+                if (test.invitation_status !== "ACCEPTED") {
+                  this.handleClick(test)
+                }
+              }}
+            >
+              {test.invitation_status !== "ACCEPTED" ? <MyModal /> : "J'ai participé" }
+            </button>
             </div>
             <div className="btn-group mr-2" role="group" aria-label="Second group">
-            <a className="btn btn-secondary btn-sm" href="{test.evaluationFormPath}" role="button">Je donne mon avis</a>
+            <a className="btn btn-secondary btn-sm" href={`/test/${test.id}/eval`} role="button">Je donne mon avis</a>
             </div>
             </div>
-          </small>
-        </div>
-      )}
-
+        </small>
       </div>
+    </div>
+    </div>
+    </div>
+          )}
+        </div>
+      )
+        }
+  </div>
   );
   }
 }

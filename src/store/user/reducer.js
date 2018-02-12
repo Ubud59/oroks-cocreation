@@ -1,10 +1,10 @@
 const initialState = {
-  id: "3c9a2dfd-fd84-406a-bb52-317dbeeb2f36",
-  firstName: "Virginie",
-  lastName: "ZINCK",
-  email: "virginie.zinck@decathlon.com",
-  phoneNumber: "0637542643",
-  userType: "ENGINEER",
+  id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+  firstName: "chloe",
+  lastName: "bataille",
+  email: "chloe.bataille@gmail.com",
+  phoneNumber: "0665578124",
+  userType: "TEST",
   external_id:"1234"
 };
 

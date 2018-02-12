@@ -24,18 +24,18 @@ const pool = new Pool({
 
 app.use(cors());
 
-app.use(function (request, result, next) {
-  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create"]
-  if (excludedPathes.includes(request.url.split("?")[0])) {
-    next()
-  } else {
-    if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
-      result.status(401).json({message: "Invalid or expired token"});
-    } else {
-      next()
-    };
-  }
-});
+// app.use(function (request, result, next) {
+//   const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create","/api/tests/user/"]
+//   if (excludedPathes.includes(request.url.split("?")[0])) {
+//     next()
+//   } else {
+//     if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+//       result.status(401).json({message: "Invalid or expired token"});
+//     } else {
+//       next()
+//     };
+//   }
+// });
 
 /////////////////////////////////////////////////////////////
 // Authentification
@@ -100,11 +100,28 @@ app.post("/api/profile/new", function (request, result) {
 app.get("/api/tests/user/:id",
     function(request, result) {
       const userId=request.params.id;
-
       return pool.query(
-        `SELECT t.*
+        `SELECT
+    		t.id,
+    		t.type,
+    		t.test_reference,
+    		t.title,
+    		t.product,
+    		t.status,
+    		t.description,
+    		t.validation_threshold,
+    		t.timing,
+    		t.image_src,
+    		t.evaluation_form_path,
+    		t.evaluation_results_path,
+    		p.id AS participant_id,
+    		p.test_id,
+    		p.user_id,
+    		p.invitation_status,
+    		p.evaluation_status,
+    		p.evaluation_rating
         FROM tests t,
-             test_participants p
+        test_participants p
         WHERE t.id=p.test_id
         AND p.user_id=$1;`,
         [userId]
