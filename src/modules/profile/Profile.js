@@ -3,34 +3,49 @@ import {connect} from "react-redux";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
-import {getProfileState} from '../../store/profile/selectors';
-import {createProfile} from '../../store/profile/actions';
+import {getProfileState} from '../../store/userProfile/selectors';
+import {updateProfile} from '../../store/userProfile/actions';
+import { fetchMyProfile } from '../../utils/profile.services.js';
 
 
 
 class Profile extends Component {
 
+  componentDidMount(){
+
+    fetchMyProfile(this.props.profile.id)
+    .then(profile => {
+      return profile;
+    })
+    .then(profile => this.props.fetchMyProfile(profile))
+    .catch(error => console.warn(error));
+  }
+
 
   render() {
-
+    console.log("Props dans Profile",this.props);
     return (
-      <div>
+      <div className="container pt-5">
+        <div className="card border-light text-secondary mb-3">
+          <div className="card-header">Mise à jour du profil</div>
+          <div className="card-body text-dark">
           <form onSubmit={ (event) => {
             event.preventDefault();
-            this.props.createmyProfile(this.props.profile);
+            console.log("props to me :", this.props);
+            this.props.updatemyProfile(this.props.profile);
           }}>
 
 
           <div className="form-group col-md-6">
             <label for="stature">Stature</label>
-            <input type="text" className="form-control" id="stature" placeholder="Stature" onChange={(event) => this.props.updateProfileField("height", event.target.value)}/>
+            <input type="text" className="form-control" id="height" placeholder="Stature" onChange={(event) => this.props.updateProfileField("height", "123")}/>
           </div>
 
 
 
           <div className="form-group col-md-4" >
             <label for="practice_type">Type de pratique</label>
-            <select id="practice" className="form-control" onChange={(event) => this.props.updateProfileField("practiceType", event.target.value)}>
+            <select id="practice" className="form-control" value={this.props.profile.practice} onChange={(event) => this.props.updateProfileField("practiceType", event.target.value)}>
               <option selected>Choose...</option>
               <option>Hockey sur glace</option>
               <option>Roller Hockey</option>
@@ -40,14 +55,14 @@ class Profile extends Component {
 
           <div className="form-group col-md-6" >
             <label for="ClubCity">Club - Ville</label>
-            <input type="text" className="form-control" id="clubcity" placeholder="ClubCity" onChange={(event) => this.props.updateProfileField("clubCity", event.target.value)}/>
+            <input type="text" className="form-control" id="clubcity" value={this.props.profile.clubcity} placeholder="ClubCity" onChange={(event) => this.props.updateProfileField("clubCity", event.target.value)}/>
           </div>
 
           <div className="form-group col-md-4">
-            <label for="experience">`Nombre d'annee de pratique`</label>
+            <label for="experience">Nombre d'année de pratique</label>
             <select id="practice" className="form-control" onChange={(event) => this.props.updateProfileField("nbYearPractice", event.target.value)}>
               <option selected>Choose...</option>
-              <option>`Moins d'un an et demi`</option>
+              <option>Moins d'un an et demi</option>
               <option>2-5 ans</option>
               <option>5-10 ans</option>
               <option>10-15 ans</option>
@@ -114,17 +129,17 @@ class Profile extends Component {
             <label for="shinGardSize">Taille jambière</label>
             <select id="shinGardSize" className="form-control" onChange={(event) => this.props.updateProfileField("shinGardSize", event.target.value)}>
               <option selected>Choose...</option>
-              <option>`8'`</option>
-              <option>`9'`</option>
-              <option>`10'`</option>
-              <option>`11'`</option>
-              <option>`12'`</option>
-              <option>`13'`</option>
-              <option>`14'`</option>
-              <option>`15'`</option>
-              <option>`16'`</option>
-              <option>`17'`</option>
-              <option>`18'`</option>
+              <option>8'</option>
+              <option>9'</option>
+              <option>10'</option>
+              <option>11'</option>
+              <option>12'</option>
+              <option>13'</option>
+              <option>14'</option>
+              <option>15'</option>
+              <option>16'</option>
+              <option>17'</option>
+              <option>18'</option>
             </select>
           </div>
 
@@ -132,19 +147,19 @@ class Profile extends Component {
             <label for="pantsize">Taille culotte</label>
             <select id="pantsize" className="form-control" onChange={(event) => this.props.updateProfileField("pantSize", event.target.value)}>
               <option selected>Choose...</option>
-              <option>`YTH XS`</option>
-              <option>`YTH S`</option>
-              <option>`YTH M`</option>
-              <option>`YTH L`</option>
-              <option>`JR S`</option>
-              <option>`JR M`</option>
-              <option>`JR L`</option>
-              <option>`JR XL`</option>
-              <option>`SR S`</option>
-              <option>`SR M`</option>
-              <option>`SR L`</option>
-              <option>`SR XL`</option>
-              <option>`SR XXL`</option>
+              <option>YTH XS</option>
+              <option>YTH S</option>
+              <option>YTH M</option>
+              <option>YTH L</option>
+              <option>JR S</option>
+              <option>JR M</option>
+              <option>JR L</option>
+              <option>JR XL</option>
+              <option>SR S</option>
+              <option>SR M</option>
+              <option>SR L</option>
+              <option>SR XL</option>
+              <option>SR XXL</option>
             </select>
           </div>
 
@@ -152,16 +167,16 @@ class Profile extends Component {
             <label for="elbowPadSize">Coudières</label>
             <select id="elbowPadSize" className="form-control" onChange={(event) => this.props.updateProfileField("elbowPadSize", event.target.value)}>
               <option selected>Choose...</option>
-              <option>`YTH S`</option>
-              <option>`YTH M`</option>
-              <option>`YTH L`</option>
-              <option>`JR S`</option>
-              <option>`JR M`</option>
-              <option>`JR L`</option>
-              <option>`SR S`</option>
-              <option>`SR M`</option>
-              <option>`SR L`</option>
-              <option>`SR XL`</option>
+              <option>YTH S</option>
+              <option>YTH M</option>
+              <option>YTH L</option>
+              <option>JR S</option>
+              <option>JR M</option>
+              <option>JR L</option>
+              <option>SR S</option>
+              <option>SR M</option>
+              <option>SR L</option>
+              <option>SR XL</option>
             </select>
           </div>
 
@@ -169,14 +184,14 @@ class Profile extends Component {
             <label for="shoulderPadSize">Taille des gants</label>
             <select id="shoulderPadSize" className="form-control" onChange={(event) => this.props.updateProfileField("shoulderPadSize", event.target.value)}>
               <option selected>Choose...</option>
-              <option>`8'`</option>
-              <option>`9'`</option>
-              <option>`10'`</option>
-              <option>`11'`</option>
-              <option>`12'`</option>
-              <option>`13'`</option>
-              <option>`14'`</option>
-              <option>`15'`</option>
+              <option>8'</option>
+              <option>9'</option>
+              <option>10'</option>
+              <option>11'</option>
+              <option>12'</option>
+              <option>13'</option>
+              <option>14'</option>
+              <option>15'</option>
             </select>
           </div>
 
@@ -202,10 +217,11 @@ class Profile extends Component {
           <button type="submit" className="btn btn-primary" >Sign in</button>
         </form>
       </div>
+    </div>
+      </div>
     );
   }
 }
 
-const ProfileComponent = connect(getProfileState, createProfile)(Profile)
-
+const ProfileComponent = connect(getProfileState, updateProfile)(Profile)
 export default ProfileComponent;

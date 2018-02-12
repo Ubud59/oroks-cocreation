@@ -3,7 +3,6 @@ import userReducer from "./user/reducer";
 import testReducer from "./test/reducer";
 import testsReducer from "./tests/reducer";
 import participantsReducer from "./participants/reducer";
-import profileReducer from "./profile/reducer";
 import userProfileReducer from './userProfile/reducer'
 
 
@@ -12,7 +11,6 @@ const rootReducer = combineReducers({
   test: testReducer,
   tests: testsReducer,
   participants: participantsReducer,
-  profile: profileReducer,
   userProfile: userProfileReducer
 
 })
