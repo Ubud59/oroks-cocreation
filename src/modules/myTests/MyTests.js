@@ -4,7 +4,10 @@ import {connect} from "react-redux";
 import { getTestsState } from '../../store/tests/selectors';
 import { updateTests } from '../../store/tests/actions';
 import { fetchMyTests } from '../../utils/tests.services.js';
+
 import translateLabel from '../../utils/translateLabel.js';
+import MyModal from './myButton.js';
+
 
 class MyTests extends Component {
 
@@ -21,36 +24,43 @@ class MyTests extends Component {
   render() {
 
     return (
-      <div className="list-group">
+
+  <div className="row">
 
       {this.props.tests.map((test, index) =>
 
-        <div key={index} className="list-group-item list-group-item-action flex-column align-items-start">
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">{test.title}</h5>
-            <small>{test.timing}</small>
-          </div>
-          <p className="mb-1">{test.description}</p>
-          <p className="mb-1">{translateLabel(test.type)}</p>
-          <p className="mb-1">{test.test_reference}</p>
-          <p className="mb-1">{test.product}</p>
-          <p className="mb-1">{test.status}</p>
-          <p className="mb-1">{test.validationTreshold}</p>
-          <img className="img" style={{height:"200px"}} src={test.image_src}></img>
-          <small>
+    <div key={index} className="col-sm-6 col-md-4">
+    <div class="card-deck">
+    <div class="card">
+            <img class="card-img-top" src={test.image_src} alt="Card image cap"></img>
+            <div class="card-block">
+              <h4 class="card-title">{test.title}</h4>
+              <p class="card-text">{test.description}</p>
+              <p>type de test : {translateOroksVocab(test.type)}</p>
+              <p>produit à tester : {test.product}</p>
+              <p>{test.validationTreshold}</p>
+              <p>numero de reference : {test.test_reference}</p>
+              <p>statut : {test.status}</p>
+            </div>
+      <div class="card-footer">
+        <small class="text-muted">{test.timing}
             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div className="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" className="btn btn-outline btn-secondary btn-sm">Je participe</button>
+            <button type="button" className="btn btn-outline btn-secondary btn-sm">
+            <MyModal />
+            </button>
             </div>
             <div className="btn-group mr-2" role="group" aria-label="Second group">
             <a className="btn btn-secondary btn-sm" href="{test.evaluationFormPath}" role="button">Je donne mon avis</a>
             </div>
             </div>
-          </small>
-        </div>
-      )}
-
+        </small>
       </div>
+    </div>
+    </div>
+    </div>
+          )}
+  </div>
   );
   }
 }
