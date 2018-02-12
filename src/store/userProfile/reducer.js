@@ -59,7 +59,7 @@ const initialState = {
 export default function userProfileReducer(state = initialState, action) {
   switch (action.type) {
     case "LOGGED_IN":
-      return initialState;
+      return action.user;
     case "SIGN_OUT":
       return initialState;
     case "UPDATE_MY_PROFILE":

@@ -68,3 +68,6 @@ typings/
 .env.test.local
 .env.production.local
 .env.dev
+
+
+server/cert.pem

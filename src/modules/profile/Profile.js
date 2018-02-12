@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
-import {getProfileState} from '../../store/userProfile/selectors';
+import {getUserProfile} from '../../store/userProfile/selectors';
 import {updateProfile} from '../../store/userProfile/actions';
 import { fetchMyProfile } from '../../utils/profile.services.js';
 
@@ -32,7 +32,7 @@ class Profile extends Component {
           <form onSubmit={ (event) => {
             event.preventDefault();
             console.log("props to me :", this.props);
-            this.props.updatemyProfile(this.props.profile);
+            this.props.updatemyProfile(this.props.userProfile);
           }}>
 
 
@@ -45,7 +45,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-4" >
             <label for="practice_type">Type de pratique</label>
-            <select id="practice" className="form-control" value={this.props.profile.practice} onChange={(event) => this.props.updateProfileField("practiceType", event.target.value)}>
+            <select id="practice" className="form-control" value={this.props.userProfile.practice} onChange={(event) => this.props.updateProfileField("practiceType", event.target.value)}>
               <option selected>Choose...</option>
               <option>Hockey sur glace</option>
               <option>Roller Hockey</option>
@@ -55,7 +55,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-6" >
             <label for="ClubCity">Club - Ville</label>
-            <input type="text" className="form-control" id="clubcity" value={this.props.profile.clubcity} placeholder="ClubCity" onChange={(event) => this.props.updateProfileField("clubCity", event.target.value)}/>
+            <input type="text" className="form-control" id="clubcity" value={this.props.userProfile.clubcity} placeholder="ClubCity" onChange={(event) => this.props.updateProfileField("clubCity", event.target.value)}/>
           </div>
 
           <div className="form-group col-md-4">
@@ -223,5 +223,5 @@ class Profile extends Component {
   }
 }
 
-const ProfileComponent = connect(getProfileState, updateProfile)(Profile)
+const ProfileComponent = connect(getUserProfile, updateProfile)(Profile)
 export default ProfileComponent;

@@ -11,6 +11,7 @@ const cors = require("cors")
 const multer = require("multer");
 const uuidv4 = require("uuid/v4");
 
+
 const app = express();
 
 app.use(require("body-parser").json());
@@ -23,6 +24,18 @@ const pool = new Pool({
 
 app.use(cors());
 
+app.use(function (request, result, next) {
+  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create"]
+  if (excludedPathes.includes(request.url.split("?")[0])) {
+    next()
+  } else {
+    if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+      result.status(401).json({message: "Invalid or expired token"});
+    } else {
+      next()
+    };
+  }
+});
 
 /////////////////////////////////////////////////////////////
 // Authentification
@@ -42,28 +55,31 @@ app.get("/api/auth/create", function (request, result) {
 // CALLBACK URL FOR DKT CONNECT TO SEND CODE
 app.get("/auth/callback", function (request, result) {
   const tokenRequestParams = authServices.getTokenFromCode(fetch, request.query.code)
-    .then(token => result.redirect(authServices.getFrontRedirectUri(token)))
+    .then(token => {
+      return authServices.fetchUser(fetch, token.access_token)
+        .then(oauthUser => {
+          return userServices.findbyExternalIdOrCreateUser(pool, oauthUser)
+          .then(userStatus => {
+            if (userStatus === 'createdUser') {
+              // redirect mytests
+              return {token: token, uri: '/myprofile'}
+            } else {
+              // redirect form profile
+              return {token: token, uri: '/mytests'}
+            }
+          })
+        })
+      //return {token: token, uri: uri}
+    })
+    .then(redirectInfos => result.redirect(authServices.getFrontRedirectUri(redirectInfos)))
     .catch(error => console.warn(error));
 });
 
 app.get("/api/me", function(request, result) {
-  const token = request.headers.authorization
-  authServices.fetchUser(fetch, token)
-    .then(user => {
-      userServices.findUserbyId(pool, user.id)
-      .then(dbRecord => {
-        console.log(dbRecord)
-        // if (dbRecord.rows.length > 0) {
-        //   // redirect mytests
-        // } else {
-        //   // insert user only
-        //   // and
-        //   // redirect form profile
-        // }
-      })
-      return user
-    })
-    .then(user => result.json(user))
+  const access_token = request.headers.authorization.replace(/bearer /gi, "");
+  const externalId = authServices.decodeToken(access_token).sub
+    userServices.getUserProfileByExternalId(pool, externalId)
+    .then(user => result.json(user.rows[0]))
     .catch(e => result.status(500).send(e));
 })
 

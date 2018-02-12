@@ -1,6 +1,8 @@
 import jwt_decode from 'jwt-decode'
 import queryString from 'query-string';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 
 const getRedirectUri = () => {
   return process.env.REACT_APP_AUTH_REDIRECT_URI
@@ -12,8 +14,8 @@ const getNewAccountUri = () => {
 
 
 const isAuthenticated = () => {
-  if (localStorage.getItem('token') && localStorage.getItem('token') !== undefined) {
-    const expire_date = new Date((jwt_decode(localStorage.getItem('token')).exp) * 1000)
+  if (cookies.get('token') && cookies.get('token') !== undefined) {
+    const expire_date = new Date((jwt_decode(cookies.get('token')).exp) * 1000)
     return (expire_date > new Date());
   }
   else {
@@ -22,8 +24,8 @@ const isAuthenticated = () => {
 }
 
 const retrieveToken = () => {
-  if (localStorage.getItem('token') && localStorage.getItem('token') !== undefined) {
-    return localStorage.getItem('token')
+  if (cookies.get('token') && cookies.get('token') !== undefined) {
+    return cookies.get('token');
   }
 }
 
@@ -31,7 +33,7 @@ const persistSession = (callbackHashParams) => {
   return new Promise(function(resolve, reject) {
     try {
       const parsedHash = queryString.parse(callbackHashParams);
-      localStorage.setItem('token', `Bearer ${parsedHash.access_token}`);
+      cookies.set('token', `Bearer ${parsedHash.access_token}`, { path: '/' });
       resolve(parsedHash);
     }
     catch(error) {

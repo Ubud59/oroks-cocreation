@@ -12,12 +12,13 @@ import TestEvalComponent from '../testEval/TestEval';
 import TestResultsComponent from '../testResults/TestResults';
 
 import { getUserState } from '../../store/user/selectors';
-import { userAuthentication } from '../../store/user/actions';
+import { updateProfile } from '../../store/userProfile/actions';
 
 import './App.css';
 import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse } from "reactstrap";
 
-import { getRedirectUri, isAuthenticated } from '../../utils/auth.services'
+import { isAuthenticated } from '../../utils/auth.services'
+import { loadTokenAndFetchUser } from '../../utils/user.services'
 
 // en attente de gestion authent par Damien
 const user = {
@@ -34,6 +35,16 @@ class App extends Component {
     this.state = {
       isOpen: false
     };
+  }
+
+  componentDidMount() {
+    loadTokenAndFetchUser()
+    .then(
+      userInfos => {
+        this.props.handleUserInfo(userInfos)
+      }
+    )
+    .catch(e => console.warn(e));
   }
 
   toggle() {
@@ -84,17 +95,16 @@ class App extends Component {
 
           <div>
             <Switch>
-              <Route exact path="/" component={MyTestsComponent}/>
+              <PrivateRoute exact path="/" component={MyTestsComponent}/>
               <Route path="/login" component={LoginComponent}/>
-              <Route path="/mytests" component={MyTestsComponent}/>
+              <PrivateRoute path="/mytests" component={MyTestsComponent}/>
               <Route path={"/auth/callback"} component={AuthComponent}></Route>
-              <Route path="/newtest" component={TestComponent}/>
-              <Route path="/profile" component={ProfileComponent}/>
-              <Route path="/test/:id/participants" component={ParticipantsComponent}/>
-              <Route path="/test/:id/eval" component={TestEvalComponent}/>
-              <Route path="/test/:id/results" component={TestResultsComponent}/>
-              <Route path="/test/:id" component={TestComponent}/>
-
+              <PrivateRoute path="/newtest" component={TestComponent}/>
+              <PrivateRoute path="/profile" component={ProfileComponent}/>
+              <PrivateRoute path="/test/:id/participants" component={ParticipantsComponent}/>
+              <PrivateRoute path="/test/:id/eval" component={TestEvalComponent}/>
+              <PrivateRoute path="/test/:id/results" component={TestResultsComponent}/>
+              <PrivateRoute path="/test/:id" component={TestComponent}/>
             </Switch>
           </div>
 
@@ -109,11 +119,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     (isAuthenticated()) ? (
       <Component {...props}/>
     ) : (
-      <Route component={() => window.location = getRedirectUri()}></Route>
+      <Route component={LoginComponent}></Route>
     )
   )}/>
 )
 
 
-const AppComponent = connect(getUserState)(App)
+const AppComponent = connect(getUserState, updateProfile)(App)
 export {App, AppComponent};
