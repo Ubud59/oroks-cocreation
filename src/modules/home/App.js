@@ -12,7 +12,7 @@ import TestEvalComponent from '../testEval/TestEval';
 import TestResultsComponent from '../testResults/TestResults';
 
 import { getUserState } from '../../store/user/selectors';
-import { userAuthentication } from '../../store/userProfile/actions';
+import { updateProfile } from '../../store/userProfile/actions';
 
 import './App.css';
 import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse } from "reactstrap";
@@ -125,5 +125,5 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 
-const AppComponent = connect(getUserState, userAuthentication)(App)
+const AppComponent = connect(getUserState, updateProfile)(App)
 export {App, AppComponent};

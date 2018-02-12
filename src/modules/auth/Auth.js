@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import fetchUser from '../../utils/user.services'
 import { persistSession } from '../../utils/auth.services'
 
-import { userAuthentication } from '../../store/userProfile/actions'
+import { updateProfile } from '../../store/userProfile/actions'
 
 const Auth = (props) => {
   persistSession(props.location.hash)
@@ -24,5 +24,5 @@ const getUserInfo = (hashParams, props) => {
       .catch(e => console.log(e))
 }
 
-const AuthComponent = withRouter(connect(null, userAuthentication)(Auth));
+const AuthComponent = withRouter(connect(null, updateProfile)(Auth));
 export default AuthComponent
