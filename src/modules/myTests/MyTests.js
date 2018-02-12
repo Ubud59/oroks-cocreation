@@ -14,7 +14,7 @@ class MyTests extends Component {
 
   componentDidMount(){
 
-    fetchMyTests(this.props.user.id)
+    fetchMyTests(this.props.userProfile.id)
     .then(tests => {
       return tests;
     })

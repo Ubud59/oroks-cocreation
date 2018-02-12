@@ -11,7 +11,7 @@ import ParticipantsComponent from '../participants/Participants';
 import TestEvalComponent from '../testEval/TestEval';
 import TestResultsComponent from '../testResults/TestResults';
 
-import { getUserState } from '../../store/user/selectors';
+import { getUserProfile } from '../../store/userProfile/selectors';
 import { updateProfile } from '../../store/userProfile/actions';
 
 import './App.css';
@@ -30,7 +30,6 @@ const user = {
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false
@@ -68,7 +67,7 @@ class App extends Component {
                     <NavLink href="/testsoroks">Les tests Oroks</NavLink>
                   </NavItem>
                   <NavItem className="bg-light">
-                    <NavLink href="/myprofile">Mon profile</NavLink>
+                    <NavLink href="/profile">Mon profile</NavLink>
                   </NavItem>
                   <NavItem className="bg-light">
                     <NavLink href="/mytests">Mes tests</NavLink>
@@ -100,7 +99,7 @@ class App extends Component {
               <Route path="/mytests" component={MyTestsComponent}/>
               <Route path={"/auth/callback"} component={AuthComponent}></Route>
               <PrivateRoute path="/newtest" component={TestComponent}/>
-              <PrivateRoute path="/profile" component={ProfileComponent}/>
+              <Route path="/profile" component={ProfileComponent}/>
               <PrivateRoute path="/test/:id/participants" component={ParticipantsComponent}/>
               <Route path="/test/:id/eval" component={TestEvalComponent}/>
               <PrivateRoute path="/test/:id/results" component={TestResultsComponent}/>
@@ -125,5 +124,5 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 
-const AppComponent = connect(getUserState, updateProfile)(App)
+const AppComponent = connect(getUserProfile, updateProfile)(App)
 export {App, AppComponent};
