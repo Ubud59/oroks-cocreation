@@ -38,7 +38,7 @@ class Profile extends Component {
 
           <div className="form-group col-md-6">
             <label for="stature">Stature</label>
-            <input type="text" className="form-control" id="height" placeholder="Stature" onChange={(event) => this.props.updateProfileField("height", "123")}/>
+            <input type="text" className="form-control" id="height" placeholder="Stature" onChange={(event) => this.props.updateProfileField("height", event.target.value)}/>
           </div>
 
 
@@ -214,7 +214,7 @@ class Profile extends Component {
           </div>
 
 
-          <button type="submit" className="btn btn-primary" >Sign in</button>
+          <button type="submit" className="btn btn-primary" >Enregister</button>
         </form>
       </div>
     </div>
