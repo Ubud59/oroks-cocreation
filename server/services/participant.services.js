@@ -25,24 +25,6 @@ const selectParticipants = (pool, request) => {
   .then((dbResult) => {
     return participants = dbResult.rows;
   })
-  .then((participants) => {
-    return participants.map((participant) => {
-      return {
-        id: participant.id,
-        testId: participant.test_id,
-        userId: participant.user_id,
-        invitationStatus: participant.invitation_status,
-        evaluationStatus: participant.evaluation_status,
-        evaluationRating: participant.evaluation_rating,
-        firstName: participant.first_name,
-        lastName: participant.last_name,
-        email: participant.email,
-        phoneNumber: participant.phone_number,
-        userType: participant.user_type,
-        externalId: participant.external_id
-      };
-    });
-  });
 }
 
 

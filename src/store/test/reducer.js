@@ -3,17 +3,17 @@ import { postNewTest, postUpdatedTest} from '../../utils/test.services.js';
 const initialState = {
   id: null,
   type: "",
-  testReference: "",
+  test_reference: "",
   title: "",
   product: "",
   status: "",
   description: "",
-  validationThreshold: "",
+  validation_threshold: "",
   timing: "",
-  imageSrc: "",
-  evaluationFormPath: "",
-  evaluationResultsPath: "",
-  createdBy:""
+  image_src: "",
+  evaluation_form_path: "",
+  evaluation_results_path: "",
+  created_by:""
 };
 
 

@@ -23,7 +23,7 @@ import { loadTokenAndFetchUser } from '../../utils/user.services'
 // en attente de gestion authent par Damien
 const user = {
   id:"1123",
-  userType:"TESTER"
+  userType:"ENGINEER"
 };
 
 
