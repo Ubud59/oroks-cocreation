@@ -65,7 +65,42 @@ const createUserProfile = (pool, userId) => {
       .catch(e => console.warn(e));
 }
 
+const getAllTestUsers = (pool) => {
+  return pool.query(`
+    SELECT
+    U.id,
+    U.first_name,
+    U.last_name,
+    U.birthdate,
+    U.sex,
+    U.email,
+    U.phone_number,
+    U.user_type,
+      UP.expert_panel,
+      UP.height,
+      UP.weight,
+      UP.practice_type,
+      UP.club_city,
+      UP.club_name,
+      UP.start_of_practice_year,
+      UP.category,
+      UP.shoe_size,
+      UP.skate_width,
+      UP.shin_gard_size,
+      UP.pant_size,
+      UP.elbow_pad_size,
+      UP.shoulder_pad_size,
+      UP.glove_size,
+      UP.helmet_size,
+      UP.head_size
+    FROM USERS U
+    INNER JOIN USER_PROFILES UP on UP.user_id = U.id
+    WHERE U.user_type = $1`,
+    ['TEST'])
+}
+
 module.exports = {
   findbyExternalIdOrCreateUser: findbyExternalIdOrCreateUser,
-  getUserProfileByExternalId: getUserProfileByExternalId
+  getUserProfileByExternalId: getUserProfileByExternalId,
+  getAllTestUsers: getAllTestUsers
 }

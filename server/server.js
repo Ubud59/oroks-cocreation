@@ -25,8 +25,9 @@ const pool = new Pool({
 
 app.use(cors());
 
+
 app.use(function (request, result, next) {
-  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "api/profile/new"]
+  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "/api/users", "api/profile/new"]
   if (excludedPathes.includes(request.url.split("?")[0])) {
     next()
   } else {
@@ -37,6 +38,7 @@ app.use(function (request, result, next) {
     };
   }
 });
+
 
 /////////////////////////////////////////////////////////////
 // Authentification
@@ -142,6 +144,12 @@ app.post(
         });
     }
   );
+
+app.get("/api/users", function (request, result) {
+  userServices.getAllTestUsers(pool)
+    .then(users => result.json(users.rows))
+    .catch(e => console.warn(e));
+})
 
 
 /////////////////////////////////////////////////////////////
