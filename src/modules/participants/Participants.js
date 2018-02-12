@@ -92,8 +92,8 @@ class Participants extends Component {
                       <th scope="col">Telephone</th>
                       <th scope="col">Statut Invitation </th>
                       <th scope="col">Evaluation renseignée? </th>
-                      <th scope="col">  Note évaluation</th>
-                      <th scope="col"> Action </th>
+                      <th scope="col">Note évaluation</th>
+                      <th scope="col">Action </th>
 
                     </tr>
                   </thead>

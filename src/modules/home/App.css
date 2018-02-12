@@ -15,14 +15,20 @@ body, html {
   width: 100%;
 }
 
-.nav-item {
-  border-radius: 5px 5px 0px 0px;
-}
-
 .header-row{
-  height: 50%;
-  background-image: url('../../images/background1800x667.jpg');
+  height: 30%;
+  background-image: url('../../images/Background.JPG');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.logo{
+  height: 20%;
+  width: auto;
+}
+
+
+.nav-item {
+  border-radius: 5px 5px 0px 0px;
 }

@@ -57,39 +57,43 @@ class App extends Component {
 
       <Router>
         <div className="container-fluid  content-general">
-          <div className="row header-row align-items-end">
-
-            <Navbar light className="p-0" expand="md">
-              <NavbarToggler className="bg-light" onClick={this.toggle} />
-              <Collapse isOpen={this.state.isOpen} navbar>
-                <Nav tabs className="ml-auto" navbar>
-                  <NavItem className="bg-light">
-                    <NavLink href="/testsoroks">Les tests Oroks</NavLink>
-                  </NavItem>
-                  <NavItem className="bg-light">
-                    <NavLink href="/profile">Mon profile</NavLink>
-                  </NavItem>
-                  <NavItem className="bg-light">
-                    <NavLink href="/mytests">Mes tests</NavLink>
-                  </NavItem>
-                  {(user.userType==="ENGINEER") ? (
-                      <NavItem className="bg-light">
-                        <NavLink href="/alltests">Tous les tests</NavLink>
+          <div className="row header-row">
+            <div className=" pt-3 ml-3">
+              <img className="logo" src={ require("../../images/logo.png")} alt="logo"/>
+            </div>
+            <div className="pt-3 ml-3">
+              <Navbar light className="p-0" expand="md">
+                <NavbarToggler className="bg-white" onClick={this.toggle} />
+                <Collapse isOpen={this.state.isOpen} navbar>
+                  <Nav pills className="ml-auto" navbar>
+                    <NavItem className="">
+                      <NavLink className="text-white" href="/myprofile">PROFILE</NavLink>
+                    </NavItem>
+                    <NavItem className="">
+                      <NavLink className="text-white" href="/testsoroks">TESTS OROKS</NavLink>
+                    </NavItem>
+                    <NavItem className="">
+                      <NavLink className="text-white" href="/mytests">MES TESTS</NavLink>
+                    </NavItem>
+                    {(user.userType==="ENGINEER") ? (
+                        <NavItem className="">
+                          <NavLink className="text-white" href="/alltests">TOUS LES TESTS</NavLink>
+                        </NavItem>
+                    ):(null)}
+                    {(user.userType==="ENGINEER") ? (
+                      <NavItem className="">
+                        <NavLink className="text-white" href="/newtest">CREER UN TEST</NavLink>
                       </NavItem>
-                  ):(null)}
-                  {(user.userType==="ENGINEER") ? (
-                    <NavItem className="bg-light">
-                      <NavLink href="/newtest">Créer un test</NavLink>
-                    </NavItem>
-                  ):(null)}
-                  {(user.userType==="ENGINEER") ? (
-                    <NavItem className="bg-light">
-                      <NavLink href="/community">La communauté</NavLink>
-                    </NavItem>
-                  ):(null)}
-                </Nav>
-              </Collapse>
-            </Navbar>
+                    ):(null)}
+                    {(user.userType==="ENGINEER") ? (
+                      <NavItem className="">
+                        <NavLink className="text-white" href="/community">COMMUNAUTE</NavLink>
+                      </NavItem>
+                    ):(null)}
+                  </Nav>
+                </Collapse>
+              </Navbar>
+            </div>
           </div>
 
           <div>
