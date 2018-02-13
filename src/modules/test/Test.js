@@ -104,6 +104,9 @@ class Test extends Component {
                     <NavItem className="bg-white border">
                       <NavLink href={`/test/${this.props.test.id}/participants`}>Equipe tests</NavLink>
                     </NavItem>
+                    <NavItem className="bg-white border">
+                      <NavLink href={`/test/${this.props.test.id}/selection`}>Constituer équipe</NavLink>
+                    </NavItem>
                   </Nav>
                 </Collapse>
               </Navbar>

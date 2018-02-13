@@ -1,5 +1,3 @@
-import { retrieveToken } from './auth.services';
-
 function postNewProfile(profile){
   // const access_token = retrieveToken();
   console.log("profile dans post:",profile);

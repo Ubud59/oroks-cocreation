@@ -1,4 +1,4 @@
-
+import { retrieveToken } from './auth.services'
 
 function uploadFile(file){
 
@@ -9,7 +9,10 @@ function uploadFile(file){
     `http://localhost:8080/api/test/upload`,
     {
       method: "POST",
-      body:formData
+      body:formData,
+      headers: {
+        'Authorization': retrieveToken(),
+      }
     }
   )
   .then((response) => {
@@ -35,7 +38,10 @@ function postNewTest(test){
     {
       method: "POST",
       body:JSON.stringify(test),
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        'Authorization': retrieveToken(),
+        "Content-Type": "application/json"
+      }
     }
   )
   .then((response) => {
@@ -59,7 +65,10 @@ function postUpdatedTest(test){
     {
       method: "POST",
       body:JSON.stringify(test),
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        'Authorization': retrieveToken(),
+        "Content-Type": "application/json"
+      }
     }
   )
   .then((response) => {
@@ -77,7 +86,13 @@ function postUpdatedTest(test){
 function fetchTest(testId){
   return fetch(
     `http://localhost:8080/api/test/${testId}`,
-    {method: "GET"}
+    {
+      method: "GET",
+      headers: {
+        'Authorization': retrieveToken(),
+        "Content-Type": "application/json"
+      }
+    }
   )
   .then((response) => {
     return response.json();

@@ -100,11 +100,12 @@ class App extends Component {
               <PrivateRoute path="/newtest" component={TestComponent}/>
               <Route path="/profile" component={ProfileComponent}/>
               <PrivateRoute path="/test/:id/participants" component={ParticipantsComponent}/>
+              <PrivateRoute path="/test/:id/selection" component={FilterTestTeamComponent}/>
               <Route path="/test/:id/eval" component={TestEvalComponent}/>
               <PrivateRoute path="/test/:id/results" component={TestResultsComponent}/>
               <PrivateRoute path="/test/:id" component={TestComponent}/>
-              <Route path="/filter" component={FilterTestTeamComponent}></Route>
             </Switch>
+            
           </div>
 
         </div>

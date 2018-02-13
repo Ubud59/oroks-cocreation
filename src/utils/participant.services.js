@@ -1,9 +1,15 @@
-
+import { retrieveToken } from './auth.services'
 
 function fetchParticipants(testId){
   return fetch(
     `http://localhost:8080/api/test/${testId}/participants`,
-    {method: "GET"}
+    {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: retrieveToken()
+      }
+    }
   )
   .then((response) => {
     return response.json();
@@ -37,6 +43,16 @@ function postUpdatedParticipant(participant){
   });
 }
 
+const patchParticipantsToTest = (testId, arrayOfSelectedUsers) => {
+  return fetch(`http://localhost:8080/api/test/${testId}/participants`, {
+    method: "PATCH",
+    body: JSON.stringify({users: arrayOfSelectedUsers}),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: retrieveToken()
+    }
+  })
+}
 
 
-export {fetchParticipants, postUpdatedParticipant};
+export {fetchParticipants, postUpdatedParticipant, patchParticipantsToTest};

@@ -69,6 +69,9 @@ class Participants extends Component {
                     <NavItem active className="bg-white border">
                       <NavLink href={`/test/${this.props.test.id}/participants`}>Equipe tests</NavLink>
                     </NavItem>
+                    <NavItem className="bg-white border">
+                      <NavLink href={`/test/${this.props.test.id}/selection`}>Constituer équipe</NavLink>
+                    </NavItem>
                   </Nav>
                 </Collapse>
               </Navbar>
@@ -102,10 +105,10 @@ class Participants extends Component {
 
                     {this.props.participants.participants.map((participant, index) =>
                     <tr key={index}>
-                      <td>{participant.firstName} {participant.lastName}</td>
+                      <td>{participant.first_name} {participant.last_name}</td>
                       <td>{participant.email} </td>
-                      <td>{participant.phoneNumber} </td>
-                      <td>{translateLabel(participant.invitationStatus)} </td>
+                      <td>{participant.phone_number} </td>
+                      <td>{translateLabel(participant.invitation_status)} </td>
 
                         <td colspan="3">
                           <form onSubmit={(event) => this.submitForm(event,participant)}>
@@ -113,13 +116,13 @@ class Participants extends Component {
                               <div className="col-6">
                                 <fieldset className="form-group">
                                   <div className="form-check form-check-inline ml-2">
-                                    <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio1" value="FILLED" checked={participant.evaluationStatus === "FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","FILLED")}/>
+                                    <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio1" value="FILLED" checked={participant.evaluation_status === "FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","FILLED")}/>
                                     <label className="form-check-label">
                                       Oui
                                     </label>
                                   </div>
                                   <div className="form-check form-check-inline ml-2">
-                                    <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio2" value="NOT_FILLED" checked={participant.evaluationStatus === "NOT_FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","NOT_FILLED")}/>
+                                    <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio2" value="NOT_FILLED" checked={participant.evaluation_status === "NOT_FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","NOT_FILLED")}/>
                                     <label className="form-check-label">
                                       Non
                                     </label>
@@ -128,19 +131,19 @@ class Participants extends Component {
                               </div>
                               <div className="col-3">
                                 <select class="custom-select" onChange={(event) => this.props.updateParticipantField(participant.id,"evaluationRating",event.target.value)}>
-                                  <option value="1" selected={participant.evaluationRating === 1} >
+                                  <option value="1" selected={participant.evaluation_rating === 1} >
                                     1
                                   </option>
-                                  <option value="2" selected={participant.evaluationRating === 2}>
+                                  <option value="2" selected={participant.evaluation_rating === 2}>
                                     2
                                   </option>
-                                  <option value="3" selected={participant.evaluationRating === 3} >
+                                  <option value="3" selected={participant.evaluation_rating === 3} >
                                     3
                                   </option>
-                                  <option value="4" selected={participant.evaluationRating === 4} >
+                                  <option value="4" selected={participant.evaluation_rating === 4} >
                                     4
                                   </option>
-                                  <option value="5" selected={participant.evaluationRating === 5} >
+                                  <option value="5" selected={participant.evaluation_rating === 5} >
                                     5
                                   </option>
                                 </select>
