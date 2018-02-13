@@ -43,7 +43,8 @@ class Test extends Component {
         this.props.updateTest(this.props.test);
       } else {
         this.props.createTest(this.props.test)
-      };
+        .then (id => this.props.history.push(`/test/${id}`));
+      }
     }
   }
 
