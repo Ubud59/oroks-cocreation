@@ -5,6 +5,7 @@ const path = require("path");
 const authServices = require("./services/auth.services")
 const userServices = require("./services/user.services")
 const testServices = require("./services/test.services")
+const mailServices = require("./services/mail.services")
 const participantServices = require("./services/participant.services")
 const fetch = require("node-fetch");
 const cors = require("cors")
@@ -295,7 +296,7 @@ app.post("/api/participant/:id/update",
 /////////////////////////////////////////////////////////////
 
 
-app.get("/send-email", function (request, result) {
+app.get("/api/send-email", function (request, result) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -306,13 +307,7 @@ app.get("/send-email", function (request, result) {
     }
   });
 
-  let mailOptions = {
-    from: "Oroks <oroks.tests@gmail.com>",
-    to: "virginie.zinck@decathlon.com",
-    subject: "Hello",
-    text: "Hello, world!"
-    // html: "<b>Kikoo</b>"
-  };
+  let mailOptions = mailServices.generateMailOptions(request.body.userProfile,request.body.test);
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
