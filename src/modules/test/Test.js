@@ -26,7 +26,7 @@ class Test extends Component {
         .then(test => this.props.fetchTest(test))
         .catch(error => console.warn(error));
     } else {
-      this.props.updateTestField("createdBy",this.props.user.id);
+      this.props.updateTestField("createdBy",this.props.userProfile.id);
     }
   }
 

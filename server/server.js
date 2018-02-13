@@ -24,18 +24,18 @@ const pool = new Pool({
 
 app.use(cors());
 
-// app.use(function (request, result, next) {
-//   const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "api/profile/new"]
-//   if (excludedPathes.includes(request.url.split("?")[0])) {
-//     next()
-//   } else {
-//     if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
-//       result.status(401).json({message: "Invalid or expired token"});
-//     } else {
-//       next()
-//     };
-//   }
-// });
+app.use(function (request, result, next) {
+  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "api/profile/new"]
+  if (excludedPathes.includes(request.url.split("?")[0])) {
+    next()
+  } else {
+    if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+      result.status(401).json({message: "Invalid or expired token"});
+    } else {
+      next()
+    };
+  }
+});
 
 /////////////////////////////////////////////////////////////
 // Authentification

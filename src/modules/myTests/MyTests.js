@@ -24,7 +24,6 @@ class MyTests extends Component {
 
   handleClick=(test)=> {
     test.invitation_status = "ACCEPTED";
-    console.log("this.props.tests in handleClick",this.props.tests);
     //update state
     this.props.updateMyTest(test);
     //update database via api
