@@ -156,6 +156,24 @@ app.get("/api/users", function (request, result) {
 // Tests
 /////////////////////////////////////////////////////////////
 
+app.get("/api/tests/",
+    function(request, result) {
+      return pool.query(
+        `SELECT
+    		*
+        FROM tests`
+      )
+      .then((dbResult) => {
+        const tests = dbResult.rows;
+        result.json(tests);
+      });
+    }
+);
+
+
+
+
+
 app.get("/api/tests/user/:id",
     function(request, result) {
       const userId=request.params.id;
