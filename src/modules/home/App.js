@@ -13,6 +13,7 @@ import ParticipantsComponent from '../participants/Participants';
 import TestEvalComponent from '../testEval/TestEval';
 import TestResultsComponent from '../testResults/TestResults';
 import FilterTestTeamComponent from '../filterTestTeam/filterTestTeam'
+import TestOroksComponent from '../testsoroks/TestOroks';
 
 import { getUserProfile } from '../../store/userProfile/selectors';
 import { updateProfile } from '../../store/userProfile/actions';
@@ -115,6 +116,7 @@ class App extends Component {
               <Route path={"/auth/redirect"} component={AuthComponent}></Route>
               <PrivateRoute path="/newtest" component={TestComponent}/>
               <PrivateRoute path="/profile" component={ProfileComponent}/>
+              <Route path="/testoroks" component={TestOroksComponent}/>
               <PrivateRoute path="/test/:id/participants" component={ParticipantsComponent}/>
               <PrivateRoute path="/test/:id/selection" component={FilterTestTeamComponent}/>
               <PrivateRoute path="/test/:id/eval" component={TestEvalComponent}/>
