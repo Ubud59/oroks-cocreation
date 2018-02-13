@@ -2,8 +2,6 @@ const { URLSearchParams } = require("url");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
-const cert = fs.readFileSync("./cert.pem");
-
 const frontUri = process.env.FRONT_REDIRECT_URI;
 const dktConnectRootUri=process.env.DKTCONNECT_ROOT_URI;
 const dktConnectCreateUserUri=process.env.DKTCONNECT_CREATE_USER_URI
