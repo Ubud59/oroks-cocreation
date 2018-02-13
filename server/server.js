@@ -27,7 +27,7 @@ app.use(cors());
 
 
 app.use(function (request, result, next) {
-  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "/api/users", "api/profile/new"]
+  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create"]
   if (excludedPathes.includes(request.url.split("?")[0])) {
     next()
   } else {
@@ -65,7 +65,7 @@ app.get("/auth/callback", function (request, result) {
           .then(userStatus => {
             if (userStatus === 'createdUser') {
               // redirect mytests
-              return {token: token, uri: '/myprofile'}
+              return {token: token, uri: '/profile'}
             } else {
               // redirect form profile
               return {token: token, uri: '/mytests'}
