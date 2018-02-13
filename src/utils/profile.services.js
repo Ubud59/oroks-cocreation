@@ -1,3 +1,5 @@
+import { retrieveToken } from './auth.services'
+
 function postNewProfile(profile){
   // const access_token = retrieveToken();
   console.log("profile dans post:",profile);
@@ -7,7 +9,7 @@ function postNewProfile(profile){
       method: "POST",
       body:JSON.stringify(profile),
       headers: {
-    //    'Authorization': access_token,
+        Authorization: retrieveToken(),
         'Content-Type': 'application/json'
       },
     }

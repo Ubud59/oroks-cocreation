@@ -5,6 +5,7 @@ import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse, FormGroup, Labe
 import { getTestState } from '../../store/test/selectors';
 import { updateTest } from '../../store/test/actions';
 import { patchParticipantsToTest } from '../../utils/participant.services';
+import { fetchAllUsers } from '../../utils/user.services';
 import { fetchTest } from '../../utils/test.services.js';
 
 class FilterTestTeam extends Component {
@@ -21,10 +22,7 @@ class FilterTestTeam extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8080/api/users", {
-      method: 'GET'
-    })
-    .then(res => res.json())
+    fetchAllUsers()
     .then(users => {
       this.setState({tableHeaders: Object.keys(users[0])});
       return users

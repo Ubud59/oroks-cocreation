@@ -33,5 +33,15 @@ const fetchUser = (access_token) => {
     .catch(error => error);
 }
 
+const fetchAllUsers = () => {
+  return fetch("http://localhost:8080/api/users", {
+    method: 'GET',
+    headers: {
+      Authorization: retrieveToken()
+    }
+  })
+  .then(res => res.json())
+}
+
 export default fetchUser
-export {loadTokenAndFetchUser, fetchUser}
+export {loadTokenAndFetchUser, fetchUser, fetchAllUsers}
