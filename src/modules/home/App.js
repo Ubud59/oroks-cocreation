@@ -20,12 +20,6 @@ import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse } from "reactstr
 import { isAuthenticated } from '../../utils/auth.services'
 import { loadTokenAndFetchUser } from '../../utils/user.services'
 
-// en attente de gestion authent par Damien
-const user = {
-  id:"1123",
-  userType:"ENGINEER"
-};
-
 
 class App extends Component {
   constructor(props) {
@@ -67,7 +61,7 @@ class App extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                   <Nav pills className="ml-auto" navbar>
                     <NavItem className="">
-                      <NavLink className="text-white" href="/myprofile">PROFILE</NavLink>
+                      <NavLink className="text-white" href="/profile">PROFILE</NavLink>
                     </NavItem>
                     <NavItem className="">
                       <NavLink className="text-white" href="/testsoroks">TESTS OROKS</NavLink>
@@ -75,17 +69,17 @@ class App extends Component {
                     <NavItem className="">
                       <NavLink className="text-white" href="/mytests">MES TESTS</NavLink>
                     </NavItem>
-                    {(user.userType==="ENGINEER") ? (
+                    {(this.props.userProfile.user_type==="ENGINEER") ? (
                         <NavItem className="">
                           <NavLink className="text-white" href="/alltests">TOUS LES TESTS</NavLink>
                         </NavItem>
                     ):(null)}
-                    {(user.userType==="ENGINEER") ? (
+                    {(this.props.userProfile.user_type==="ENGINEER") ? (
                       <NavItem className="">
                         <NavLink className="text-white" href="/newtest">CREER UN TEST</NavLink>
                       </NavItem>
                     ):(null)}
-                    {(user.userType==="ENGINEER") ? (
+                    {(this.props.userProfile.user_type==="ENGINEER") ? (
                       <NavItem className="">
                         <NavLink className="text-white" href="/community">COMMUNAUTE</NavLink>
                       </NavItem>
