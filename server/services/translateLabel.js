@@ -14,4 +14,6 @@ function translateLabel(text) {
   return labels[text] || `**${text}**`;
 }
 
-export default translateLabel;
+module.exports = {
+  translateLabel: translateLabel
+}

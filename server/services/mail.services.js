@@ -1,12 +1,11 @@
-const translateLabel = require("./services/translateLabel");
+const translateLabel = require("./translateLabel");
 
 const generateMailOptions = (userProfile, test) =>  {
 
-  return
-    {
+  return mailOptions = {
       from: "Oroks <oroks.tests@gmail.com>",
-      to: userProfile.gmail,
-      subject: `Oroks - invitation au test ${test.title}`
+      to: userProfile.email,
+      subject: `Oroks - invitation au test ${test.title}`,
       html: `
       <img style="width:100%;height:auto;" src="http://localhost:8080/images/Background.JPG" alt="">
       <div style="margin-left: 20%; margin-right: 20%;">
@@ -19,7 +18,7 @@ const generateMailOptions = (userProfile, test) =>  {
           </p>
           <div style="padding-left: 25%; padding-right: 25%; justify-content: center;">
             <div style="border: 1px solid black; background-color: #F0F0F0; margin-top: 5%; padding-bottom: 10%;">
-              <img style="width:100%;height:auto;" src=`${test.image_src}` alt="">
+              <img style="width:100%;height:auto;" src=${test.image_src} alt="">
               <h1>${test.title}</h1>
               <p> Viens tester le patin FIT 100 en FIITTING pour nous aider à améliorer notre produit. </p>
               <div style="padding-left: 5%; padding-bottom: 5%;">
