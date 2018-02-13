@@ -25,8 +25,9 @@ const pool = new Pool({
 
 app.use(cors());
 
+
 app.use(function (request, result, next) {
-  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "api/profile/new"]
+  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "/api/users", "api/profile/new"]
   if (excludedPathes.includes(request.url.split("?")[0])) {
     next()
   } else {
@@ -37,6 +38,7 @@ app.use(function (request, result, next) {
     };
   }
 });
+
 
 /////////////////////////////////////////////////////////////
 // Authentification
@@ -142,6 +144,12 @@ app.post(
         });
     }
   );
+
+app.get("/api/users", function (request, result) {
+  userServices.getAllTestUsers(pool)
+    .then(users => result.json(users.rows))
+    .catch(e => console.warn(e));
+})
 
 
 /////////////////////////////////////////////////////////////
@@ -254,6 +262,19 @@ app.post(
   }
 );
 
+app.post("/api/test/new",
+  function(request, result) {
+
+    return testServices.insertTest(pool, request)
+    .then((dbResult) => {
+      result.json(dbResult);
+    })
+    .catch(error => {
+      console.warn(error);
+      result.status(500).send(error);
+    });
+  }
+);
 
 
 /////////////////////////////////////////////////////////////
@@ -274,6 +295,15 @@ app.get("/api/test/:id/participants",
     });
   }
 );
+
+app.patch("/api/test/:id/participants", function(request, result) {
+  const particpantPromises = request.body.users.map(userId => {
+    return participantServices.setPartcipantToTest(pool, request.params.id, userId)
+      .then(dbResult => dbResult.rowCount)
+  })
+
+  Promise.all(particpantPromises).then(results => result.json({message: "Participants successfully created"}))
+})
 
 app.post("/api/participant/:id/update",
   function(request, result) {

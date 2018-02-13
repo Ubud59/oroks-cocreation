@@ -10,6 +10,7 @@ import TestComponent from '../test/Test';
 import ParticipantsComponent from '../participants/Participants';
 import TestEvalComponent from '../testEval/TestEval';
 import TestResultsComponent from '../testResults/TestResults';
+import FilterTestTeamComponent from '../filterTestTeam/filterTestTeam'
 
 import { getUserProfile } from '../../store/userProfile/selectors';
 import { updateProfile } from '../../store/userProfile/actions';
@@ -99,10 +100,12 @@ class App extends Component {
               <PrivateRoute path="/newtest" component={TestComponent}/>
               <Route path="/profile" component={ProfileComponent}/>
               <PrivateRoute path="/test/:id/participants" component={ParticipantsComponent}/>
+              <PrivateRoute path="/test/:id/selection" component={FilterTestTeamComponent}/>
               <Route path="/test/:id/eval" component={TestEvalComponent}/>
               <PrivateRoute path="/test/:id/results" component={TestResultsComponent}/>
-              <PrivateRoute exact path="/test/:id" component={TestComponent}/>
+              <PrivateRoute path="/test/:id" component={TestComponent}/>
             </Switch>
+            
           </div>
 
         </div>
