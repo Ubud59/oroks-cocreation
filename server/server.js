@@ -5,12 +5,13 @@ const path = require("path");
 const authServices = require("./services/auth.services")
 const userServices = require("./services/user.services")
 const testServices = require("./services/test.services")
+const mailServices = require("./services/mail.services")
 const participantServices = require("./services/participant.services")
 const fetch = require("node-fetch");
 const cors = require("cors")
 const multer = require("multer");
 const uuidv4 = require("uuid/v4");
-
+const nodemailer = require("nodemailer");
 
 const app = express();
 
@@ -88,6 +89,59 @@ app.get("/api/me", function(request, result) {
 // Profile
 /////////////////////////////////////////////////////////////
 
+app.post(
+   "/api/profile/new",
+   function (request, result) {
+     console.log("body:", request.body);
+    return pool.query(
+       `UPDATE user_profiles set
+         expert_panel = $2,
+         height = $3,
+         weight = $4,
+         practice_type = $5,
+         club_city = $6,
+         club_name = $7,
+         start_of_practice_year = $8,
+         shoe_size = $9,
+         skate_width = $10,
+         shin_gard_size = $11,
+         pant_size = $12,
+         elbow_pad_size = $13,
+         shoulder_pad_size = $14,
+         glove_size = $15,
+         helmet_size = $16,
+         head_size = $17
+       WHERE user_id = $1;`,
+           [
+             request.body.id,
+             request.body.expert_panel,
+             request.body.height,
+             request.body.weight,
+             request.body.practice_type,
+             request.body.club_city,
+             request.body.club_name,
+             request.body.start_of_practice_year,
+             request.body.shoe_size,
+             request.body.skate_width,
+             request.body.shin_gard_size,
+             request.body.pant_size,
+             request.body.elbow_pad_size,
+             request.body.shoulder_pad_size,
+             request.body.glove_size,
+             request.body.helmet_size,
+             request.body.head_size
+           ]
+         )
+        .then((dbResult) => {
+           console.log("dbResult", dbResult);
+           result.json(dbResult);
+        })
+        .catch(error => {
+          console.warn(error);
+          result.status(500).send(error);
+        });
+    }
+  );
 
 
 /////////////////////////////////////////////////////////////
@@ -171,60 +225,6 @@ app.post(
   }
 );
 
-app.post(
-   "/api/profile/new",
-   function (request, result) {
-     console.log("body:", request.body);
-    return pool.query(
-       `UPDATE user_profiles set
-         expert_panel = $2,
-         height = $3,
-         weight = $4,
-         practice_type = $5,
-         club_city = $6,
-         club_name = $7,
-         start_of_practice_year = $8,
-         shoe_size = $9,
-         skate_width = $10,
-         shin_gard_size = $11,
-         pant_size = $12,
-         elbow_pad_size = $13,
-         shoulder_pad_size = $14,
-         glove_size = $15,
-         helmet_size = $16,
-         head_size = $17
-       WHERE user_id = $1;`,
-           [
-             request.body.id,
-             request.body.expert_panel,
-             request.body.height,
-             request.body.weight,
-             request.body.practice_type,
-             request.body.club_city,
-             request.body.club_name,
-             request.body.start_of_practice_year,
-             request.body.shoe_size,
-             request.body.skate_width,
-             request.body.shin_gard_size,
-             request.body.pant_size,
-             request.body.elbow_pad_size,
-             request.body.shoulder_pad_size,
-             request.body.glove_size,
-             request.body.helmet_size,
-             request.body.head_size
-           ]
-         )
-         .then((dbResult) => {
-           console.log("dbResult", dbResult);
-           result.json(dbResult);
- })
-        .catch(error => {
-          console.warn(error);
-          result.status(500).send(error);
-        });
-    }
-  );
-
 app.get("/api/test/:id",
   function(request, result) {
 
@@ -288,6 +288,40 @@ app.post("/api/participant/:id/update",
     });
   }
 );
+
+
+
+/////////////////////////////////////////////////////////////
+// Envoi mails invitation
+/////////////////////////////////////////////////////////////
+
+
+app.get("/api/send-email", function (request, result) {
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "oroks.tests@gmail.com",
+      pass: "oroksforever"
+    }
+  });
+
+  let mailOptions = mailServices.generateMailOptions(request.body.userProfile,request.body.test);
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.warn("Error: " + error);
+      result.send(error);
+    }
+    else {
+      console.log("Message sent: " + info.messageId);
+      result.send(info);
+    }
+  });
+
+});
+
 
 
 /////////////////////////////////////////////////////////////
