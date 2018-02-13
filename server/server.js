@@ -68,7 +68,7 @@ app.get("/auth/callback", function (request, result) {
               return {token: token, uri: '/profile'}
             } else {
               // redirect form profile
-              return {token: token, uri: '/mytests'}
+              return {token: token, uri: '/'}
             }
           })
         })

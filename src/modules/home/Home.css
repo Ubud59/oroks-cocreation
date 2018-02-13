@@ -1,0 +1,31 @@
+.container {
+  font-family: "Verdana" ;
+
+}
+
+h5, h4, h6, p {
+  font-family: "Verdana" ;
+  font-weight: 100;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.container-button {
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.mybutton {
+  background-color: #3382C5;
+  vertical-align: middle;
+  line-height:2em;
+  color: white;
+}
+
+.button-text {
+  text-decoration: none;
+  color: white;
+}
