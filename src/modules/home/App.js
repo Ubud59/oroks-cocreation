@@ -70,7 +70,7 @@ class App extends Component {
                       <NavLink className="text-white mx-2" href="/profile"><h5>PROFILE</h5></NavLink>
                     </NavItem>
                     <NavItem className="">
-                      <NavLink className="text-white mx-2" href="/testsoroks"><h5>TESTS OROKS</h5></NavLink>
+                      <NavLink className="text-white mx-2" href="/testoroks"><h5>TESTS OROKS</h5></NavLink>
                     </NavItem>
                     <NavItem className="">
                       <NavLink className="text-white mx-2" href="/mytests"><h5>MES TESTS</h5></NavLink>
@@ -116,7 +116,7 @@ class App extends Component {
               <Route path={"/auth/redirect"} component={AuthComponent}></Route>
               <PrivateRoute path="/newtest" component={TestComponent}/>
               <PrivateRoute path="/profile" component={ProfileComponent}/>
-              <Route path="/testoroks" component={TestOroksComponent}/>
+              <PrivateRoute path="/testoroks" component={TestOroksComponent}/>
               <PrivateRoute path="/test/:id/participants" component={ParticipantsComponent}/>
               <PrivateRoute path="/test/:id/selection" component={FilterTestTeamComponent}/>
               <PrivateRoute path="/test/:id/eval" component={TestEvalComponent}/>
