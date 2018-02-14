@@ -427,7 +427,7 @@ app.post("/api/participant/:id/update",
 
 app.use("/static", express.static(path.join(__dirname, "../build/static")));
 
-app.use("/images", express.static(path.join(__dirname, "/images")));
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 
 app.get("*", (request, result) => {
