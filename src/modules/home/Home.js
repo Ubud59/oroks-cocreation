@@ -39,7 +39,7 @@ class Home extends Component {
         </h5>
 
         <div className="container container-button px-10 mx-10 center">
-          <div class="row justify-content-md-center">
+          <div className="row justify-content-md-center">
             <a className="btn btn-lg mybutton" href="http://localhost:3000/profile" >
               MON PROFILE
             </a>
@@ -53,7 +53,7 @@ class Home extends Component {
           Chez OROKS, nous réalisons différents type de tests (Essayage, Fonction terrain, usage ...). Le type de test à réalisé dépend du niveau d’avancé dans le développement du produit et des contraintes lié à ce dernier.
         </h5>
         <div className="container container-button center">
-          <div class="row justify-content-md-center">
+          <div className="row justify-content-md-center">
             <a className="btn btn-lg mybutton" href="http://localhost:3000/testsoroks" >
               TESTS OROKS
             </a>
@@ -67,7 +67,7 @@ class Home extends Component {
           Pour voir les tests auxquels tu as déjà été invité, clique sur le bouton ci-dessous !
         </h5>
         <div className="container container-button center">
-          <div class="row justify-content-md-center">
+          <div className="row justify-content-md-center">
             <a className="btn btn-lg mybutton" href="http://localhost:3000/mytests" >
               MES TESTS
             </a>

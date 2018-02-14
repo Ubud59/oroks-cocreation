@@ -66,6 +66,30 @@ const selectTest = (pool, request) => {
   });
 };
 
+const selectTestById = (pool, testId) => {
+  return pool.query(
+    `SELECT
+    	T.id,
+    	T.type,
+    	T.test_reference,
+    	T.title,
+    	T.product,
+    	T.status,
+    	T.description,
+    	T.validation_threshold,
+    	T.timing,
+    	T.image_src,
+    	T.evaluation_form_path,
+    	T.evaluation_results_path,
+    	T.created_by
+    FROM tests T
+    WHERE T.id = $1::uuid`
+    , [testId]
+    )
+      .then(dbResult => dbResult.rows)
+      .catch(e => console.warn(e));
+}
+
 
 const updateTest = (pool, request) => {
 
@@ -106,5 +130,6 @@ const updateTest = (pool, request) => {
 module.exports = {
   insertTest: insertTest,
   selectTest: selectTest,
-  updateTest: updateTest
+  updateTest: updateTest,
+  selectTestById: selectTestById
 }

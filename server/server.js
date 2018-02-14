@@ -24,21 +24,6 @@ const pool = new Pool({
 
 app.use(cors());
 
-
-// app.use(function (request, result, next) {
-//   const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "/"]
-//   if (excludedPathes.includes(request.url.split("?")[0])) {
-//     next()
-//   } else {
-//     if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
-//       result.status(401).json({message: "Invalid or expired token"});
-//     } else {
-//       next()
-//     };
-//   }
-// });
-
-
 /////////////////////////////////////////////////////////////
 // Authentification
 /////////////////////////////////////////////////////////////
@@ -161,8 +146,8 @@ function(request, result, next) {
   };
 },
 function (request, result) {
-  userServices.getAllTestUsers(pool)
-    .then(users => result.json(users.rows))
+  userServices.getAllTestUsersNotParticipatingToTest(pool, request.query.test)
+    .then(users => result.json(users))
     .catch(e => console.warn(e));
 })
 
@@ -393,10 +378,19 @@ function(request, result) {
     const invitationArray = request.body.users.map(user => mailServices.sendInvitationMail(user,request.body.test));
     return results;
   })
-  .then(results => result.json({message: "Participants successfully created"}))
+  .then(results => {
+    return participantServices.getTestAndParticipants(pool, request.params.id)
+      .then(test => result.json(test))
+  })
+  .catch(e => console.warn(e));
 })
 
-
+app.get("/api/test2/:id",
+  function(request, result) {
+    participantServices.getTestAndParticipants(pool, request.params.id)
+      .then(test => result.json(test))
+  }
+)
 
 
 app.post("/api/participant/:id/update",

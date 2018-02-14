@@ -140,19 +140,19 @@ class App extends Component {
                             <ul className="menu">
                                    <li>
                                      <div className="col-lg-6 col-xs-6 text-center">
-                                         <a href="https://www.facebook.com/Oroks.by.Decathlon/"><i class="fa fa-facebook fa-2x"></i>Facebook</a>
-                                     </div>
-                                    </li>
-
-                                    <li>
-                                      <div class="col-lg-6 col-xs-6 text-center">
-                                         <a href="https://www.instagram.com/oroks_by_decathlon/?hl=fr"><i class="fa fa-instagram fa-2x"></i>Instagram</a>
+                                         <a href="https://www.facebook.com/Oroks.by.Decathlon/"><i className="fa fa-facebook fa-2x"></i>Facebook</a>
                                      </div>
                                     </li>
 
                                     <li>
                                       <div className="col-lg-6 col-xs-6 text-center">
-                                         <a href="https://hockey-community.com"><i class="fa fa-group fa-2x"></i>Communauté</a>
+                                         <a href="https://www.instagram.com/oroks_by_decathlon/?hl=fr"><i className="fa fa-instagram fa-2x"></i>Instagram</a>
+                                     </div>
+                                    </li>
+
+                                    <li>
+                                      <div className="col-lg-6 col-xs-6 text-center">
+                                         <a href="https://hockey-community.com"><i className="fa fa-group fa-2x"></i>Communauté</a>
                                      </div>
                                     </li>
                               </ul>

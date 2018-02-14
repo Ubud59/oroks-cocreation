@@ -4,10 +4,11 @@ import compileExpression from 'filtrex'
 import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse, FormGroup, Label, Input } from "reactstrap";
 import { getTestState } from '../../store/test/selectors';
 import { updateTest } from '../../store/test/actions';
-import { patchParticipantsToTest, fetchParticipants } from '../../utils/participant.services';
+import { patchParticipantsToTest, fetchTestAndParticipants } from '../../utils/participant.services';
 import { fetchAllUsers } from '../../utils/user.services';
-import { fetchTest } from '../../utils/test.services.js';
-import translateLabel from '../../utils/translateLabel.js';
+
+
+import './filterTestTeam.css';
 
 class FilterTestTeam extends Component {
 
@@ -19,34 +20,41 @@ class FilterTestTeam extends Component {
       expression: '',
       filteredList: [],
       selectedUsers: [],
-      existingParticipants: []
+      existingParticipants: [],
+      test: '',
+      tableHeadersTestParticipants: []
     }
   }
 
   componentDidMount() {
-    fetchAllUsers()
-    .then(users => {
-      this.setState({tableHeaders: Object.keys(users[0])});
-      return users
-    })
-    .then(users => this.setState({users: users, filteredList: users}))
-    .catch(e => console.warn(e));
+    if (this.props.match.params.id !== "null") {
 
+      fetchAllUsers(this.props.match.params.id)
+      .then(users => {
+        if (users.length > 0){
+          this.setState({tableHeaders: Object.keys(users[0])});
+        }
+        return users
+      })
+      .then(users => this.setState({users: users, filteredList: users}))
+      .catch(e => console.warn(e));
 
-    if (this.props.match.params.id!=="null") {
-      fetchTest(this.props.match.params.id)
-        .then(test => this.props.fetchTest(test))
-        .catch(error => console.warn(error));
-
-      fetchParticipants(this.props.match.params.id)
-          .then(participants => this.setState({existingParticipants: participants}))
-          .catch(error => console.warn(error));
+      fetchTestAndParticipants(this.props.match.params.id)
+        .then(testFull => {
+          if (testFull.participants.length > 0){
+            this.setState({tableHeadersTestParticipants: Object.keys(testFull.participants[0])})
+          }
+          return testFull
+        }
+      ).then(testFull => this.setState({test: testFull}))
+      .catch(error => console.warn(error));
     }
 
 
   }
 
   render() {
+
     return (
 
       <div className="container pt-5">
@@ -55,7 +63,7 @@ class FilterTestTeam extends Component {
 
           <div className="card-header px-0 pb-0">
             <div className="row pl-5 pb-3 font-weight-bold">
-              Test : {this.props.test.title}
+              Test : {this.state.test.title}
             </div>
             <div className="row pl-3">
               <Navbar light className="p-0" expand="md">
@@ -63,19 +71,19 @@ class FilterTestTeam extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                   <Nav className="ml-auto" navbar>
                     <NavItem className="bg-white border">
-                      <NavLink href={`/test/${this.props.test.id}`}>Détails</NavLink>
+                      <NavLink href={`/test/${this.state.test.id}`}>Détails</NavLink>
                     </NavItem>
                     <NavItem className="bg-white border">
-                      <NavLink href={`/test/${this.props.test.id}/eval`}>Evaluation</NavLink>
+                      <NavLink href={`/test/${this.state.test.id}/eval`}>Evaluation</NavLink>
                     </NavItem>
                     <NavItem className="bg-white border">
-                      <NavLink href={`/test/${this.props.test.id}/results`}>Résultats</NavLink>
+                      <NavLink href={`/test/${this.state.test.id}/results`}>Résultats</NavLink>
                     </NavItem>
                     <NavItem className="bg-white border">
-                      <NavLink href={`/test/${this.props.test.id}/participants`}>Equipe tests</NavLink>
+                      <NavLink href={`/test/${this.state.test.id}/participants`}>Equipe tests</NavLink>
                     </NavItem>
                     <NavItem active className="bg-white border">
-                      <NavLink href={`/test/${this.props.test.id}/selection`}>Constituer équipe</NavLink>
+                      <NavLink href={`/test/${this.state.test.id}/selection`}>Constituer équipe</NavLink>
                     </NavItem>
                   </Nav>
                 </Collapse>
@@ -87,59 +95,83 @@ class FilterTestTeam extends Component {
 
 
         <div>
-          <div className="input-group input-group-sm mb-3">
-            <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value={this.state.expression} onChange={this.filterUsers}/>
-            <div className="invalid-feedback">Example invalid feedback text</div>
-          </div>
-          <button className="btn btn-primary" onClick={() => this.handleSubmitFilter()}>Submit</button>
-          <h2>Utilisateurs de la communauté</h2>
-          {
-            this.state.tableHeaders ?
-            <div className="table-responsive">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    {this.state.tableHeaders.map((key, idx) => <th key={idx} scope="col">{key}</th>)}
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {this.state.filteredList.map((user, index) =>
-                  <tr key={index}>
-                    <td>
-                    <FormGroup check>
-                      <Label check>
-                        <Input value={user.id} type="checkbox" onChange={(event) => this.handleCheck(event)}/>{' '}
-                      </Label>
-                    </FormGroup>
-                    </td>
-                    {Object.values(user).map((elm, idx) =>
-                      <td key={idx}>{elm}</td>
-                    )}
-                  </tr>)
-                }
-                </tbody>
-              </table>
+          <div className="form-expression">
+            <div className="input-expression">
+              <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value={this.state.expression} onChange={this.filterUsers}/>
             </div>
-            :
-            <div>Loading...</div>
-          }
+            <button className="btn btn-primary" onClick={() => this.handleSubmitFilter()}>Submit</button>
+          </div>
+
+          <div className="community-table">
+            <h2>Utilisateurs de la communauté</h2>
+            {
+              this.state.tableHeaders ?
+              <div className="table-responsive">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      {this.state.tableHeaders.map((key, idx) => <th key={idx} scope="col">{key}</th>)}
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {this.state.filteredList.map((user, index) =>
+                    <tr key={index}>
+                      <td>
+                      <FormGroup check>
+                        <Label check>
+                          <Input value={user.id} type="checkbox" onChange={(event) => this.handleCheck(event)}/>{' '}
+                        </Label>
+                      </FormGroup>
+                      </td>
+                      {Object.values(user).map((elm, idx) =>
+                        <td key={idx}>{elm}</td>
+                      )}
+                    </tr>)
+                  }
+                  </tbody>
+                </table>
+              </div>
+              :
+              <div>Loading...</div>
+            }
+              <div>
+                <button className="btn btn-primary" onClick={() => this.saveParticpants()}>Valider la sélection</button>
+              </div>
+            </div>
+          </div>
+
+        <div className="community-table">
+          <h2>Utilisateurs déjà selectionnés</h2>
+            {
+              this.state.tableHeadersTestParticipants ?
+              <div className="table-responsive">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      {this.state.tableHeadersTestParticipants.map((key, idx) => <th key={idx} scope="col">{key}</th>)}
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {this.state.test ? this.state.test.participants.map((participant, index) =>
+                    <tr key={index}>
+                      {Object.values(participant).map((elm, idx) =>
+                        <td key={idx}>{elm}</td>
+                      )}
+                    </tr>)
+                    :
+                    <tr></tr>
+                  }
+                  </tbody>
+                </table>
+              </div>
+              :
+              <div>Loading...</div>
+            }
         </div>
 
-        <div>
-          <button className="btn btn-primary" onClick={() => this.saveParticpants()}>Save</button>
-        </div>
-
-        <h2>Utilisateurs déjà selectionnés</h2>
-
-        {this.state.existingParticipants.map((participant, index) =>
-        <tr key={index}>
-          <td>{participant.first_name} {participant.last_name}</td>
-          <td>{participant.email} </td>
-          <td>{participant.phone_number} </td>
-        </tr>
-        )}
       </div>
     </div>
     </div>
@@ -148,7 +180,7 @@ class FilterTestTeam extends Component {
   }
 
   filterUsers = (event) => {
-    console.log(event.target.value);
+
     this.setState({expression: event.target.value})
   }
 
@@ -172,49 +204,29 @@ class FilterTestTeam extends Component {
       const userDetailFromId = this.state.users.filter(elm => elm.id === userId)[0]
       this.setState({selectedUsers: [...this.state.selectedUsers, userDetailFromId]})
     } else {
-
       this.setState({selectedUsers: this.state.selectedUsers.filter((elm) => elm.id !== userId)})
     }
 
   }
 
   saveParticpants = () => {
-    patchParticipantsToTest(this.props.test, this.state.selectedUsers)
-      .then(result => console.log(result));
+    patchParticipantsToTest(this.state.test, this.state.selectedUsers)
+      .then(test => {
+        this.setState({test: test})
+        fetchAllUsers(test.id)
+        .then(users => {
+          if (users.length > 0) {
+            this.setState({tableHeaders: Object.keys(users[0])});
+          }
+          return users
+        })
+        .then(users => this.setState({users: users, filteredList: users}))
+        .catch(e => console.warn(e));
+      });
   }
 
 }
 
-
-
-// <div>
-//   {
-//     this.state.tableHeaders ?
-//     <div className="table-responsive">
-//       <table className="table">
-//         <thead>
-//           <tr>
-//             <th>#</th>
-//             {this.state.tableHeaders.map((key, idx) => <th scope="col">{key}</th>)}
-//           </tr>
-//         </thead>
-//
-//         <tbody>
-//           {this.state.selectedUsers.map((user, index) =>
-//           <tr key={index}>
-//             <td>#</td>
-//             {Object.values(user).map((elm, idx) =>
-//               <td key={idx}>{elm}</td>
-//             )}
-//           </tr>)
-//         }
-//         </tbody>
-//       </table>
-//     </div>
-//     :
-//     <div>Loading...</div>
-//   }
-// </div>
 
 const FilterTestTeamComponent = connect(getTestState, updateTest)(FilterTestTeam)
 

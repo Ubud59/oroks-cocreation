@@ -33,8 +33,8 @@ const fetchUser = (access_token) => {
     .catch(error => error);
 }
 
-const fetchAllUsers = () => {
-  return fetch("http://localhost:8080/api/users", {
+const fetchAllUsers = (testId) => {
+  return fetch(`/api/users?test=${testId}`, {
     method: 'GET',
     headers: {
       Authorization: retrieveToken()

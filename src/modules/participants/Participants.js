@@ -130,7 +130,7 @@ class Participants extends Component {
                                 </fieldset>
                               </div>
                               <div className="col-3">
-                                <select class="custom-select" onChange={(event) => this.props.updateParticipantField(participant.id,"evaluationRating",event.target.value)}>
+                                <select className="custom-select" onChange={(event) => this.props.updateParticipantField(participant.id,"evaluationRating",event.target.value)}>
                                   <option value="1" selected={participant.evaluation_rating === 1} >
                                     1
                                   </option>

@@ -99,8 +99,47 @@ const getAllTestUsers = (pool) => {
     ['TEST'])
 }
 
+const getAllTestUsersNotParticipatingToTest  = (pool, testId) => {
+  return pool.query(`
+    SELECT
+    U.id,
+    U.first_name,
+    U.last_name,
+    U.birthdate,
+    U.sex,
+    U.email,
+    U.phone_number,
+    U.user_type,
+      UP.expert_panel,
+      UP.height,
+      UP.weight,
+      UP.practice_type,
+      UP.club_city,
+      UP.club_name,
+      UP.start_of_practice_year,
+      UP.category,
+      UP.shoe_size,
+      UP.skate_width,
+      UP.shin_gard_size,
+      UP.pant_size,
+      UP.elbow_pad_size,
+      UP.shoulder_pad_size,
+      UP.glove_size,
+      UP.helmet_size,
+      UP.head_size
+    FROM USERS U
+    INNER JOIN USER_PROFILES UP on UP.user_id = U.id
+    WHERE U.id not in (
+    	SELECT TP.user_id from test_participants TP
+    	WHERE TP.test_id = $1::uuid)
+    AND U.user_type = $2`
+    , [testId, 'TEST'])
+    .then(dbResult => dbResult.rows)
+}
+
 module.exports = {
   findbyExternalIdOrCreateUser: findbyExternalIdOrCreateUser,
   getUserProfileByExternalId: getUserProfileByExternalId,
-  getAllTestUsers: getAllTestUsers
+  getAllTestUsers: getAllTestUsers,
+  getAllTestUsersNotParticipatingToTest: getAllTestUsersNotParticipatingToTest
 }

@@ -1,5 +1,5 @@
 const uuidv4 = require('uuid/v4');
-
+const testServices = require("./test.services")
 
 const selectParticipants = (pool, request) => {
 
@@ -60,8 +60,62 @@ const setPartcipantToTest = (pool, testId, userId) => {
   )
 }
 
+const getTestAndParticipants = (pool, testId) => {
+  // recup detail d'un testId
+    const promise1 = testServices.selectTestById(pool, testId)
+  // get participants d'un testId
+    const promise2 = getUserProfileAndParticipantsInfos(pool, testId)
+  // promise All et rerutn full object
+
+  return Promise.all([promise1, promise2]).then(function(values) {
+    let testDetail = {...values[0][0], participants: values[1]};
+    testDetail.participants = values[1];
+    return testDetail
+  });
+}
+
+
+const getUserProfileAndParticipantsInfos = (pool, testId) => {
+  return pool.query(
+    `SELECT
+      	U.first_name,
+      	U.last_name,
+      	U.birthdate,
+      	U.sex,
+      	U.email,
+      	U.phone_number,
+      	U.user_type,
+      		TP.invitation_status,
+      		TP.evaluation_status,
+      		TP.evaluation_rating,
+      		    UP.expert_panel,
+      	    	UP.height,
+      	    	UP.weight,
+      	    	UP.practice_type,
+      	    	UP.club_city,
+      	    	UP.club_name,
+      	    	UP.start_of_practice_year,
+      	    	UP.category,
+      	    	UP.shoe_size,
+      	    	UP.skate_width,
+      	    	UP.shin_gard_size,
+      	    	UP.pant_size,
+      	    	UP.elbow_pad_size,
+      	    	UP.shoulder_pad_size,
+      	    	UP.glove_size,
+      	    	UP.helmet_size,
+      	    	UP.head_size
+      FROM test_participants TP
+      INNER JOIN users U on TP.user_id = U.id
+      INNER JOIN user_profiles UP on UP.user_id = U.id
+      WHERE TP.test_id = $1::uuid`,
+    [testId]
+  ).then(dbResult => dbResult.rows)
+}
+
 module.exports = {
   updateParticipant: updateParticipant,
   selectParticipants: selectParticipants,
-  setPartcipantToTest: setPartcipantToTest
+  setPartcipantToTest: setPartcipantToTest,
+  getTestAndParticipants: getTestAndParticipants
 }

@@ -19,7 +19,20 @@ function fetchParticipants(testId){
   });
 }
 
-
+const fetchTestAndParticipants = (testId) => {
+  return fetch(
+    `/api/test2/${testId}`,
+    {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: retrieveToken()
+      }
+    }
+  )
+  .then(response => response.json())
+  .catch(e => console.warn(e));
+}
 
 
 function postUpdatedParticipant(participant){
@@ -44,7 +57,7 @@ function postUpdatedParticipant(participant){
 }
 
 const patchParticipantsToTest = (test, arrayOfSelectedUsers) => {
-  return fetch(`http://localhost:8080/api/test/${test.id}/participants`, {
+  return fetch(`/api/test/${test.id}/participants`, {
     method: "PATCH",
     body: JSON.stringify({users: arrayOfSelectedUsers, test: test}),
     headers: {
@@ -52,9 +65,10 @@ const patchParticipantsToTest = (test, arrayOfSelectedUsers) => {
       Authorization: retrieveToken()
     }
   })
+    .then(result => result.json())
 }
 
 
 
 
-export {fetchParticipants, postUpdatedParticipant, patchParticipantsToTest};
+export {fetchParticipants, fetchTestAndParticipants, postUpdatedParticipant, patchParticipantsToTest};
