@@ -1,4 +1,4 @@
-import { postNewTest, postUpdatedTest} from '../../utils/test.services.js';
+import { postUpdatedTest} from '../../utils/test.services.js';
 
 const initialState = {
   id: null,
@@ -25,7 +25,6 @@ export default function testReducer(state = initialState, action) {
       return {...state, [action.field]: action.value};
 
     case "CREATE_TEST":
-      postNewTest(action.test);
       return action.test;
 
     case "UPDATE_TEST":

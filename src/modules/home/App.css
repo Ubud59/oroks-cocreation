@@ -16,7 +16,7 @@ body, html {
 }
 
 .header-row{
-  height: 30%;
+  height: 40%;
   background-image: url('../../images/Background.JPG');
   background-repeat: no-repeat;
   background-position: center;
@@ -24,7 +24,7 @@ body, html {
 }
 
 .logo{
-  height: 20%;
+  height: 15%;
   width: auto;
 }
 

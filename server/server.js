@@ -68,7 +68,7 @@ app.get("/auth/callback", function (request, result) {
               return {token: token, uri: '/profile'}
             } else {
               // redirect form profile
-              return {token: token, uri: '/mytests'}
+              return {token: token, uri: '/'}
             }
           })
         })
@@ -336,7 +336,8 @@ function(request, result, next) {
 
     return testServices.insertTest(pool, request)
     .then((dbResult) => {
-      result.json(dbResult);
+      console.log(dbResult.rows);
+      result.json(dbResult.rows[0].id);
     })
     .catch(error => {
       console.warn(error);
