@@ -97,16 +97,16 @@ class App extends Component {
 
           <div>
             <Switch>
-              <PrivateRoute exact path="/" component={HomeComponent}/>
+              <Route exact path="/" component={HomeComponent}/>
               <Route path="/login" component={LoginComponent}/>
-              <Route path="/mytests" component={MyTestsComponent}/>
-              <Route path="/alltests" component={AllTestsComponent}/>
+              <PrivateRoute path="/mytests" component={MyTestsComponent}/>
+              <PrivateRoute path="/alltests" component={AllTestsComponent}/>
               <Route path={"/auth/redirect"} component={AuthComponent}></Route>
               <PrivateRoute path="/newtest" component={TestComponent}/>
-              <Route path="/profile" component={ProfileComponent}/>
+              <PrivateRoute path="/profile" component={ProfileComponent}/>
               <PrivateRoute path="/test/:id/participants" component={ParticipantsComponent}/>
               <PrivateRoute path="/test/:id/selection" component={FilterTestTeamComponent}/>
-              <Route path="/test/:id/eval" component={TestEvalComponent}/>
+              <PrivateRoute path="/test/:id/eval" component={TestEvalComponent}/>
               <PrivateRoute path="/test/:id/results" component={TestResultsComponent}/>
               <PrivateRoute path="/test/:id" component={TestComponent}/>
             </Switch>
