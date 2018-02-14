@@ -15,6 +15,10 @@ export default function testsReducer(state = initialState, action) {
       updatedTests[index] = action.test;
       return updatedTests;
 
+      case "FETCH_ALL_TESTS":
+      console.log("state de fetch all tests",action.tests);
+        return action.tests;
+
     default:
       return state;
   }

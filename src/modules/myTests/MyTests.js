@@ -39,7 +39,11 @@ class MyTests extends Component {
   <div className="row">
 
       {(this.props.tests.length===0) ? (
-        <p>Vous n'avez pas encore été invité à une campagne de test OROKS.</p>
+        <div class="container">
+          <div class="row">
+            <div class="mx-auto align-middle">Vous n'avez pas encore été invité à une campagne de test OROKS.</div>
+          </div>
+        </div>
       ): (
        <div>{this.props.tests.map((test, index) =>
 
