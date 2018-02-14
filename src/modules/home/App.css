@@ -82,3 +82,7 @@ footer ul li a:hover{
 	font-size:12px;
 	padding:15px 0 10px 0;
 }
+
+.align-signin-actions {
+  display: flex;
+}
