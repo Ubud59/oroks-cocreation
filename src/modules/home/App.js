@@ -89,7 +89,18 @@ class App extends Component {
                         <NavLink className="text-white mx-2" href="/community"><h5>COMMUNAUTE</h5></NavLink>
                       </NavItem>
                     ):(null)}
+                    {(this.props.userProfile.id)
+                      ?
+                      <NavItem className="">
+                        <NavLink onClick={() => this.props.signOut()} className="text-white mx-2" href="#"><h5>SIGNOUT</h5></NavLink>
+                      </NavItem>
+                      :
+                      <NavItem className="">
+                        <NavLink className="text-white mx-2" href="/login"><h5>SIGNIN</h5></NavLink>
+                      </NavItem>
+                    }
                   </Nav>
+
                 </Collapse>
               </Navbar>
             </div>

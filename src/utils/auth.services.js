@@ -42,4 +42,8 @@ const persistSession = (callbackHashParams) => {
   });
 }
 
-export { isAuthenticated, retrieveToken, getRedirectUri, getNewAccountUri, persistSession }
+const clearToken = () => {
+  cookies.remove('token')
+}
+
+export { isAuthenticated, retrieveToken, getRedirectUri, getNewAccountUri, persistSession, clearToken }
