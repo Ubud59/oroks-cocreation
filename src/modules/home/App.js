@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import LoginComponent from '../login/Login';
 import MyTestsComponent from '../myTests/MyTests';
-import AllTestsComponent from '../AllTests/AllTests';
+import AllTestsComponent from '../AllTests/Alltests';
 import AuthComponent from '../auth/Auth'
 import HomeComponent from './Home';
 import ProfileComponent from '../profile/Profile';
