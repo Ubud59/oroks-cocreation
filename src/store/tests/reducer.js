@@ -4,6 +4,7 @@ export default function testsReducer(state = initialState, action) {
   switch (action.type) {
 
     case "FETCH_MY_TESTS":
+      console.log("state de fetch my tests",action.tests);
       return action.tests;
 
     case "UPDATE_MY_TEST":

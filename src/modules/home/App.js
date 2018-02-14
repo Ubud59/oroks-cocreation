@@ -123,7 +123,50 @@ class App extends Component {
             </Switch>
 
           </div>
+          <footer>
+              <div className="footer-top">
+                 <div className="container">
 
+
+
+                 </div>
+              </div>
+
+              <div className="container">
+                  <div className="row text-center">
+                      <div className="col-lg-12 col-lg-offset-3">
+                            <ul className="menu">
+                                   <li>
+                                     <div className="col-lg-6 col-xs-6 text-center">
+                                         <a href="https://www.facebook.com/Oroks.by.Decathlon/"><i class="fa fa-facebook fa-2x"></i>Facebook</a>
+                                     </div>
+                                    </li>
+
+                                    <li>
+                                      <div class="col-lg-6 col-xs-6 text-center">
+                                         <a href="https://www.instagram.com/oroks_by_decathlon/?hl=fr"><i class="fa fa-instagram fa-2x"></i>Instagram</a>
+                                     </div>
+                                    </li>
+
+                                    <li>
+                                      <div className="col-lg-6 col-xs-6 text-center">
+                                         <a href="https://hockey-community.com"><i class="fa fa-group fa-2x"></i>Communauté</a>
+                                     </div>
+                                    </li>
+                              </ul>
+                      </div>
+                  </div>
+              </div>
+          </footer>
+          <div className="copyright">
+           <div className="container">
+
+               <div className="row text-center">
+               	<p>Copyright © 2018 All rights reserved</p>
+               </div>
+
+       	   </div>
+          </div>
         </div>
       </Router>
     );

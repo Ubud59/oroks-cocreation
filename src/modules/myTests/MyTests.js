@@ -39,8 +39,8 @@ class MyTests extends Component {
   <div className="row">
 
       {(this.props.tests.length===0) ? (
-        <div class="container">
-          <div class="row">
+        <div className="container">
+          <div className="row">
             <div class="mx-auto align-middle">Vous n'avez pas encore été invité à une campagne de test OROKS.</div>
           </div>
         </div>
