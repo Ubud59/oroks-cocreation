@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import LoginComponent from '../login/Login';
+
 import MyTestsComponent from '../myTests/MyTests';
 import AllTestsComponent from '../AllTests/Alltests';
 import AuthComponent from '../auth/Auth'
@@ -22,7 +22,7 @@ import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse } from "reactstr
 
 import { isAuthenticated } from '../../utils/auth.services'
 import { loadTokenAndFetchUser } from '../../utils/user.services'
-
+import { getRedirectUri, getNewAccountUri } from '../../utils/auth.services'
 
 class App extends Component {
   constructor(props) {
@@ -95,8 +95,9 @@ class App extends Component {
                         <NavLink onClick={() => this.props.signOut()} className="text-white mx-2" href="#"><h5>SIGNOUT</h5></NavLink>
                       </NavItem>
                       :
-                      <NavItem className="">
-                        <NavLink className="text-white mx-2" href="/login"><h5>SIGNIN</h5></NavLink>
+                      <NavItem className="align-signin-actions">
+                        <NavLink className="text-white mx-2" onClick={() => window.location = getRedirectUri()} href="#"><h5>CONNEXION</h5></NavLink>
+                        <NavLink className="text-white mx-2" onClick={() => window.location = getNewAccountUri()} href="#"><h5>INSCRIPTION</h5></NavLink>
                       </NavItem>
                     }
                   </Nav>
@@ -109,7 +110,6 @@ class App extends Component {
           <div>
             <Switch>
               <Route exact path="/" component={HomeComponent}/>
-              <Route path="/login" component={LoginComponent}/>
               <PrivateRoute path="/mytests" component={MyTestsComponent}/>
               <PrivateRoute path="/alltests" component={AllTestsComponent}/>
               <Route path={"/auth/redirect"} component={AuthComponent}></Route>
@@ -178,7 +178,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     (isAuthenticated()) ? (
       <Component {...props}/>
     ) : (
-      <Route component={LoginComponent}></Route>
+      <Route component={HomeComponent}></Route>
     )
   )}/>
 )
