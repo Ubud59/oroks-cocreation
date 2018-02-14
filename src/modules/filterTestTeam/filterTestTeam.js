@@ -4,9 +4,10 @@ import compileExpression from 'filtrex'
 import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse, FormGroup, Label, Input } from "reactstrap";
 import { getTestState } from '../../store/test/selectors';
 import { updateTest } from '../../store/test/actions';
-import { patchParticipantsToTest } from '../../utils/participant.services';
+import { patchParticipantsToTest, fetchParticipants } from '../../utils/participant.services';
 import { fetchAllUsers } from '../../utils/user.services';
 import { fetchTest } from '../../utils/test.services.js';
+import translateLabel from '../../utils/translateLabel.js';
 
 class FilterTestTeam extends Component {
 
@@ -17,7 +18,8 @@ class FilterTestTeam extends Component {
       users: [],
       expression: '',
       filteredList: [],
-      selectedUsers: []
+      selectedUsers: [],
+      existingParticipants: []
     }
   }
 
@@ -35,6 +37,10 @@ class FilterTestTeam extends Component {
       fetchTest(this.props.match.params.id)
         .then(test => this.props.fetchTest(test))
         .catch(error => console.warn(error));
+
+      fetchParticipants(this.props.match.params.id)
+          .then(participants => this.setState({existingParticipants: participants}))
+          .catch(error => console.warn(error));
     }
 
 
@@ -83,8 +89,10 @@ class FilterTestTeam extends Component {
         <div>
           <div className="input-group input-group-sm mb-3">
             <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value={this.state.expression} onChange={this.filterUsers}/>
+            <div className="invalid-feedback">Example invalid feedback text</div>
           </div>
           <button className="btn btn-primary" onClick={() => this.handleSubmitFilter()}>Submit</button>
+          <h2>Utilisateurs de la communauté</h2>
           {
             this.state.tableHeaders ?
             <div className="table-responsive">
@@ -118,34 +126,36 @@ class FilterTestTeam extends Component {
             <div>Loading...</div>
           }
         </div>
-        <div>
-          {
-            this.state.tableHeaders ?
-            <div className="table-responsive">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    {this.state.tableHeaders.map((key, idx) => <th scope="col">{key}</th>)}
-                  </tr>
-                </thead>
+        <h2>Utilisateurs déjà selectionnés</h2>
 
-                <tbody>
-                  {this.state.selectedUsers.map((user, index) =>
-                  <tr key={index}>
-                    <td>#</td>
-                    {Object.values(user).map((elm, idx) =>
-                      <td key={idx}>{elm}</td>
-                    )}
-                  </tr>)
-                }
-                </tbody>
-              </table>
-            </div>
-            :
-            <div>Loading...</div>
-          }
-        </div>
+        {this.state.existingParticipants.map((participant, index) =>
+        <tr key={index}>
+          <td>{participant.first_name} {participant.last_name}</td>
+          <td>{participant.email} </td>
+          <td>{participant.phone_number} </td>
+          <td>{translateLabel(participant.invitation_status)} </td>
+            <td colspan="3">
+              <div className="form-row">
+                  <div className="col-6">
+                    <fieldset className="form-group">
+                      <div className="form-check form-check-inline ml-2">
+                        <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio1" value="FILLED" checked={participant.evaluation_status === "FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","FILLED")}/>
+                        <label className="form-check-label">
+                          Oui
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline ml-2">
+                        <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio2" value="NOT_FILLED" checked={participant.evaluation_status === "NOT_FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","NOT_FILLED")}/>
+                        <label className="form-check-label">
+                          Non
+                        </label>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+        </td>
+        </tr>
+        )}
         <div>
           <button className="btn btn-primary" onClick={() => this.saveParticpants()}>Save</button>
         </div>
@@ -168,7 +178,7 @@ class FilterTestTeam extends Component {
         const myfilter = compileExpression(this.state.expression);
         this.setState({filteredList: this.state.users.filter(elm => myfilter(elm))});
       } catch (e) {
-        console.warn(e);
+        console.warn(e.message);
       }
     } else {
       this.setState({filteredList: this.state.users})
@@ -197,7 +207,34 @@ class FilterTestTeam extends Component {
 
 
 
-
+// <div>
+//   {
+//     this.state.tableHeaders ?
+//     <div className="table-responsive">
+//       <table className="table">
+//         <thead>
+//           <tr>
+//             <th>#</th>
+//             {this.state.tableHeaders.map((key, idx) => <th scope="col">{key}</th>)}
+//           </tr>
+//         </thead>
+//
+//         <tbody>
+//           {this.state.selectedUsers.map((user, index) =>
+//           <tr key={index}>
+//             <td>#</td>
+//             {Object.values(user).map((elm, idx) =>
+//               <td key={idx}>{elm}</td>
+//             )}
+//           </tr>)
+//         }
+//         </tbody>
+//       </table>
+//     </div>
+//     :
+//     <div>Loading...</div>
+//   }
+// </div>
 
 const FilterTestTeamComponent = connect(getTestState, updateTest)(FilterTestTeam)
 
