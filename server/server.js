@@ -11,7 +11,6 @@ const fetch = require("node-fetch");
 const cors = require("cors")
 const multer = require("multer");
 const uuidv4 = require("uuid/v4");
-const nodemailer = require("nodemailer");
 
 const app = express();
 
@@ -373,6 +372,8 @@ app.get("/api/test/:id/participants",
   }
 );
 
+
+
 app.patch("/api/test/:id/participants",
 function(request, result, next) {
   if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
@@ -387,8 +388,16 @@ function(request, result) {
       .then(dbResult => dbResult.rowCount)
   })
 
-  Promise.all(particpantPromises).then(results => result.json({message: "Participants successfully created"}))
+  Promise.all(particpantPromises)
+  .then(results => {
+    const invitationArray = request.body.users.map(user => mailServices.sendInvitationMail(user,request.body.test));
+    return results;
+  })
+  .then(results => result.json({message: "Participants successfully created"}))
 })
+
+
+
 
 app.post("/api/participant/:id/update",
   function(request, result, next) {
@@ -410,48 +419,6 @@ app.post("/api/participant/:id/update",
     });
   }
 );
-
-
-
-/////////////////////////////////////////////////////////////
-// Envoi mails invitation
-/////////////////////////////////////////////////////////////
-
-
-app.get("/api/send-email",
-function(request, result, next) {
-  if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
-    result.status(401).json({message: "Invalid or expired token"});
-  } else {
-    next()
-  };
-},
-function (request, result) {
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "oroks.tests@gmail.com",
-      pass: "oroksforever"
-    }
-  });
-
-  let mailOptions = mailServices.generateMailOptions(request.body.userProfile,request.body.test);
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.warn("Error: " + error);
-      result.send(error);
-    }
-    else {
-      console.log("Message sent: " + info.messageId);
-      result.send(info);
-    }
-  });
-
-});
-
 
 
 /////////////////////////////////////////////////////////////

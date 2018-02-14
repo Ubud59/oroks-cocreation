@@ -1,4 +1,5 @@
 const translateLabel = require("./translateLabel");
+const nodemailer = require("nodemailer");
 
 const generateMailOptions = (userProfile, test) =>  {
 
@@ -43,6 +44,32 @@ const generateMailOptions = (userProfile, test) =>  {
 }
 
 
+const sendInvitationMail = (userProfile, test) =>  {
+
+    let transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "oroks.tests@gmail.com",
+        pass: "oroksforever"
+      }
+    });
+
+    let mailOptions = generateMailOptions(userProfile,test);
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.warn("Error: " + error);
+        return error;
+      }
+      else {
+        console.log("Message sent: " + info.messageId);
+        return info;
+      }
+    });
+}
+
 module.exports = {
-  generateMailOptions: generateMailOptions
+  sendInvitationMail: sendInvitationMail
 }
