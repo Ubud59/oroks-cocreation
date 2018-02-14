@@ -43,10 +43,10 @@ function postUpdatedParticipant(participant){
   });
 }
 
-const patchParticipantsToTest = (testId, arrayOfSelectedUsers) => {
-  return fetch(`http://localhost:8080/api/test/${testId}/participants`, {
+const patchParticipantsToTest = (test, arrayOfSelectedUsers) => {
+  return fetch(`http://localhost:8080/api/test/${test.id}/participants`, {
     method: "PATCH",
-    body: JSON.stringify({users: arrayOfSelectedUsers}),
+    body: JSON.stringify({users: arrayOfSelectedUsers, test: test}),
     headers: {
       'Content-Type': 'application/json',
       Authorization: retrieveToken()
