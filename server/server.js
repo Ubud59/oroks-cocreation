@@ -382,7 +382,6 @@ function(request, result, next) {
   };
 },
 function(request, result) {
-  console.log(request.body.test);
   const particpantPromises = request.body.users.map(user => {
     return participantServices.setPartcipantToTest(pool, request.params.id, user.id)
       .then(dbResult => dbResult.rowCount)
