@@ -92,7 +92,7 @@ class FilterTestTeam extends Component {
                 <thead>
                   <tr>
                     <th>#</th>
-                    {this.state.tableHeaders.map((key, idx) => <th scope="col">{key}</th>)}
+                    {this.state.tableHeaders.map((key, idx) => <th key={idx} scope="col">{key}</th>)}
                   </tr>
                 </thead>
 
@@ -119,7 +119,32 @@ class FilterTestTeam extends Component {
           }
         </div>
         <div>
-          {this.state.selectedUsers.map((elm, idx) => <div key={idx}>{elm}</div>)}
+          {
+            this.state.tableHeaders ?
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    {this.state.tableHeaders.map((key, idx) => <th scope="col">{key}</th>)}
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {this.state.selectedUsers.map((user, index) =>
+                  <tr key={index}>
+                    <td>#</td>
+                    {Object.values(user).map((elm, idx) =>
+                      <td key={idx}>{elm}</td>
+                    )}
+                  </tr>)
+                }
+                </tbody>
+              </table>
+            </div>
+            :
+            <div>Loading...</div>
+          }
         </div>
         <div>
           <button className="btn btn-primary" onClick={() => this.saveParticpants()}>Save</button>
@@ -139,10 +164,12 @@ class FilterTestTeam extends Component {
 
   handleSubmitFilter = () => {
     if (this.state.expression !== '') {
-      const myfilter = compileExpression(this.state.expression);
-      // Execute function
-      console.log(this.state.users.filter(elm => myfilter(elm)));
-      this.setState({filteredList: this.state.users.filter(elm => myfilter(elm))});
+      try {
+        const myfilter = compileExpression(this.state.expression);
+        this.setState({filteredList: this.state.users.filter(elm => myfilter(elm))});
+      } catch (e) {
+        console.warn(e);
+      }
     } else {
       this.setState({filteredList: this.state.users})
     }
@@ -151,22 +178,24 @@ class FilterTestTeam extends Component {
   handleCheck = (event) => {
     const userId = event.target.value
     if (event.target.checked) {
-      // push dans selectedUsers
-      this.setState({selectedUsers: [...this.state.selectedUsers, event.target.value]})
+
+      const userDetailFromId = this.state.users.filter(elm => elm.id === userId)[0]
+      this.setState({selectedUsers: [...this.state.selectedUsers, userDetailFromId]})
     } else {
-      // remove de selectedUsers
-      this.setState({selectedUsers: this.state.selectedUsers.filter((elm) => elm !== userId)})
+
+      this.setState({selectedUsers: this.state.selectedUsers.filter((elm) => elm.id !== userId)})
     }
 
   }
 
   saveParticpants = () => {
-    console.log(this.props.test.id);
-    patchParticipantsToTest(this.props.test.id, this.state.selectedUsers)
+    patchParticipantsToTest(this.props.test, this.state.selectedUsers)
       .then(result => console.log(result));
   }
 
 }
+
+
 
 
 

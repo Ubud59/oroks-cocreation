@@ -382,8 +382,8 @@ function(request, result, next) {
   };
 },
 function(request, result) {
-  const particpantPromises = request.body.users.map(userId => {
-    return participantServices.setPartcipantToTest(pool, request.params.id, userId)
+  const particpantPromises = request.body.users.map(user => {
+    return participantServices.setPartcipantToTest(pool, request.params.id, user.id)
       .then(dbResult => dbResult.rowCount)
   })
 
