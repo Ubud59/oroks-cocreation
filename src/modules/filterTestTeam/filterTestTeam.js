@@ -126,6 +126,11 @@ class FilterTestTeam extends Component {
             <div>Loading...</div>
           }
         </div>
+
+        <div>
+          <button className="btn btn-primary" onClick={() => this.saveParticpants()}>Save</button>
+        </div>
+
         <h2>Utilisateurs déjà selectionnés</h2>
 
         {this.state.existingParticipants.map((participant, index) =>
@@ -133,33 +138,8 @@ class FilterTestTeam extends Component {
           <td>{participant.first_name} {participant.last_name}</td>
           <td>{participant.email} </td>
           <td>{participant.phone_number} </td>
-          <td>{translateLabel(participant.invitation_status)} </td>
-            <td colspan="3">
-              <div className="form-row">
-                  <div className="col-6">
-                    <fieldset className="form-group">
-                      <div className="form-check form-check-inline ml-2">
-                        <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio1" value="FILLED" checked={participant.evaluation_status === "FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","FILLED")}/>
-                        <label className="form-check-label">
-                          Oui
-                        </label>
-                      </div>
-                      <div className="form-check form-check-inline ml-2">
-                        <input className="form-check-input" type="radio" name="evalRadio" id="evalRadio2" value="NOT_FILLED" checked={participant.evaluation_status === "NOT_FILLED"} onChange={() => this.props.updateParticipantField(participant.id,"evaluationStatus","NOT_FILLED")}/>
-                        <label className="form-check-label">
-                          Non
-                        </label>
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
-        </td>
         </tr>
         )}
-        <div>
-          <button className="btn btn-primary" onClick={() => this.saveParticpants()}>Save</button>
-        </div>
-
       </div>
     </div>
     </div>
