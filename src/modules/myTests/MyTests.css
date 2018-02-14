@@ -1,0 +1,17 @@
+.title {
+  font-family: 'Raleway', sans-serif;
+}
+
+.col {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #eeeeee;
+  width: 35%;
+  padding-top: 75px;
+}
+
+.main {
+  display: flex;
+}

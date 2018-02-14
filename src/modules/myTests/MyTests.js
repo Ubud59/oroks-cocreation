@@ -8,7 +8,7 @@ import { postUpdatedParticipant } from '../../utils/participant.services.js';
 
 import translateLabel from '../../utils/translateLabel.js';
 import MyModal from './myButton.js';
-
+import './MyTests.css';
 
 class MyTests extends Component {
 
@@ -36,8 +36,8 @@ class MyTests extends Component {
 
     return (
 
-  <div className="row">
-
+  <div className="tests-container">
+    <h1 className="title">Tous les Tests pour lesquels vous êtes invités.</h1>
       {(this.props.tests.length===0) ? (
         <div className="container">
           <div className="row">
@@ -45,7 +45,7 @@ class MyTests extends Component {
           </div>
         </div>
       ): (
-       <div>{this.props.tests.map((test, index) =>
+       <div className="main">{this.props.tests.map((test, index) =>
 
     <div key={index} className="col-sm-6 col-md-3">
     <div className="card-deck">
