@@ -2,8 +2,6 @@ const { URLSearchParams } = require("url");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
-const cert = fs.readFileSync("./cert.pem");
-
 const frontUri = process.env.FRONT_REDIRECT_URI;
 const dktConnectRootUri=process.env.DKTCONNECT_ROOT_URI;
 const dktConnectCreateUserUri=process.env.DKTCONNECT_CREATE_USER_URI
@@ -11,6 +9,8 @@ const clientId = process.env.CLIENT_ID;
 const redirect_uri = process.env.CALLBACK_URI;
 const secret = process.env.SECRET;
 const state = "oroks-state"
+const privateKey = process.env.PRIVATE_KEY.replace(/\\n/g, '\n');
+
 
 const getAuthorizeUri = () => {
   return `${dktConnectRootUri}/oauth/authorize?response_type=code&client_id=${clientId}&scope=openid&locale=fr_FR&redirect_uri=${redirect_uri}&state=${state}`;
@@ -71,7 +71,7 @@ const fetchUser = (fetch, access_token) => {
 }
 
 const isValideToken = (token) => {
-  return jwt.verify(token, cert, function(err, decoded) {
+  return jwt.verify(token, privateKey, function(err, decoded) {
     if (err) {
       return false
     } else {
@@ -81,7 +81,7 @@ const isValideToken = (token) => {
 }
 
 const decodeToken = (token) => {
-  return jwt.verify(token, cert, function(err, decoded) {
+  return jwt.verify(token, privateKey, function(err, decoded) {
     if (err) {
       return {}
     } else {

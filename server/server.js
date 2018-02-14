@@ -26,18 +26,18 @@ const pool = new Pool({
 app.use(cors());
 
 
-app.use(function (request, result, next) {
-  const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "/api/users", "api/profile/new"]
-  if (excludedPathes.includes(request.url.split("?")[0])) {
-    next()
-  } else {
-    if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
-      result.status(401).json({message: "Invalid or expired token"});
-    } else {
-      next()
-    };
-  }
-});
+// app.use(function (request, result, next) {
+//   const excludedPathes = ["/auth/callback" ,"/api/auth", "/api/auth/create", "/"]
+//   if (excludedPathes.includes(request.url.split("?")[0])) {
+//     next()
+//   } else {
+//     if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+//       result.status(401).json({message: "Invalid or expired token"});
+//     } else {
+//       next()
+//     };
+//   }
+// });
 
 
 /////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ app.get("/auth/callback", function (request, result) {
           .then(userStatus => {
             if (userStatus === 'createdUser') {
               // redirect mytests
-              return {token: token, uri: '/myprofile'}
+              return {token: token, uri: '/profile'}
             } else {
               // redirect form profile
               return {token: token, uri: '/mytests'}
@@ -78,7 +78,15 @@ app.get("/auth/callback", function (request, result) {
     .catch(error => console.warn(error));
 });
 
-app.get("/api/me", function(request, result) {
+app.get("/api/me",
+function(request, result, next) {
+  if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+    result.status(401).json({message: "Invalid or expired token"});
+  } else {
+    next()
+  };
+},
+function(request, result) {
   const access_token = request.headers.authorization.replace(/bearer /gi, "");
   const externalId = authServices.decodeToken(access_token).sub
     userServices.getUserProfileByExternalId(pool, externalId)
@@ -145,7 +153,15 @@ app.post(
     }
   );
 
-app.get("/api/users", function (request, result) {
+app.get("/api/users",
+function(request, result, next) {
+  if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+    result.status(401).json({message: "Invalid or expired token"});
+  } else {
+    next()
+  };
+},
+function (request, result) {
   userServices.getAllTestUsers(pool)
     .then(users => result.json(users.rows))
     .catch(e => console.warn(e));
@@ -175,6 +191,13 @@ app.get("/api/tests/",
 
 
 app.get("/api/tests/user/:id",
+function(request, result, next) {
+  if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+    result.status(401).json({message: "Invalid or expired token"});
+  } else {
+    next()
+  };
+},
     function(request, result) {
       const userId=request.params.id;
       return pool.query(
@@ -239,6 +262,13 @@ const upload = multer({
 
 app.post(
   "/api/test/upload",
+  function(request, result, next) {
+    if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+      result.status(401).json({message: "Invalid or expired token"});
+    } else {
+      next()
+    };
+  },
   function(request, result) {
     upload.single("file")(request,result, function (error) {
       if (error) {
@@ -252,6 +282,13 @@ app.post(
 );
 
 app.get("/api/test/:id",
+function(request, result, next) {
+  if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+    result.status(401).json({message: "Invalid or expired token"});
+  } else {
+    next()
+  };
+},
   function(request, result) {
 
     return testServices.selectTest(pool, request)
@@ -267,6 +304,13 @@ app.get("/api/test/:id",
 
 app.post(
   "/api/test/:id/update",
+  function(request, result, next) {
+    if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+      result.status(401).json({message: "Invalid or expired token"});
+    } else {
+      next()
+    };
+  },
   function(request, result) {
 
     return testServices.updateTest(pool, request)
@@ -281,6 +325,13 @@ app.post(
 );
 
 app.post("/api/test/new",
+function(request, result, next) {
+  if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+    result.status(401).json({message: "Invalid or expired token"});
+  } else {
+    next()
+  };
+},
   function(request, result) {
 
     return testServices.insertTest(pool, request)
@@ -301,6 +352,13 @@ app.post("/api/test/new",
 
 
 app.get("/api/test/:id/participants",
+  function(request, result, next) {
+    if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+      result.status(401).json({message: "Invalid or expired token"});
+    } else {
+      next()
+    };
+  },
   function(request, result) {
 
     return participantServices.selectParticipants(pool, request)
@@ -314,7 +372,15 @@ app.get("/api/test/:id/participants",
   }
 );
 
-app.patch("/api/test/:id/participants", function(request, result) {
+app.patch("/api/test/:id/participants",
+function(request, result, next) {
+  if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+    result.status(401).json({message: "Invalid or expired token"});
+  } else {
+    next()
+  };
+},
+function(request, result) {
   const particpantPromises = request.body.users.map(userId => {
     return participantServices.setPartcipantToTest(pool, request.params.id, userId)
       .then(dbResult => dbResult.rowCount)
@@ -324,6 +390,13 @@ app.patch("/api/test/:id/participants", function(request, result) {
 })
 
 app.post("/api/participant/:id/update",
+  function(request, result, next) {
+    if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+      result.status(401).json({message: "Invalid or expired token"});
+    } else {
+      next()
+    };
+  },
   function(request, result) {
 
     return participantServices.updateParticipant(pool, request)
@@ -344,7 +417,15 @@ app.post("/api/participant/:id/update",
 /////////////////////////////////////////////////////////////
 
 
-app.get("/api/send-email", function (request, result) {
+app.get("/api/send-email",
+function(request, result, next) {
+  if(!request.headers.authorization || !authServices.isValideToken(request.headers.authorization.replace(/bearer /gi, ""))) {
+    result.status(401).json({message: "Invalid or expired token"});
+  } else {
+    next()
+  };
+},
+function (request, result) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -379,6 +460,7 @@ app.get("/api/send-email", function (request, result) {
 app.use("/static", express.static(path.join(__dirname, "../build/static")));
 
 app.use("/images", express.static(path.join(__dirname, "/images")));
+
 
 app.get("*", (request, result) => {
   result.sendFile(path.join(__dirname, "../build/index.html"));

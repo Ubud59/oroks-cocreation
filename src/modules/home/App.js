@@ -98,7 +98,7 @@ class App extends Component {
               <Route path="/login" component={LoginComponent}/>
               <Route path="/mytests" component={MyTestsComponent}/>
               <Route path="/alltests" component={AllTestsComponent}/>
-              <Route path={"/auth/callback"} component={AuthComponent}></Route>
+              <Route path={"/auth/redirect"} component={AuthComponent}></Route>
               <PrivateRoute path="/newtest" component={TestComponent}/>
               <Route path="/profile" component={ProfileComponent}/>
               <PrivateRoute path="/test/:id/participants" component={ParticipantsComponent}/>
@@ -107,7 +107,7 @@ class App extends Component {
               <PrivateRoute path="/test/:id/results" component={TestResultsComponent}/>
               <PrivateRoute path="/test/:id" component={TestComponent}/>
             </Switch>
-            
+
           </div>
 
         </div>
