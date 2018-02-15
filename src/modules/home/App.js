@@ -55,8 +55,6 @@ class App extends Component {
 
       <Router>
         <div className="container-fluid  content-general">
-<<<<<<< HEAD
-
           {
             (isAuthenticated())
             ? (
@@ -112,7 +110,7 @@ class App extends Component {
               null
             )
           }
-          
+
           <div>
             <Switch>
               <PrivateRoute exact path="/" component={HomeComponent}/>
