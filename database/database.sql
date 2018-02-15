@@ -84,7 +84,7 @@ CREATE TABLE  user_profiles  (
    club_name              VARCHAR(255),
    start_of_practice_year INTEGER,
    category               VARCHAR(255),
-   shoe_size              INTEGER,
+   shoe_size              VARCHAR(255),
    skate_width            VARCHAR(255),
    shin_gard_size         VARCHAR(255),
    pant_size              VARCHAR(255),

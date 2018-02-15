@@ -1,0 +1,57 @@
+
+
+
+.background {
+  width: 100%;
+  height: 80vh;
+  background-image: url('../../images/Background-large.jpg');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  font-size: 1.3em;
+
+}
+
+.bg-top{
+  background-color: rgba(0, 0, 0, 0.5);
+  min-height: 10%;
+}
+
+.logo-login {
+  height: 45px;
+  width: auto;
+  max-width: 90%;
+  margin-left: 10px;
+}
+
+
+.button-zone {
+  float: right;
+  justify-content: flex-end;
+  margin-top: 1vh;
+}
+
+.login-title {
+  height:40%;
+  font-size: 25px;
+  display:flex;
+  padding-bottom: 15px;
+}
+
+.container-button {
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.mybutton {
+  background-color: #3382C5;
+  vertical-align: middle;
+  line-height:2em;
+  color: white;
+}
+
+.button-text {
+  text-decoration: none;
+  color: white;
+}
