@@ -4,7 +4,7 @@
 .background {
   width: 100%;
   height: 80vh;
-  background-image: url('../../media/Background-large.jpg');
+  background-image: url('/media/Background-large.jpg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
@@ -67,7 +67,7 @@
 .modal-background {
   width: 100%;
   height: 100vh;
-  background-image: url('../../media/Background-large.jpg');
+  background-image: url('/media/Background-large.jpg');
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;

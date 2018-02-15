@@ -64,7 +64,7 @@ class App extends Component {
 
                     <Navbar light expand="md">
                       <NavbarBrand href="/">
-                        <img src={ require("../../media/logo.png")} alt="Decathlon Oroks" className="logo"/>
+                        <img src="/media/logo.png" alt="Decathlon Oroks" className="logo"/>
                       </NavbarBrand>
                       <NavbarToggler className="bg-white" onClick={this.toggle} />
                       <Collapse isOpen={this.state.isOpen} navbar>
