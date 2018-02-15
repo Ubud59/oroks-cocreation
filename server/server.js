@@ -259,7 +259,10 @@ app.post(
         console.warn(error);
         result.status(500).send(error);
       } else {
-        result.json(request.file.filename);
+        console.log("request dans upload",request);
+        console.log("request get host",request.get("host"));
+
+        result.json(request.protocol + "://" +request.get("host") + "/images/" + request.file.filename);
       }
     })
   }

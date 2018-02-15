@@ -21,8 +21,8 @@ function uploadFile(file){
     }
     return response.json();
   })
-  .then((filename) => {
-    return `/images/${filename}`;
+  .then((fileUrl) => {
+    return `${fileUrl}`;
   })
   .catch((error) => {
     console.warn(error);
