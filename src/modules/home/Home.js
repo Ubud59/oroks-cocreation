@@ -43,10 +43,10 @@ class Home extends Component {
                 <header>
                   <h5 className="card-title">TON PROFIL</h5>
                   <p className="card-text">
-                    Nous recherchons des pratiquants de tous niveau et types de pratique afin que nous puissions réaliser des tests les plus pertinents possibles avec des utilisateurs qui entrent dans la cible du produit.
+                    Nous recherchons des pratiquants de tout niveau et type de pratique afin que nous puissions réaliser des tests les plus pertinents possibles avec des utilisateurs qui entrent dans la cible du produit.
                   </p>
                   <p className="card-text pb-2">
-                    Si tu souhaites être invité à participer à nos tests, rempli ton profil à 100% !
+                    Si tu souhaites être invité à participer à nos tests, remplis ton profil à 100% !
                   </p>
                 </header>
                 <div className="container container-button px-10 mx-10 center">
@@ -67,7 +67,7 @@ class Home extends Component {
                 <header>
                   <h5 className="card-title">QUELS SONT LES TESTS OROKS ?</h5>
                   <p className="card-text">
-                    Chez OROKS, nous réalisons différents type de tests (Essayage, Fonction terrain, usage ...). Le type de test à réalisé dépend du niveau d’avancé dans le développement du produit et des contraintes lié à ce dernier.
+                    Chez OROKS, nous réalisons différents types de tests (Essayage, Fonction terrain, usage ...). Le type de test à réaliser dépend du niveau d’avancée dans le développement du produit et des contraintes liées à ce dernier.
                   </p>
                 </header>
                 <div className="container container-button center">
