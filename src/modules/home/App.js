@@ -58,7 +58,7 @@ class App extends Component {
           {
             (this.props.userProfile.id)
             ? (
-              <div className="row header-row" >
+              <div className="row header-row">
                 <div className="bg-navbar">
                   <div className="bg-navbar-container">
 
