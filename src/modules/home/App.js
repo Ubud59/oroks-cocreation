@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-
 import MyTestsComponent from '../myTests/MyTests';
 import AllTestsComponent from '../AllTests/Alltests';
 import AuthComponent from '../auth/Auth'
@@ -56,6 +55,7 @@ class App extends Component {
 
       <Router>
         <div className="container-fluid  content-general">
+<<<<<<< HEAD
 
           {
             (isAuthenticated())
@@ -112,7 +112,7 @@ class App extends Component {
               null
             )
           }
-
+          
           <div>
             <Switch>
               <PrivateRoute exact path="/" component={HomeComponent}/>

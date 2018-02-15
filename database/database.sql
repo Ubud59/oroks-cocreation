@@ -90,7 +90,7 @@ CREATE TABLE  user_profiles  (
    pant_size              VARCHAR(255),
    elbow_pad_size         VARCHAR(255),
    shoulder_pad_size      VARCHAR(255),
-   glove_size             INTEGER,
+   glove_size             VARCHAR(255),
    helmet_size            VARCHAR(255),
    head_size              INTEGER,
    PRIMARY KEY ( id )
