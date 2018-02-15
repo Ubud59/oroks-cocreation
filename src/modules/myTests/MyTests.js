@@ -41,7 +41,7 @@ class MyTests extends Component {
       {(this.props.tests.length===0) ? (
         <div className="container">
           <div className="row">
-            <div class="mx-auto align-middle">Vous n'avez pas encore été invité à une campagne de test OROKS.</div>
+            <div className="mx-auto align-middle">Vous n'avez pas encore été invité à une campagne de test OROKS.</div>
           </div>
         </div>
       ): (
@@ -50,7 +50,7 @@ class MyTests extends Component {
     <div key={index} className="col-sm-6 col-md-3">
     <div className="card-deck">
     <div className="card">
-            <img className="card-img-top" src={test.image_src} alt="Card image cap"></img>
+            <img className="card-img-top" src={test.image_src} alt="title"></img>
             <div className="card-block">
               <h4 className="card-title">{test.title}</h4>
               <p className="card-text">{test.description}</p>

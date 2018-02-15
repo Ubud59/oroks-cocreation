@@ -128,7 +128,7 @@ class Test extends Component {
 
                 <div className="form-group">
                   <label >URL de l'image produit</label>
-                  <input type="text" className="form-control" value={this.props.test.imageSrc} onChange={(event) => this.props.updateTestField("imageSrc",event.target.value)}/>
+                  <input type="text" className="form-control" value={this.props.test.image_Src} onChange={(event) => this.props.updateTestField("imageSrc",event.target.value)}/>
                 </div>
                 <div className="pb-5">
                   <label className="btn btn-secondary" >

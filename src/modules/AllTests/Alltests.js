@@ -14,12 +14,8 @@ class AllTests extends Component {
   componentDidMount(){
 
     fetchAllTests()
-    .then(tests => {
-      console.log("je suis sans component did mount",tests);
-      return tests;
-    })
-    .then(tests => this.props.fetchAllTests(tests))
-    .catch(error => console.warn(error));
+      .then(tests => this.props.fetchAllTests(tests))
+      .catch(error => console.warn(error));
   }
 
   render() {
@@ -32,7 +28,7 @@ class AllTests extends Component {
         <div key={index} className="col">
         <div className="card-deck">
           <div className="card">
-                  <img className="card-img-top" src={test.image_src} alt="Card image cap"></img>
+                  <img className="card-img-top" src={test.image_src} alt="title"></img>
                   <div className="card-block">
                     <h4 className="card-title">{test.title}</h4>
                     <p className="card-text">{test.description}</p>
