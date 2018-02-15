@@ -73,7 +73,7 @@ class TestEval extends Component {
 
             {(this.props.test.id) ? (
               <iframe className="gform" title="Test results"
-                  src={`${this.props.test.evaluationFormPath}?embedded=true`}
+                  src={`${this.props.test.evaluation_form_path}?embedded=true`}
               >
                 Loading...
               </iframe>
