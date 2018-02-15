@@ -16,7 +16,7 @@ body, html {
 }
 
 .header-row{
-  height: 40%;
+  height: 20%;
   background-image: url('/media/Background.JPG');
   background-repeat: no-repeat;
   background-position: center;
@@ -25,7 +25,7 @@ body, html {
 }
 .bg-navbar{
   background-color: rgba(0, 0, 0, 0.5);
-  height: 22%;
+  height: 35%;
   width: 100%;
   padding-bottom: 10px;
 }

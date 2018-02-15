@@ -34,3 +34,10 @@
 .test-card .card-block {
   min-height: 270px;
 }
+
+.mybutton {
+  background-color: #3382C5;
+  vertical-align: middle;
+  line-height:2em;
+  color: white;
+}

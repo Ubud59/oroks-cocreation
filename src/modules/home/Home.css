@@ -36,6 +36,20 @@ h5, h4, h6, p {
   background-color: #eeeeee;
 }
 
+.homepage .card {
+  height: 100%;
+}
+
+.homepage .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.home-card {
+  height: 100vh;
+}
+
 .home-img {
   height: 200px;
 }

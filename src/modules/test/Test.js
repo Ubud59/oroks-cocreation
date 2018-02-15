@@ -132,7 +132,7 @@ class Test extends Component {
                   <input type="text" className="form-control" value={this.props.test.image_src} onChange={(event) => this.props.updateTestField("image_src",event.target.value)}/>
                 </div>
                 <div className="pb-5">
-                  <label className="btn btn-secondary" >
+                  <label className="btn mybutton" >
                       Upload de l'image
                     <input type="file" hidden onChange={(event) => this.handleUpload(event.target.files[0])}/>
                   </label>
@@ -258,7 +258,7 @@ class Test extends Component {
             </div>
 
             <div className="pt-3">
-              <button type="submit" className="btn btn-secondary" >Enregistrer</button>
+              <button type="submit" className="btn mybutton" >Enregistrer</button>
             </div>
 
           </form>

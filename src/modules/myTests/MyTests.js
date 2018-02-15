@@ -50,7 +50,7 @@ if (!prevProps.userProfile.id && this.props.userProfile.id){
     return (
 
   <div className="tests-container">
-    <h1 className="title">Tous les Tests OROKS pour lesquels vous êtes invités.</h1>
+    <h1 className="title">Tous les Tests OROKS auxquels vous êtes invités.</h1>
       {(this.props.tests.length===0) ? (
         <div className="container">
           <div className="row">
