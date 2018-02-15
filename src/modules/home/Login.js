@@ -16,13 +16,13 @@ class Login extends Component {
 
         <div className="row justify-content-between bg-top">
 
-          <div className="pt-3 ml-auto">
+          <div className="pt-3 mx-2">
             <a href="/">
               <img className="logo-login" src={ require("../../images/logo.png")} alt="logo"/>
             </a>
           </div>
 
-          <div className="col ">
+          <div className="pt-3 mx-2">
             <div className="row justify-content-end pt-3">
               <div className="text-white mx-2" onClick={() => window.location = getRedirectUri()} href="#">
                 CONNEXION
@@ -34,7 +34,7 @@ class Login extends Component {
 
         <div className="container login-title justify-content-center">
           <div className="row ">
-            <div className="col align-self-end text-center text-white">
+            <div className="align-self-end text-center text-white">
               ETRE ACTEUR DE LA CONCEPTION DES PRODUITS DE DEMAIN !
             </div>
           </div>
