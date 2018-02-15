@@ -2,7 +2,6 @@ const translateLabel = require("./translateLabel");
 const nodemailer = require("nodemailer");
 
 const generateMailOptions = (userProfile, test) =>  {
-  console.log("test dans generateMailOptions",test);
   return mailOptions = {
       from: "Oroks <oroks.tests@gmail.com>",
       to: userProfile.email,
