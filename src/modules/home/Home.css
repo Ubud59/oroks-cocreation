@@ -29,3 +29,13 @@ h5, h4, h6, p {
   text-decoration: none;
   color: white;
 }
+
+.col-card {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #eeeeee;
+}
+
+.home-img {
+  height: 200px;
+}

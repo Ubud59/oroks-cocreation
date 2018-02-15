@@ -161,7 +161,6 @@ class Test extends Component {
 
                 <fieldset className="form-group">
                   <div className="row text-secondary">
-                    <legend className="col-form-label col-sm-2 pt-0">Statut</legend>
                     <div className="col-sm-10">
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="statusRadio" id="statusRadio1" value="NOT_STARTED" checked={this.props.test.status === "NOT_STARTED"} onChange={() => this.props.updateTestField("status","NOT_STARTED")}/>
