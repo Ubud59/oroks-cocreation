@@ -7,22 +7,35 @@ import { fetchMyTests } from '../../utils/tests.services.js';
 import { postUpdatedParticipant } from '../../utils/participant.services.js';
 
 import translateLabel from '../../utils/translateLabel.js';
-import MyModal from './myButton.js';
 import './MyTests.css';
+import {Modal} from 'react-bootstrap'
 
 class MyTests extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false
+    }
+  }
 
-  componentDidMount(){
-
+  componentDidUpdate(prevProps){
+if (!prevProps.userProfile.id && this.props.userProfile.id){
     fetchMyTests(this.props.userProfile.id)
-    .then(tests => {
-      return tests;
-    })
     .then(tests => this.props.fetchMyTests(tests))
     .catch(error => console.warn(error));
+    }
+  }
+
+  close = () => {
+    this.setState({ showModal: false });
+  }
+
+  open = () => {
+    this.setState({ showModal: true });
   }
 
   handleClick=(test)=> {
+    this.open()
     test.invitation_status = "ACCEPTED";
     //update state
     this.props.updateMyTest(test);
@@ -37,7 +50,7 @@ class MyTests extends Component {
     return (
 
   <div className="tests-container">
-    <h1 className="title">Tous les Tests pour lesquels vous êtes invités.</h1>
+    <h1 className="title">Tous les Tests OROKS pour lesquels vous êtes invités.</h1>
       {(this.props.tests.length===0) ? (
         <div className="container">
           <div className="row">
@@ -74,8 +87,22 @@ class MyTests extends Component {
                 }
               }}
             >
-              {test.invitation_status !== "ACCEPTED" ? <MyModal /> : "J'ai participé" }
+              {test.invitation_status !== "ACCEPTED" ?
+                    <div>
+                      <a href="#" onClick={this.open}>
+                      Je participe
+                      </a>
+                    </div> : "J'ai participé" }
             </button>
+              <Modal animation={false} show={this.state.showModal} onHide={this.close}>
+                <Modal.Header closeButton>
+                  <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <h4>Merci d avoir confirmé ta participation.</h4>
+                  <p>Tu seras contacté par l equipe Oroks qui te donnera tous les détails necesaires.</p>
+                </Modal.Body>
+              </Modal>
             </div>
             <div className="btn-group mr-2" role="group" aria-label="Second group">
             <a className="btn btn-secondary btn-sm" href={`/test/${test.id}/eval`} role="button">Je donne mon avis</a>
