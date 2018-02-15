@@ -201,7 +201,7 @@ class Profile extends Component {
           </div>
 
 
-          <button type="submit" className="btn btn-primary" >Enregister</button>
+          <button type="submit" className="btn btn-primary mybutton" >Enregister</button>
         </form>
       </div>
     </div>

@@ -132,7 +132,7 @@ class Test extends Component {
                   <input type="text" className="form-control" value={this.props.test.image_src} onChange={(event) => this.props.updateTestField("image_src",event.target.value)}/>
                 </div>
                 <div className="pb-5">
-                  <label className="btn btn-secondary" >
+                  <label className="btn mybutton" >
                       Upload de l'image
                     <input type="file" hidden onChange={(event) => this.handleUpload(event.target.files[0])}/>
                   </label>
@@ -161,7 +161,6 @@ class Test extends Component {
 
                 <fieldset className="form-group">
                   <div className="row text-secondary">
-                    <legend className="col-form-label col-sm-2 pt-0">Statut</legend>
                     <div className="col-sm-10">
                       <div className="form-check">
                         <input className="form-check-input" type="radio" name="statusRadio" id="statusRadio1" value="NOT_STARTED" checked={this.props.test.status === "NOT_STARTED"} onChange={() => this.props.updateTestField("status","NOT_STARTED")}/>
@@ -259,7 +258,7 @@ class Test extends Component {
             </div>
 
             <div className="pt-3">
-              <button type="submit" className="btn btn-secondary" >Enregistrer</button>
+              <button type="submit" className="btn mybutton" >Enregistrer</button>
             </div>
 
           </form>

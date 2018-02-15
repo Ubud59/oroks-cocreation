@@ -161,7 +161,7 @@ class App extends Component {
                                       <div className="col-12 col-lg-6 col-sm-6 text-center">
                                         <a className="footer-link" href="https://hockey-community.com">
                                           <i className="fa fa-group fa-2x"></i>
-                                          <span>Communauté</span>
+                                          <span>Hockey Community</span>
                                         </a>
                                      </div>
                                     </li>
