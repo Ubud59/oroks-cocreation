@@ -10,15 +10,16 @@ import './Home.css';
 
 class Home extends Component {
 
-  componentDidMount(){
-    fetchMyProfile(this.props.userProfile.id)
-    .then(profile => {
-      return profile;
-    })
-    .then(profile => this.props.fetchMyProfile(profile))
-    .catch(error => console.warn(error));
+  componentDidUpdate(prevProps) {
+    if (!prevProps.userProfile.id && this.props.userProfile.id){
+      fetchMyProfile(this.props.userProfile.id)
+      .then(profile => {
+        return profile;
+      })
+      .then(profile => this.props.fetchMyProfile(profile))
+      .catch(error => console.warn(error));
+    }
   }
-
 
   render() {
     return (
@@ -40,7 +41,7 @@ class Home extends Component {
 
         <div className="container container-button px-10 mx-10 center">
           <div className="row justify-content-md-center">
-            <a className="btn btn-lg mybutton" href="http://localhost:3000/profile" >
+            <a className="btn btn-lg mybutton" href="/profile" >
               MON PROFILE
             </a>
           </div>
@@ -54,7 +55,7 @@ class Home extends Component {
         </h5>
         <div className="container container-button center">
           <div className="row justify-content-md-center">
-            <a className="btn btn-lg mybutton" href="http://localhost:3000/testsoroks" >
+            <a className="btn btn-lg mybutton" href="/testsoroks" >
               TESTS OROKS
             </a>
           </div>
@@ -68,7 +69,7 @@ class Home extends Component {
         </h5>
         <div className="container container-button center">
           <div className="row justify-content-md-center">
-            <a className="btn btn-lg mybutton" href="http://localhost:3000/mytests" >
+            <a className="btn btn-lg mybutton" href="/mytests" >
               MES TESTS
             </a>
           </div>
