@@ -60,7 +60,7 @@ class App extends Component {
           {
             (isAuthenticated())
             ? (
-              <div className="row header-row" >
+              <div className="row header-row">
                 <div className="bg-navbar">
                   <div className="bg-navbar-container">
 
