@@ -34,7 +34,7 @@ class Login extends Component {
 
           <div className="pt-3 mx-2">
             <a href="/">
-              <img className="logo-login" src={ require("../../images/logo.png")} alt="logo"/>
+              <img className="logo-login" src={ require("../../media/logo.png")} alt="logo"/>
             </a>
           </div>
 

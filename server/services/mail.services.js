@@ -7,7 +7,7 @@ const generateMailOptions = (userProfile, test) =>  {
       to: userProfile.email,
       subject: `Oroks - invitation au test ${test.title}`,
       html: `
-      <img style="width:100%;height:auto;" src="https://oroks-cocreation-staging.herokuapp.com/images/Background.JPG" alt="">
+      <img style="width:100%;height:auto;" src="https://oroks-cocreation-staging.herokuapp.com/media/Background.JPG" alt="">
       <div style="margin-left: 20%; margin-right: 20%;">
         <center>
           <FONT face="Verdana">

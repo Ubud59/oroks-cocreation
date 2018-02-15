@@ -17,7 +17,7 @@ body, html {
 
 .header-row{
   height: 40%;
-  background-image: url('../../images/Background.JPG');
+  background-image: url('../../media/Background.JPG');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

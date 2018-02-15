@@ -24,28 +24,33 @@ class Home extends Component {
   render() {
     return (
       <div className="container pt-5">
-        <h5 className="pb-5 bold">
-          OROKS CO-CREATION
-        </h5>
-        <h5 className="pb-5">
-          Chez OROKS, les tests de nos produits font partie intégrante du processus de conception et de développement
-          de nos produits. Notre objectif est de proposer à nos utilisateurs des produits qui soient le plus adapté à leurs besoin.
-        </h5>
-        <h5 className="pb-5">
-          Et pour cela, nous avons besoin de toi ! Nous recherchons des pratiquants de tous niveau et types de pratique (Roller hockey - hockey sur glace). En effet, pour réaliser nos tests nous n'avons pas recours au même profil d'utilisateur en fonction du produit à tester. Nous nous efforçons de toujours réaliser nos tests avec des utilisateurs qui entrent dans la cible du produit, afin que les résultats de nos tests soient le plus pertinent possible !
-        </h5>
-        <h5 className="pb-5">
-          Si tu as envie de nous aider à concevoir et développer des produits qui soient le plus adaptés à ton besoin et que tu es motivé, alors n'hésite plus et rempli ton profil à 100% pour te porter volontaire à la participation
-          de test OROKS, sans quoi tu ne recevra pas d’invitation pour participer à des tests !
-        </h5>
-
-        <div className="container container-button px-10 mx-10 center">
-          <div className="row justify-content-md-center">
-            <a className="btn btn-lg mybutton" href="/profile" >
-              MON PROFILE
-            </a>
-          </div>
+        <div className="row">
+          <h5 className="pb-5 bold">
+            OROKS CO-CREATION
+          </h5>
+          <h5 className="pb-5">
+            Chez OROKS, les tests de nos produits font partie intégrante du processus de conception et de développement
+            de nos produits. Notre objectif est de proposer à nos utilisateurs des produits qui soient le plus adapté à leurs besoin.
+          </h5>
         </div>
+
+        <div>
+          <h5 className="pb-5">
+            Et pour cela, nous avons besoin de toi ! Nous recherchons des pratiquants de tous niveau et types de pratique (Roller hockey - hockey sur glace). En effet, pour réaliser nos tests nous n'avons pas recours au même profil d'utilisateur en fonction du produit à tester. Nous nous efforçons de toujours réaliser nos tests avec des utilisateurs qui entrent dans la cible du produit, afin que les résultats de nos tests soient le plus pertinent possible !
+          </h5>
+          <h5 className="pb-5">
+            Si tu as envie de nous aider à concevoir et développer des produits qui soient le plus adaptés à ton besoin et que tu es motivé, alors n'hésite plus et rempli ton profil à 100% pour te porter volontaire à la participation
+            de test OROKS, sans quoi tu ne recevra pas d’invitation pour participer à des tests !
+          </h5>
+          <div className="container container-button px-10 mx-10 center">
+            <div className="row justify-content-md-center">
+              <a className="btn btn-lg mybutton" href="/profile" >
+                MON PROFILE
+              </a>
+            </div>
+          </div>
+        </div>  
+
 
         <h5 className="pt-5 bold">
           QUELS SONT LES TESTS OROKS ?
