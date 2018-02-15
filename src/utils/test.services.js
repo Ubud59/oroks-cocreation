@@ -46,8 +46,6 @@ function postNewTest(test){
   )
   .then((response) => {
     if (response.status===200) {
-      alert("Test créé avec succès !");
-      console.log("response après post new test",response);
       return response.json();
     } else {
       alert("Une erreur est survenue !");

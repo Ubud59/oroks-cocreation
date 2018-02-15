@@ -19,14 +19,15 @@ class Test extends Component {
     };
   }
 
-  componentDidMount() {
-    if (this.props.match.params.id) {
-
-      fetchTest(this.props.match.params.id)
-        .then(test => this.props.fetchTest(test))
-        .catch(error => console.warn(error));
-    } else {
-      this.props.updateTestField("createdBy",this.props.userProfile.id);
+  componentDidUpdate(prevProps) {
+    if (!prevProps.userProfile.id && this.props.userProfile.id){
+      if (this.props.match.params.id) {
+        fetchTest(this.props.match.params.id)
+          .then(test => this.props.fetchTest(test))
+          .catch(error => console.warn(error));
+      } else {
+        this.props.updateTestField("created_by",this.props.userProfile.id);
+      }
     }
   }
 
@@ -58,10 +59,10 @@ class Test extends Component {
     } else if (test.status === "") {
       alert("Veuillez renseigner le statut du test");
       return false;
-    } else if (test.imageSrc === "") {
+    } else if (test.image_src === "") {
       alert("Veuillez uploader une image du produit à tester");
       return false;
-    } else if (test.createdBy === "") {
+    } else if (test.created_by === "") {
       alert("Veuillez vous connecter avant de procéder à cette action");
       return false;
     } else {
@@ -72,7 +73,7 @@ class Test extends Component {
   handleUpload = (file) => {
     uploadFile(file)
     .then((response) => {
-      this.props.updateTestField("imageSrc",response);
+      this.props.updateTestField("image_src",response);
     });
   }
 
@@ -128,7 +129,7 @@ class Test extends Component {
 
                 <div className="form-group">
                   <label >URL de l'image produit</label>
-                  <input type="text" className="form-control" value={this.props.test.image_Src} onChange={(event) => this.props.updateTestField("imageSrc",event.target.value)}/>
+                  <input type="text" className="form-control" value={this.props.test.image_src} onChange={(event) => this.props.updateTestField("image_src",event.target.value)}/>
                 </div>
                 <div className="pb-5">
                   <label className="btn btn-secondary" >
@@ -139,8 +140,8 @@ class Test extends Component {
               </div>
               <div className="col-3">
                 {
-                  (this.props.test.imageSrc) ?
-                  (<img className="img-fluid product-image" alt="" src={this.props.test.imageSrc}/>)
+                  (this.props.test.image_src) ?
+                  (<img className="img-fluid product-image" alt="" src={this.props.test.image_src}/>)
                   : (null)
                 }
               </div>
@@ -155,7 +156,7 @@ class Test extends Component {
               <div className="col">
                 <div className="form-group">
                   <label >Numéro du test</label>
-                  <input type="text" className="form-control col-10" value={this.props.test.testReference} onChange={(event) => this.props.updateTestField("testReference",event.target.value)}/>
+                  <input type="text" className="form-control col-10" value={this.props.test.test_reference} onChange={(event) => this.props.updateTestField("test_reference",event.target.value)}/>
                 </div>
 
                 <fieldset className="form-group">
@@ -239,7 +240,7 @@ class Test extends Component {
 
             <div className="form-group">
               <label >Critères de validation </label>
-              <input type="text" className="form-control" value={this.props.test.validationThreshold} onChange={(event) => this.props.updateTestField("validationThreshold",event.target.value)}/>
+              <input type="text" className="form-control" value={this.props.test.validation_threshold} onChange={(event) => this.props.updateTestField("validation_threshold",event.target.value)}/>
             </div>
 
             <div className="form-group">
@@ -249,12 +250,12 @@ class Test extends Component {
 
             <div className="form-group">
               <label >Lien vers le formulaire d'évaluation</label>
-              <input type="text" className="form-control" value={this.props.test.evaluationFormPath} onChange={(event) => this.props.updateTestField("evaluationFormPath",event.target.value)}/>
+              <input type="text" className="form-control" value={this.props.test.evaluation_form_path} onChange={(event) => this.props.updateTestField("evaluation_form_path",event.target.value)}/>
             </div>
 
             <div className="form-group">
               <label >Lien vers le fichier de résultats</label>
-              <input type="text" className="form-control" value={this.props.test.evaluationResultsPath} onChange={(event) => this.props.updateTestField("evaluationResultsPath",event.target.value)}/>
+              <input type="text" className="form-control" value={this.props.test.evaluation_results_path} onChange={(event) => this.props.updateTestField("evaluation_results_path",event.target.value)}/>
             </div>
 
             <div className="pt-3">

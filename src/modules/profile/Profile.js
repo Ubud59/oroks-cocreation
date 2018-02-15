@@ -26,7 +26,8 @@ class Profile extends Component {
           <form onSubmit={ (event) => {
             event.preventDefault();
             this.props.updateMyProfile(this.props.userProfile);
-            this.props.history.push(`/`);
+          //  this.props.history.push(`/`);
+            window.location = "/";
           }}>
 
 

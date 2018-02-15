@@ -23,17 +23,17 @@ const insertTest = (pool, request) => {
     [
       uuid,
       request.body.type,
-      request.body.testReference,
+      request.body.test_reference,
       request.body.title,
       request.body.product,
       request.body.status,
       request.body.description,
-      request.body.validationThreshold,
+      request.body.validation_threshold,
       request.body.timing,
-      request.body.imageSrc,
-      request.body.evaluationFormPath,
-      request.body.evaluationResultsPath,
-      request.body.createdBy
+      request.body.image_src,
+      request.body.evaluation_form_path,
+      request.body.evaluation_results_path,
+      request.body.created_by
     ]
   );
 };
@@ -51,17 +51,17 @@ const selectTest = (pool, request) => {
     return test = {
       id: dbResult.rows[0].id,
       type: dbResult.rows[0].type,
-      testReference: dbResult.rows[0].test_reference,
+      test_reference: dbResult.rows[0].test_reference,
       title : dbResult.rows[0].title,
       product : dbResult.rows[0].product,
       status : dbResult.rows[0].status,
       description : dbResult.rows[0].description,
-      validationThreshold : dbResult.rows[0].validation_threshold,
+      validation_threshold : dbResult.rows[0].validation_threshold,
       timing : dbResult.rows[0].timing,
-      imageSrc : dbResult.rows[0].image_src,
-      evaluationFormPath : dbResult.rows[0].evaluation_form_path,
-      evaluationResultsPath : dbResult.rows[0].evaluation_results_path,
-      createdBy : dbResult.rows[0].created_by
+      image_src : dbResult.rows[0].image_src,
+      evaluation_form_path : dbResult.rows[0].evaluation_form_path,
+      evaluation_results_path : dbResult.rows[0].evaluation_results_path,
+      created_by : dbResult.rows[0].created_by
     };
   });
 };
@@ -112,17 +112,17 @@ const updateTest = (pool, request) => {
     [
       request.body.id,
       request.body.type,
-      request.body.testReference,
+      request.body.test_reference,
       request.body.title,
       request.body.product,
       request.body.status,
       request.body.description,
-      request.body.validationThreshold,
+      request.body.validation_threshold,
       request.body.timing,
-      request.body.imageSrc,
-      request.body.evaluationFormPath,
-      request.body.evaluationResultsPath,
-      request.body.createdBy
+      request.body.image_src,
+      request.body.evaluation_form_path,
+      request.body.evaluation_results_path,
+      request.body.created_by
     ]
   );
 }
