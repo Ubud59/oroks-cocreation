@@ -103,7 +103,8 @@ app.post(
          shoulder_pad_size = $14,
          glove_size = $15,
          helmet_size = $16,
-         head_size = $17
+         head_size = $17,
+         category = $18
        WHERE user_id = $1;`,
            [
              request.body.id,
@@ -122,7 +123,8 @@ app.post(
              request.body.shoulder_pad_size,
              request.body.glove_size,
              request.body.helmet_size,
-             request.body.head_size
+             request.body.head_size,
+             request.body.category
            ]
          )
         .then((dbResult) => {
