@@ -60,9 +60,9 @@ if (!prevProps.userProfile.id && this.props.userProfile.id){
       ): (
        <div className="main">{this.props.tests.map((test, index) =>
 
-    <div key={index} className="col-sm-6 col-md-3">
+    <div key={index} className="col-6 col-lg-3 col-test">
     <div className="card-deck">
-    <div className="card">
+    <div className="card test-card">
             <img className="card-img-top" src={test.image_src} alt="title"></img>
             <div className="card-block">
               <h4 className="card-title">{test.title}</h4>

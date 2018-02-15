@@ -2,7 +2,7 @@
   font-family: 'Raleway', sans-serif;
 }
 
-.col {
+.col-test {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -14,4 +14,13 @@
 
 .main {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.card-footer {
+  background-color: white;
+}
+
+.test-card .card-block {
+  min-height: 270px;
 }

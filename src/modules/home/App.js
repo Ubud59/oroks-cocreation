@@ -135,25 +135,34 @@ class App extends Component {
                  </div>
               </div>
 
-              <div className="container">
+              <div className="container-fluid">
                   <div className="row text-center">
                       <div className="col-lg-12 col-lg-offset-3">
                             <ul className="menu">
                                    <li>
-                                     <div className="col-lg-6 col-xs-6 text-center">
-                                         <a href="https://www.facebook.com/Oroks.by.Decathlon/"><i className="fa fa-facebook fa-2x"></i>Facebook</a>
+                                     <div className="col-12 col-lg-6 col-sm-6 text-center">
+                                        <a className="footer-link" href="https://www.facebook.com/Oroks.by.Decathlon/">
+                                          <i className="fa fa-facebook fa-2x"></i>
+                                          <span>Facebook</span>
+                                        </a>
                                      </div>
                                     </li>
 
                                     <li>
-                                      <div className="col-lg-6 col-xs-6 text-center">
-                                         <a href="https://www.instagram.com/oroks_by_decathlon/?hl=fr"><i className="fa fa-instagram fa-2x"></i>Instagram</a>
+                                      <div className="col-12 col-lg-6 col-sm-6 text-center">
+                                        <a className="footer-link" href="https://www.instagram.com/oroks_by_decathlon/?hl=fr">
+                                          <i className="fa fa-instagram fa-2x"></i>
+                                          <span>Instagram</span>
+                                        </a>
                                      </div>
                                     </li>
 
                                     <li>
-                                      <div className="col-lg-6 col-xs-6 text-center">
-                                         <a href="https://hockey-community.com"><i className="fa fa-group fa-2x"></i>Communauté</a>
+                                      <div className="col-12 col-lg-6 col-sm-6 text-center">
+                                        <a className="footer-link" href="https://hockey-community.com">
+                                          <i className="fa fa-group fa-2x"></i>
+                                          <span>Communauté</span>
+                                        </a>
                                      </div>
                                     </li>
                               </ul>
