@@ -22,7 +22,7 @@ class TestOroksComponent extends Component{
             <div class="card">
               <div class="row ">
                 <div class="col-md-4">
-                    <img src="http://localhost:8080/images/fitting_statique.png" class="w-100" height="50%" width="50%" />
+                    <img src="/images/fitting_statique.png" class="w-100" height="50%" width="50%" />
                   </div>
                   <div class="col-md-8 px-3">
                     <div class="card-block px-3">
@@ -53,7 +53,7 @@ class TestOroksComponent extends Component{
             <div class="card">
               <div class="row ">
                 <div class="col-md-4">
-                    <img src="http://localhost:8080/images/fitting_statique.png" class="w-100" height="50%" width="50%" />
+                    <img src="/images/fitting_statique.png" class="w-100" height="50%" width="50%" />
                   </div>
                   <div class="col-md-8 px-3">
                     <div class="card-block px-3">
@@ -84,7 +84,7 @@ class TestOroksComponent extends Component{
             <div class="card">
               <div class="row ">
                 <div class="col-md-4">
-                    <img src="http://localhost:8080/images/test_fonction_terrain.png" class="w-100" height="50%" width="50%" />
+                    <img src="/images/test_fonction_terrain.png" class="w-100" height="50%" width="50%" />
                   </div>
                   <div class="col-md-8 px-3">
                     <div class="card-block px-3">
@@ -116,7 +116,7 @@ class TestOroksComponent extends Component{
             <div class="card">
               <div class="row ">
                 <div class="col-md-4">
-                    <img src="http://localhost:8080/images/test_durabilite.png" class="w-100" height="50%" width="50%" />
+                    <img src="/images/test_durabilite.png" class="w-100" height="50%" width="50%" />
                   </div>
                   <div class="col-md-8 px-3">
                     <div class="card-block px-3">
@@ -146,7 +146,7 @@ class TestOroksComponent extends Component{
             <div class="card">
               <div class="row ">
                 <div class="col-md-4">
-                    <img src="http://localhost:8080/images/test_usage.png" class="w-100" height="50%" width="50%" />
+                    <img src="/images/test_usage.png" class="w-100" height="50%" width="50%" />
                   </div>
                   <div class="col-md-8 px-3">
                     <div class="card-block px-3">

@@ -1,6 +1,6 @@
 function fetchAllTests(){
   return fetch(
-    `http://localhost:8080/api/tests/`,
+    `/api/tests/`,
     {method: "GET"}
   )
   .then((response) => {

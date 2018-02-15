@@ -4,7 +4,7 @@ function postNewProfile(profile){
   // const access_token = retrieveToken();
   console.log("profile dans post:",profile);
   return fetch(
-    `http://localhost:8080/api/profile/new`,
+    `/api/profile/new`,
     {
       method: "POST",
       body:JSON.stringify(profile),
@@ -24,7 +24,7 @@ function postNewProfile(profile){
 
 function fetchMyProfile(userId){
   return fetch(
-    `http://localhost:8080/api/profile/user/${userId}`,
+    `/api/profile/user/${userId}`,
     {method: "GET"}
   )
   .then((response) => {

@@ -6,7 +6,7 @@ function uploadFile(file){
   formData.append("file", file);
 
   return fetch(
-    `http://localhost:8080/api/test/upload`,
+    `/api/test/upload`,
     {
       method: "POST",
       body:formData,
@@ -22,7 +22,7 @@ function uploadFile(file){
     return response.json();
   })
   .then((filename) => {
-    return `http://localhost:8080/images/${filename}`;
+    return `/images/${filename}`;
   })
   .catch((error) => {
     console.warn(error);
@@ -34,7 +34,7 @@ function uploadFile(file){
 
 function postNewTest(test){
   return fetch(
-    `http://localhost:8080/api/test/new`,
+    `/api/test/new`,
     {
       method: "POST",
       body:JSON.stringify(test),
@@ -63,7 +63,7 @@ function postNewTest(test){
 function postUpdatedTest(test){
 
   return fetch(
-    `http://localhost:8080/api/test/${test.id}/update`,
+    `/api/test/${test.id}/update`,
     {
       method: "POST",
       body:JSON.stringify(test),
@@ -87,7 +87,7 @@ function postUpdatedTest(test){
 
 function fetchTest(testId){
   return fetch(
-    `http://localhost:8080/api/test/${testId}`,
+    `/api/test/${testId}`,
     {
       method: "GET",
       headers: {
