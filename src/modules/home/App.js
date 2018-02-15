@@ -73,7 +73,7 @@ class App extends Component {
                             <NavLink className="text-white mx-2 text-nowrap" href="/profile">PROFILE</NavLink>
                           </NavItem>
                           <NavItem className="">
-                            <NavLink className="text-white mx-2 text-nowrap" href="/testsoroks">TESTS OROKS</NavLink>
+                            <NavLink className="text-white mx-2 text-nowrap" href="/testoroks">TESTS OROKS</NavLink>
                           </NavItem>
                           <NavItem className="">
                             <NavLink className="text-white mx-2 text-nowrap" href="/mytests">MES TESTS</NavLink>
