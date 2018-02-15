@@ -18,7 +18,7 @@ const generateMailOptions = (userProfile, test) =>  {
           </p>
           <div style="padding-left: 25%; padding-right: 25%; justify-content: center;">
             <div style="border: 1px solid black; background-color: #F0F0F0; margin-top: 5%; padding-bottom: 10%;">
-              <img style="width:100%;height:auto;" src="https://oroks-cocreation-staging.herokuapp.com/${test.image_src}" alt="">
+              <img style="width:100%;height:auto;" src="${test.image_src}" alt="">
               <h1>${test.title}</h1>
               <p> Viens tester notre produit : <strong>${test.product}</strong> pour nous aider à l'améliorer. </p>
               <div style="padding-left: 5%; padding-bottom: 5%;">
