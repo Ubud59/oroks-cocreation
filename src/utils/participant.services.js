@@ -42,7 +42,10 @@ function postUpdatedParticipant(participant){
     {
       method: "POST",
       body:JSON.stringify(participant),
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: retrieveToken()
+      }
     }
   )
   .then((response) => {
