@@ -26,12 +26,13 @@ class Profile extends Component {
           <form onSubmit={ (event) => {
             event.preventDefault();
             this.props.updateMyProfile(this.props.userProfile);
+            this.props.history.push(`/`);
           }}>
 
 
           <div className="form-group col-md-6">
-            <label htmlFor="stature">Taille</label>
-            <input type="text" className="form-control" id="height" placeholder="Stature" value={this.props.userProfile.height} onChange={(event) => this.props.updateProfileField("height", event.target.value)}/>
+            <label htmlFor="stature">Taille en cm</label>
+            <input type="number" className="form-control" id="height" placeholder="Taille en cm" value={this.props.userProfile.height} onChange={(event) => this.props.updateProfileField("height", event.target.value)}/>
           </div>
 
 
@@ -47,17 +48,17 @@ class Profile extends Component {
 
           <div className="form-group col-md-6" >
             <label htmlFor="ClubCity">Club - Ville</label>
-            <input type="text" className="form-control" id="clubcity" value={this.props.userProfile.club_city} placeholder="ClubCity" onChange={(event) => this.props.updateProfileField("club_city", event.target.value)}/>
+            <input type="text" className="form-control" id="clubcity" value={this.props.userProfile.club_city} placeholder="Ville et club" onChange={(event) => this.props.updateProfileField("club_city", event.target.value)}/>
           </div>
 
           <div className="form-group col-md-6" >
             <label htmlFor="start_of_practice_year">Pratique depuis l'année</label>
-            <input type="text" className="form-control" id="start_of_practice_year" value={this.props.userProfile.start_of_practice_year} placeholder="ClubCity" onChange={(event) => this.props.updateProfileField("start_of_practice_year", event.target.value)}/>
+            <input type="number" className="form-control" id="start_of_practice_year" value={this.props.userProfile.start_of_practice_year} placeholder="Année démarrage" onChange={(event) => this.props.updateProfileField("start_of_practice_year", event.target.value)}/>
           </div>
 
           <div className="form-group col-md-4">
-            <label htmlFor="categories">Catégories</label>
-            <select id="categories" className="form-control" value={this.props.userProfile.category} onChange={(event) => this.props.updateProfileField("category", event.target.value)}>
+            <label htmlFor="category">Catégories</label>
+            <select id="category" className="form-control" value={this.props.userProfile.category} onChange={(event) => this.props.updateProfileField("category", event.target.value)}>
               <option >Choose...</option>
               <option selected={this.props.userProfile.category === "Junior"}>Junior</option>
               <option selected={this.props.userProfile.category === "U20"}>U20</option>
@@ -166,36 +167,36 @@ class Profile extends Component {
           </div>
 
           <div className="form-group col-md-4">
-            <label htmlFor="shoulderPadSize">Taille des gants</label>
-            <select id="shoulderPadSize" className="form-control" onChange={(event) => this.props.updateProfileField("shoulder_pad_size", event.target.value)}>
+            <label htmlFor="glove_size">Taille des gants</label>
+            <select id="glove_size" className="form-control" onChange={(event) => this.props.updateProfileField("glove_size", event.target.value)}>
               <option selected>Choose...</option>
-              <option selected={this.props.userProfile.shoulder_pad_size === "8'"}>8'</option>
-              <option selected={this.props.userProfile.elbow_pad_size === "9'"}>9'</option>
-              <option selected={this.props.userProfile.elbow_pad_size === "10'"}>10'</option>
-              <option selected={this.props.userProfile.elbow_pad_size === "11'"}>11'</option>
-              <option selected={this.props.userProfile.elbow_pad_size === "12'"} >12'</option>
-              <option selected={this.props.userProfile.elbow_pad_size === "13'"}>13'</option>
-              <option selected={this.props.userProfile.elbow_pad_size === "14'"}>14'</option>
-              <option selected={this.props.userProfile.elbow_pad_size === "15'"}>15'</option>
+              <option selected={this.props.userProfile.glove_size === "8'"}>8'</option>
+              <option selected={this.props.userProfile.glove_size === "9'"}>9'</option>
+              <option selected={this.props.userProfile.glove_size === "10'"}>10'</option>
+              <option selected={this.props.userProfile.glove_size === "11'"}>11'</option>
+              <option selected={this.props.userProfile.glove_size === "12'"} >12'</option>
+              <option selected={this.props.userProfile.glove_size === "13'"}>13'</option>
+              <option selected={this.props.userProfile.glove_size === "14'"}>14'</option>
+              <option selected={this.props.userProfile.glove_size === "15'"}>15'</option>
             </select>
           </div>
 
           <div className="form-group col-md-4">
-            <label htmlFor="gloveSize">Taille de casque</label>
-            <select id="gloveSize" className="form-control" onChange={(event) => this.props.updateProfileField("glove_size", event.target.value)}>
+            <label htmlFor="helmet_size">Taille de casque</label>
+            <select id="helmet_size" className="form-control" onChange={(event) => this.props.updateProfileField("helmet_size", event.target.value)}>
               <option selected>Choose...</option>
-              <option selected={this.props.userProfile.glove_size === "Junior"}>Junior</option>
-              <option selected={this.props.userProfile.glove_size === "XS"}>XS</option>
-              <option selected={this.props.userProfile.glove_size === "S"}>S</option>
-              <option selected={this.props.userProfile.glove_size === "M"}>M</option>
-              <option selected={this.props.userProfile.glove_size === "L"}>L</option>
-              <option selected={this.props.userProfile.glove_size === "XL"}>XL</option>
+              <option selected={this.props.userProfile.helmet_size === "Junior"}>Junior</option>
+              <option selected={this.props.userProfile.helmet_size === "XS"}>XS</option>
+              <option selected={this.props.userProfile.helmet_size === "S"}>S</option>
+              <option selected={this.props.userProfile.helmet_size === "M"}>M</option>
+              <option selected={this.props.userProfile.helmet_size === "L"}>L</option>
+              <option selected={this.props.userProfile.helmet_size === "XL"}>XL</option>
             </select>
           </div>
 
           <div className="form-group col-md-6">
-            <label htmlFor="headSize">Tour de tête</label>
-            <input type="text" className="form-control" id="headSize" value={this.props.userProfile.head_size} placeholder="headSize" onChange={(event) => this.props.updateProfileField("head_size", event.target.value)}/>
+            <label htmlFor="headSize">Tour de tête en cm</label>
+            <input type="number" className="form-control" id="headSize" value={this.props.userProfile.head_size} placeholder="Tour de tête en cm" onChange={(event) => this.props.updateProfileField("head_size", event.target.value)}/>
           </div>
 
 
