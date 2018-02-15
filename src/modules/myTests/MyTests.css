@@ -13,7 +13,7 @@
   font-family: 'Raleway', sans-serif;
 }
 
-.col-6 col-lg-3 {
+.col-test {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
