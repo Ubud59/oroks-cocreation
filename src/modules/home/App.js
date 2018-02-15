@@ -56,7 +56,7 @@ class App extends Component {
       <Router>
         <div className="container-fluid  content-general">
           {
-            (isAuthenticated())
+            (this.props.userProfile.id)
             ? (
               <div className="row header-row" >
                 <div className="bg-navbar">
