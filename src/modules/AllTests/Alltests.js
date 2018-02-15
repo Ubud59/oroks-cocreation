@@ -36,7 +36,7 @@ class AllTests extends Component {
                     <p>produit à tester : {test.product}</p>
                     <p>{test.validationTreshold}</p>
                     <p>numero de reference : {test.test_reference}</p>
-                    <p>statut : {test.status}</p>
+                    <p>statut : {translateLabel(test.status)}</p>
                   </div>
             <div className="card-footer">
               <small className="text-muted">{test.timing}
