@@ -86,7 +86,6 @@ function(request, result) {
 app.post(
    "/api/profile/new",
    function (request, result) {
-     console.log("body:", request.body);
     return pool.query(
        `UPDATE user_profiles set
          expert_panel = $2,
@@ -127,7 +126,6 @@ app.post(
            ]
          )
         .then((dbResult) => {
-           console.log("dbResult", dbResult);
            result.json(dbResult);
         })
         .catch(error => {
@@ -320,7 +318,6 @@ function(request, result, next) {
 
     return testServices.insertTest(pool, request)
     .then((dbResult) => {
-      console.log(dbResult.rows);
       result.json(dbResult.rows[0].id);
     })
     .catch(error => {

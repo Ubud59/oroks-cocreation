@@ -7,6 +7,7 @@ import MyTestsComponent from '../myTests/MyTests';
 import AllTestsComponent from '../AllTests/Alltests';
 import AuthComponent from '../auth/Auth'
 import HomeComponent from './Home';
+import LoginComponent from './Login';
 import ProfileComponent from '../profile/Profile';
 import TestComponent from '../test/Test';
 import ParticipantsComponent from '../participants/Participants';
@@ -19,7 +20,7 @@ import { getUserProfile } from '../../store/userProfile/selectors';
 import { updateProfile } from '../../store/userProfile/actions';
 
 import './App.css';
-import { Navbar, Nav, NavItem, NavLink, NavbarToggler, Collapse } from "reactstrap";
+import { Navbar, Nav, NavItem, NavLink, NavbarToggler, NavbarBrand, Collapse } from "reactstrap";
 
 import { isAuthenticated } from '../../utils/auth.services'
 import { loadTokenAndFetchUser } from '../../utils/user.services'
@@ -55,67 +56,72 @@ class App extends Component {
 
       <Router>
         <div className="container-fluid  content-general">
-          <div className="row header-row">
-            <div className=" pt-3 ml-3">
-              <a href="/">
-                <img className="logo" src={ require("../../images/logo.png")} alt="logo"/>
-              </a>
-            </div>
-            <div className="pt-3 ml-3">
-              <Navbar light className="p-0" expand="md">
-                <NavbarToggler className="bg-white" onClick={this.toggle} />
-                <Collapse isOpen={this.state.isOpen} navbar>
-                  <Nav pills className="ml-auto" navbar>
-                    <NavItem className="">
-                      <NavLink className="text-white mx-2" href="/profile"><h5>PROFILE</h5></NavLink>
-                    </NavItem>
-                    <NavItem className="">
-                      <NavLink className="text-white mx-2" href="/testoroks"><h5>TESTS OROKS</h5></NavLink>
-                    </NavItem>
-                    <NavItem className="">
-                      <NavLink className="text-white mx-2" href="/mytests"><h5>MES TESTS</h5></NavLink>
-                    </NavItem>
-                    {(this.props.userProfile.user_type==="ENGINEER") ? (
-                        <NavItem className="">
-                          <NavLink className="text-white mx-2" href="/alltests"><h5>TOUS LES TESTS</h5></NavLink>
-                        </NavItem>
-                    ):(null)}
-                    {(this.props.userProfile.user_type==="ENGINEER") ? (
-                      <NavItem className="">
-                        <NavLink className="text-white mx-2" href="/newtest"><h5>CREER UN TEST</h5></NavLink>
-                      </NavItem>
-                    ):(null)}
-                    {(this.props.userProfile.user_type==="ENGINEER") ? (
-                      <NavItem className="">
-                        <NavLink className="text-white mx-2" href="/community"><h5>COMMUNAUTE</h5></NavLink>
-                      </NavItem>
-                    ):(null)}
-                    {(this.props.userProfile.id)
-                      ?
-                      <NavItem className="">
-                        <NavLink onClick={() => this.props.signOut()} className="text-white mx-2" href="#"><h5>SIGNOUT</h5></NavLink>
-                      </NavItem>
-                      :
-                      <NavItem className="align-signin-actions">
-                        <NavLink className="text-white mx-2" onClick={() => window.location = getRedirectUri()} href="#"><h5>CONNEXION</h5></NavLink>
-                        <NavLink className="text-white mx-2" onClick={() => window.location = getNewAccountUri()} href="#"><h5>INSCRIPTION</h5></NavLink>
-                      </NavItem>
-                    }
-                  </Nav>
 
-                </Collapse>
-              </Navbar>
-            </div>
-          </div>
+          {
+            (isAuthenticated())
+            ? (
+              <div className="row header-row" >
+                <div className="bg-navbar">
+                  <div className="bg-navbar-container">
+
+                    <Navbar light expand="md">
+                      <NavbarBrand href="/">
+                        <img src={ require("../../images/logo.png")} alt="Decathlon Oroks" className="logo"/>
+                      </NavbarBrand>
+                      <NavbarToggler className="bg-white" onClick={this.toggle} />
+                      <Collapse isOpen={this.state.isOpen} navbar>
+                        <Nav pills className="ml-auto" navbar>
+                          <NavItem className="">
+                            <NavLink className="text-white mx-2 text-nowrap" href="/profile">PROFILE</NavLink>
+                          </NavItem>
+                          <NavItem className="">
+                            <NavLink className="text-white mx-2 text-nowrap" href="/testsoroks">TESTS OROKS</NavLink>
+                          </NavItem>
+                          <NavItem className="">
+                            <NavLink className="text-white mx-2 text-nowrap" href="/mytests">MES TESTS</NavLink>
+                          </NavItem>
+                          {(this.props.userProfile.user_type==="ENGINEER") ? (
+                              <NavItem className="">
+                                <NavLink className="text-white mx-2 text-nowrap" href="/alltests">TOUS LES TESTS</NavLink>
+                              </NavItem>
+                          ):(null)}
+                          {(this.props.userProfile.user_type==="ENGINEER") ? (
+                            <NavItem className="">
+                              <NavLink className="text-white mx-2 text-nowrap" href="/newtest">CREER UN TEST</NavLink>
+                            </NavItem>
+                          ):(null)}
+                          {(this.props.userProfile.id)
+                            ?
+                            <NavItem className="">
+                              <NavLink onClick={() => this.props.signOut()} className="text-white mx-2 text-nowrap" href="#">SIGNOUT</NavLink>
+                            </NavItem>
+                            :
+                            <NavItem className="align-signin-actions">
+                              <NavLink className="text-white mx-2 text-nowrap" onClick={() => window.location = getRedirectUri()} href="#">CONNEXION</NavLink>
+                              <NavLink className="text-white mx-2 text-nowrap" onClick={() => window.location = getNewAccountUri()} href="#">INSCRIPTION</NavLink>
+                            </NavItem>
+                          }
+                        </Nav>
+
+                      </Collapse>
+                    </Navbar>
+                  </div>
+                </div>
+              </div>
+            ):(
+              null
+            )
+          }
 
           <div>
             <Switch>
-              <Route exact path="/" component={HomeComponent}/>
+              <PrivateRoute exact path="/" component={HomeComponent}/>
+              <Route path={"/auth/redirect"} component={AuthComponent}></Route>
+              <PrivateRoute path="/home" component={HomeComponent}/>
+              <PrivateRoute path="/profile" component={ProfileComponent}/>
               <PrivateRoute path="/mytests" component={MyTestsComponent}/>
               <PrivateRoute path="/alltests" component={AllTestsComponent}/>
-              <Route path={"/auth/redirect"} component={AuthComponent}></Route>
               <PrivateRoute path="/newtest" component={TestComponent}/>
-              <PrivateRoute path="/profile" component={ProfileComponent}/>
               <PrivateRoute path="/testoroks" component={TestOroksComponent}/>
               <PrivateRoute path="/test/:id/participants" component={ParticipantsComponent}/>
               <PrivateRoute path="/test/:id/selection" component={FilterTestTeamComponent}/>
@@ -123,14 +129,11 @@ class App extends Component {
               <PrivateRoute path="/test/:id/results" component={TestResultsComponent}/>
               <PrivateRoute path="/test/:id" component={TestComponent}/>
             </Switch>
-
           </div>
+
           <footer>
               <div className="footer-top">
                  <div className="container">
-
-
-
                  </div>
               </div>
 
@@ -180,7 +183,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     (isAuthenticated()) ? (
       <Component {...props}/>
     ) : (
-      <Route component={HomeComponent}></Route>
+      <Route component={LoginComponent}></Route>
     )
   )}/>
 )
