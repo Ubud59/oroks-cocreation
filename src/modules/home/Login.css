@@ -17,6 +17,10 @@
   min-height: 10%;
 }
 
+.login-background {
+  background-color: rgba(0, 0, 0, 0.5);  
+}
+
 .logo-login {
   height: 45px;
   width: auto;

@@ -50,7 +50,7 @@ class Login extends Component {
 
         <div className="container login-title justify-content-center">
           <div className="row ">
-            <div className="align-self-end text-center text-white">
+            <div className="align-self-end text-center text-white login-background px-10 font-weight-bold">
               ETRE ACTEUR DE LA CONCEPTION DES PRODUITS DE DEMAIN !
             </div>
           </div>

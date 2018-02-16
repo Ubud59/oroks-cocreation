@@ -76,14 +76,14 @@ class FilterTestTeam extends Component {
                     <NavItem className="bg-white border">
                       <NavLink href={`/test/${this.state.test.id}/eval`}>Evaluation</NavLink>
                     </NavItem>
-                    <NavItem className="bg-white border">
-                      <NavLink href={`/test/${this.state.test.id}/results`}>Résultats</NavLink>
+                    <NavItem active className="bg-white border">
+                      <NavLink href={`/test/${this.state.test.id}/selection`}>Constituer équipe</NavLink>
                     </NavItem>
                     <NavItem className="bg-white border">
                       <NavLink href={`/test/${this.state.test.id}/participants`}>Equipe tests</NavLink>
                     </NavItem>
-                    <NavItem active className="bg-white border">
-                      <NavLink href={`/test/${this.state.test.id}/selection`}>Constituer équipe</NavLink>
+                    <NavItem className="bg-white border">
+                      <NavLink href={`/test/${this.state.test.id}/results`}>Résultats</NavLink>
                     </NavItem>
                   </Nav>
                 </Collapse>
