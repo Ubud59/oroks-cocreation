@@ -99,8 +99,8 @@ if (!prevProps.userProfile.id && this.props.userProfile.id){
                   <Modal.Title></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <h4>Merci d avoir confirmé ta participation.</h4>
-                  <p>Tu seras contacté par l equipe Oroks qui te donnera tous les détails necesaires.</p>
+                  <h4>Merci d'avoir confirmé ta participation.</h4>
+                  <p>Tu seras contacté par l'équipe Oroks qui te donnera tous les détails nécessaires.</p>
                 </Modal.Body>
               </Modal>
             </div>
